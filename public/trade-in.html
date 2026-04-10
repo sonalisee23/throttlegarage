@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trade-in Program - ThrottleGarage</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/trade-in.css">
+</head>
+
+<body>
+    <header>
+        <div class="header-container">
+            <button class="menu-btn" id="menuBtn" aria-label="Toggle Menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="logo">
+                <a href="index.html" class="logo-text">𝕿𝖍𝖗𝖔𝖙𝖙𝖑𝖊𝕲𝖆𝖗𝖆𝖌𝖊</a>
+            </div>
+
+            <div class="search-container">
+                <form id="searchForm">
+                    <input type="text" id="searchInput" placeholder="Search bikes, parts, and accessories...">
+                    <button type="submit">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+                <div id="searchResults" class="search-results"></div>
+            </div>
+
+            <div class="header-actions">
+                <a href="about.html" class="info-link">
+                    <i class="fas fa-info-circle"></i>
+                    <span>About Us</span>
+                </a>
+                <a href="contact.html" class="info-link">
+                    <i class="fas fa-envelope"></i>
+                    <span>Contact</span>
+                </a>
+                <a href="returns.html" class="info-link">
+                    <i class="fas fa-undo-alt"></i>
+                    <span>Returns</span>
+                </a>
+                <a href="register.html" class="account-link">
+                    <i class="fas fa-user"></i>
+                </a>
+                <a href="cart.html" class="cart-link">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <nav class="main-navigation">
+        <div class="nav-container">
+            <ul>
+                <li><a href="index.html">HOME</a></li>
+                <li><a href="shop-by-bike.html">SHOP BY BIKE</a></li>
+                <li><a href="helmets.html">HELMETS</a></li>
+                <li><a href="riding-gear.html">RIDING GEAR</a></li>
+                <li><a href="bike-parts.html">BIKE PARTS</a></li>
+                <li><a href="apparel.html">APPAREL</a></li>
+                <li><a href="throttletalk.html">THROTTLETALK</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <section class="trade-in-hero">
+            <h1>Trade-in Your Motorcycle Parts</h1>
+            <p>Submit your used or new motorcycle parts for trade-in. Our team will review your submission and contact you with an offer.</p>
+        </section>
+        <section class="trade-in-container">
+            <form class="trade-in-form" id="tradeInForm" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="partName">Part Name</label>
+                    <input type="text" id="partName" name="partName" required>
+                </div>
+                <div class="form-group">
+                    <label for="description">Part Description</label>
+                    <textarea id="description" name="description" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="condition">Condition</label>
+                    <select id="condition" name="condition" required>
+                        <option value="">Select Condition</option>
+                        <option value="New">New</option>
+                        <option value="Like New">Like New</option>
+                        <option value="Good">Good</option>
+                        <option value="Fair">Fair</option>
+                        <option value="Poor">Poor</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="image">Part Image</label>
+                    <input type="file" id="image" name="image" accept="image/*" required>
+                </div>
+                <div class="form-group">
+                    <label for="price">Price (INR)</label>
+                    <input type="number" id="price" name="price" min="0" step="1" required>
+                </div>
+                <button type="submit" class="submit-btn">Submit Trade-in</button>
+                <div id="tradeInSuccess" class="success-message" style="display:none;">Thank you! Your trade-in request has been submitted.</div>
+            </form>
+        </section>
+        <!-- Available Listings Section -->
+        <section class="trade-in-listings-section">
+            <h2>Available Trade-in Listings</h2>
+            <p style="text-align:center;color:#bbb;">Click 'Add to Cart' to buy a listed part.</p>
+            <div id="tradeInListings" class="trade-in-listings"></div>
+        </section>
+    </main>
+
+    <!-- Chat Bot Button -->
+
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-phone"></i> +919900899916 ,+917619645353</p>
+                <p><i class="fas fa-envelope"></i> sonalivernekar20@gmail.com</p>
+                <p><i class="fas fa-map-marker-alt"></i> Dodda Alageri,Ankola,Uttara Kannada, Karnataka 581314</p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/throttlegarage" class="social-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/throttlegarage" class="social-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                    <a href="https://twitter.com/throttlegarage" class="social-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.youtube.com/throttlegarage" class="social-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Business Hours</h3>
+                <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
+                <p>Saturday: 10:00 AM - 4:00 PM</p>
+                <p>Sunday: Closed</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 ThrottleGarage. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/cart-manager.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/trade-in.js"></script>
+
+    <script>
+        // Ensure search functionality works
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchForm = document.getElementById('searchForm');
+            const searchInput = document.getElementById('searchInput');
+            const searchResults = document.getElementById('searchResults');
+
+            if (searchForm && searchInput) {
+                searchForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const searchTerm = searchInput.value.trim();
+                    if (searchTerm.length >= 2) {
+                        // Call the global search function if it exists
+                        if (typeof performSearch === 'function') {
+                            performSearch(searchTerm);
+                        } else if (typeof handleSearch === 'function') {
+                            handleSearch({
+                                preventDefault: () => {}
+                            });
+                        } else {
+                            console.log('Search term:', searchTerm);
+                            // Simple fallback search
+                            searchResults.innerHTML = '<div class="search-result-item"><p>Search functionality loading...</p></div>';
+                            searchResults.style.display = 'block';
+                        }
+                    }
+                });
+
+                // Real-time search as user types
+                searchInput.addEventListener('input', function() {
+                    const searchTerm = this.value.trim();
+                    if (searchTerm.length >= 2) {
+                        if (typeof performSearch === 'function') {
+                            performSearch(searchTerm);
+                        } else if (typeof handleSearch === 'function') {
+                            handleSearch({
+                                preventDefault: () => {}
+                            });
+                        }
+                    } else {
+                        searchResults.style.display = 'none';
+                    }
+                });
+            }
+
+            // Ensure hamburger menu works
+            const menuBtn = document.getElementById('menuBtn');
+            const mainNav = document.querySelector('.main-navigation');
+
+            if (menuBtn && mainNav) {
+                menuBtn.addEventListener('click', function() {
+                    menuBtn.classList.toggle('active');
+                    mainNav.classList.toggle('active');
+
+                    // Toggle icon
+                    const icon = this.querySelector('i');
+                    if (this.classList.contains('active')) {
+                        icon.className = 'fas fa-times';
+                    } else {
+                        icon.className = 'fas fa-bars';
+                    }
+                });
+
+                // Close menu when clicking outside
+                document.addEventListener('click', function(e) {
+                    if (!menuBtn.contains(e.target) && !mainNav.contains(e.target) && mainNav.classList.contains('active')) {
+                        menuBtn.click();
+                    }
+                });
+            }
+
+            // Close search results when clicking outside
+            if (searchResults) {
+                document.addEventListener('click', function(e) {
+                    if (!searchResults.contains(e.target) && !searchInput.contains(e.target)) {
+                        searchResults.style.display = 'none';
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

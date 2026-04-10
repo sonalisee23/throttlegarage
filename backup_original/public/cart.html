@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - 𝕿𝖍𝖗𝖔𝖙𝖙𝖑𝖊𝕲𝖆𝖗𝖆𝖌𝖊</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/fontawesome.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <header>
+        <div class="header-container">
+            <button class="menu-btn" id="menuBtn" aria-label="Toggle Menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="logo">
+                <a href="index.html" class="logo-text">𝕿𝖍𝖗𝖔𝖙𝖙𝖑𝖊𝕲𝖆𝖗𝖆𝖌𝖊</a>
+            </div>
+
+            <div class="search-container">
+                <form id="searchForm" onsubmit="handleSearch(event)">
+                    <input type="text" id="searchInput" placeholder="Search bikes, parts, and accessories...">
+                    <button type="submit">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+                <div id="searchResults" class="search-results"></div>
+            </div>
+
+            <div class="header-actions">
+                <a href="about.html" class="info-link">
+                    <i class="fas fa-info-circle"></i>
+                    <span>About Us</span>
+                </a>
+                <a href="contact.html" class="info-link">
+                    <i class="fas fa-envelope"></i>
+                    <span>Contact</span>
+                </a>
+                <a href="returns.html" class="info-link">
+                    <i class="fas fa-undo-alt"></i>
+                    <span>Returns</span>
+                </a>
+                <a href="register.html" class="account-link">
+                    <i class="fas fa-user"></i>
+                </a>
+                <a href="cart.html" class="cart-link active">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <nav class="main-navigation">
+        <div class="nav-container">
+            <ul>
+                <li><a href="index.html">HOME</a></li>
+                <li><a href="shop-by-bike.html">SHOP BY BIKE</a></li>
+                <li><a href="helmets.html">HELMETS</a></li>
+                <li><a href="riding-gear.html">RIDING GEAR</a></li>
+                <li><a href="bike-parts.html">BIKE PARTS</a></li>
+                <li><a href="apparel.html">APPAREL</a></li>
+                <li><a href="throttletalk.html">THROTTLETALK</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="cart-page">
+        <h1>Shopping Cart</h1>
+        <div id="cart-container">
+            <div id="cart-items">
+                <!-- Cart items will be dynamically added here -->
+            </div>
+            <div class="cart-totals">
+                <!-- Cart totals will be dynamically added here -->
+            </div>
+            <button id="checkout-btn" class="primary-button">
+                Proceed to Checkout
+            </button>
+        </div>
+    </main>
+
+    <!-- Chat Bot Button -->
+
+    <!-- Green popup for cart actions -->
+    <div id="cart-popup" style="display:none; position:fixed; bottom:30px; right:30px; background:#28a745; color:#fff; padding:16px 32px; border-radius:8px; font-size:18px; z-index:9999; box-shadow:0 2px 8px rgba(0,0,0,0.2);">
+        <i class="fas fa-check-circle"></i> Added to cart!
+    </div>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-phone"></i> +919900899916 ,+917619645353</p>
+                <p><i class="fas fa-envelope"></i> sonalivernekar20@gmail.com</p>
+                <p><i class="fas fa-map-marker-alt"></i> Dodda Alageri,Ankola,Uttara Kannada, Karnataka 581314</p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/throttlegarage" class="social-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/throttlegarage" class="social-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                    <a href="https://twitter.com/throttlegarage" class="social-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.youtube.com/throttlegarage" class="social-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Business Hours</h3>
+                <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
+                <p>Saturday: 10:00 AM - 4:00 PM</p>
+                <p>Sunday: Closed</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 ThrottleGarage. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/cart-manager.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+        // Show green popup
+        function showCartPopup(message = "Added to cart!") {
+            const popup = document.getElementById('cart-popup');
+            if (!popup) return;
+            popup.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
+            popup.style.display = 'block';
+            setTimeout(() => {
+                popup.style.display = 'none';
+            }, 2000);
+        }
+
+        // Update cart count in header
+        function updateCartCount() {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            document.querySelectorAll('.cart-count').forEach(el => {
+                el.textContent = cart.length;
+            });
+        }
+
+        // Update cart display on cart page
+        function updateCartDisplay() {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const cartItemsDiv = document.getElementById('cart-items');
+            const cartTotalsDiv = document.querySelector('.cart-totals');
+            if (!cartItemsDiv || !cartTotalsDiv) return;
+
+            if (cart.length === 0) {
+                cartItemsDiv.innerHTML = '<p>Your cart is empty.</p>';
+                cartTotalsDiv.innerHTML = '';
+                return;
+            }
+
+            let total = 0;
+            cartItemsDiv.innerHTML = cart.map(item => {
+                total += (item.price * item.quantity);
+                return `
+            <div class="cart-item">
+                <div class="cart-item-name">${item.name}</div>
+                <div class="quantity-controls">
+                    <button class="quantity-btn decrease-qty" data-id="${item.id}" aria-label="Decrease quantity">−</button>
+                    <span class="cart-qty-num">${item.quantity}</span>
+                    <button class="quantity-btn increase-qty" data-id="${item.id}" aria-label="Increase quantity">+</button>
+                </div>
+                <div class="cart-item-price">₹${item.price} x ${item.quantity}</div>
+                <button class="remove-from-cart-btn" data-id="${item.id}">Remove</button>
+            </div>
+        `;
+            }).join('');
+
+            cartTotalsDiv.innerHTML = `<strong>Total: ₹${total}</strong>`;
+        }
+
+        // Add to cart function
+        function addToCart(item) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const existing = cart.find(i => i.id == item.id);
+            if (existing) {
+                existing.quantity += item.quantity;
+            } else {
+                cart.push(item);
+            }
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartDisplay();
+            updateCartCount();
+            showCartPopup();
+        }
+
+        // Remove from cart function
+        function removeFromCart(id) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart = cart.filter(item => item.id != id);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartDisplay();
+            updateCartCount();
+            showCartPopup("Removed from cart!");
+        }
+
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', () => {
+            updateCartDisplay();
+            updateCartCount();
+        });
+
+        document.addEventListener('click', function(e) {
+            // Add to cart
+            if (e.target.classList.contains('add-to-cart-btn')) {
+                const btn = e.target;
+                addToCart({
+                    id: btn.getAttribute('data-id'),
+                    name: btn.getAttribute('data-name'),
+                    price: parseFloat(btn.getAttribute('data-price')),
+                    quantity: 1
+                });
+            }
+            // Remove from cart
+            if (e.target.classList.contains('remove-from-cart-btn')) {
+                const id = e.target.getAttribute('data-id');
+                removeFromCart(id);
+            }
+            // Increase quantity
+            if (e.target.classList.contains('increase-qty')) {
+                const id = e.target.getAttribute('data-id');
+                let cart = JSON.parse(localStorage.getItem('cart')) || [];
+                const item = cart.find(i => i.id == id);
+                if (item) {
+                    item.quantity += 1;
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                    updateCartDisplay();
+                    updateCartCount();
+                }
+            }
+            // Decrease quantity
+            if (e.target.classList.contains('decrease-qty')) {
+                const id = e.target.getAttribute('data-id');
+                let cart = JSON.parse(localStorage.getItem('cart')) || [];
+                const item = cart.find(i => i.id == id);
+                if (item && item.quantity > 1) {
+                    item.quantity -= 1;
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                    updateCartDisplay();
+                    updateCartCount();
+                }
+            }
+        });
+    </script>
+
+    <!-- Add to Cart Button for Testing -->
+    <!-- <button class="add-to-cart-btn" data-id="1" data-name="Helmet" data-price="999">Add to Cart</button> -->
+</body>
+
+</html>

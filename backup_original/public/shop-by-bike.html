@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop By Bike - 𝕿𝖍𝖗𝖔𝖙𝖙𝖑𝖊𝕲𝖆𝖗𝖆𝖌𝖊</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <header>
+        <div class="header-container">
+            <button class="menu-btn" id="menuBtn" aria-label="Toggle Menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="logo">
+                <a href="index.html" class="logo-text">𝕿𝖍𝖗𝖔𝖙𝖙𝖑𝖊𝕲𝖆𝖗𝖆𝖌𝖊</a>
+            </div>
+
+            <div class="search-container">
+                <form id="searchForm" onsubmit="handleSearch(event)">
+                    <input type="text" id="searchInput" placeholder="Search bikes, parts, and accessories...">
+                    <button type="submit">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+                <div id="searchResults" class="search-results"></div>
+            </div>
+
+            <div class="header-actions">
+                <a href="about.html" class="info-link">
+                    <i class="fas fa-info-circle"></i>
+                    <span>About Us</span>
+                </a>
+                <a href="contact.html" class="info-link">
+                    <i class="fas fa-envelope"></i>
+                    <span>Contact</span>
+                </a>
+                <a href="returns.html" class="info-link">
+                    <i class="fas fa-undo-alt"></i>
+                    <span>Returns</span>
+                </a>
+                <a href="register.html" class="account-link">
+                    <i class="fas fa-user"></i>
+                </a>
+                <a href="cart.html" class="cart-link">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </a>
+            </div>
+        </div>
+
+        <nav class="main-navigation">
+            <div class="nav-container">
+                <ul>
+                    <li><a href="index.html">HOME</a></li>
+                    <li><a href="shop-by-bike.html" class="active">SHOP BY BIKE</a></li>
+                    <li><a href="helmets.html">HELMETS</a></li>
+                    <li><a href="riding-gear.html">RIDING GEAR</a></li>
+                    <li><a href="bike-parts.html">BIKE PARTS</a></li>
+                    <li><a href="apparel.html">APPAREL</a></li>
+                    <li><a href="throttletalk.html">THROTTLETALK</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <div class="page-title">
+        <h1>Shop By Bike</h1>
+        <p>Select your superbike to find compatible parts and accessories</p>
+    </div>
+
+    <!-- Add search section -->
+    <div class="bike-search-section">
+        <div class="search-wrapper">
+            <input type="text" id="bikeSearchInput" placeholder="Search bikes by name, engine size, or power...">
+            <i class="fas fa-search search-icon"></i>
+        </div>
+    </div>
+
+    <main class="bikes-grid">
+        <!-- BMW S1000RR -->
+        <div class="bike-card" data-bike-id="1">
+            <img src="https://www.motojournalweb.com/wp-content/uploads/2019/11/BMWS1000RR_005_jk.jpg" alt="BMW S1000RR" class="bike-image">
+            <div class="bike-info">
+                <h2 class="bike-name">BMW S1000RR</h2>
+                <div class="bike-specs">
+                    <span>Engine: 999cc</span>
+                    <span>Power: 205 HP</span>
+                    <span>Year: 2021,2022,2023,2025</span>
+                </div>
+                <a href="bike-parts.html?bikeId=1" class="shop-now-btn">Shop Now</a>
+            </div>
+        </div>
+
+        <!-- Ducati Panigale V4 -->
+        <div class="bike-card" data-bike-id="2">
+            <img src="https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?auto=format&fit=crop&w=800&h=500" alt="Ducati Panigale V4" class="bike-image">
+            <div class="bike-info">
+                <h2 class="bike-name">Ducati Panigale V4</h2>
+                <div class="bike-specs">
+                    <span>Engine: 1103cc</span>
+                    <span>Power: 214 HP</span>
+                    <span>Year: 2021,2023,2025</span>
+                </div>
+                <a href="bike-parts.html?bikeId=2" class="shop-now-btn">Shop Now</a>
+            </div>
+        </div>
+
+        <!-- Kawasaki Ninja ZX-10R -->
+        <div class="bike-card" data-bike-id="3">
+            <img src="https://images.unsplash.com/photo-1580310614729-ccd69652491d?auto=format&fit=crop&w=800&h=500" alt="Kawasaki Ninja ZX-10R" class="bike-image">
+            <div class="bike-info">
+                <h2 class="bike-name">Kawasaki Ninja ZX-10R</h2>
+                <div class="bike-specs">
+                    <span>Engine: 998cc</span>
+                    <span>Power: 203 HP</span>
+                    <span>Year: 2021,2022,2023</span>
+                </div>
+                <a href="bike-parts.html?bikeId=3" class="shop-now-btn">Shop Now</a>
+            </div>
+        </div>
+
+        <!-- Yamaha YZF-R1M -->
+        <div class="bike-card" data-bike-id="4">
+            <img src="https://th.bing.com/th/id/OIP.Beb7_CDKb3Edw8BctBYr2wHaEK?r=0&rs=1&pid=ImgDetMain&cb=idpwebp2&o=7&rm=3" alt="Yamaha YZF-R1M" class="bike-image">
+            <div class="bike-info">
+                <h2 class="bike-name">Yamaha YZF-R1M</h2>
+                <div class="bike-specs">
+                    <span>Engine: 998cc</span>
+                    <span>Power: 200 HP</span>
+                    <span>Year: 2021,2022,2025</span>
+                </div>
+                <a href="bike-parts.html?bikeId=4" class="shop-now-btn">Shop Now</a>
+            </div>
+        </div>
+
+        <!-- Aprilia RSV4 Factory -->
+        <div class="bike-card" data-bike-id="5">
+            <img src="https://th.bing.com/th/id/OIP.LHFolmiQw5_ToooJ4vHSCwHaE8?r=0&o=7rm=3&rs=1&pid=ImgDetMain&cb=idpwebp2&o=7&rm=3" alt="Aprilia RSV4 Factory" class="bike-image">
+            <div class="bike-info">
+                <h2 class="bike-name">Aprilia RSV4 Factory</h2>
+                <div class="bike-specs">
+                    <span>Engine: 1099cc</span>
+                    <span>Power: 217 HP</span>
+                    <span>Year: 2021,2024,2025</span>
+                </div>
+                <a href="bike-parts.html?bikeId=5" class="shop-now-btn">Shop Now</a>
+            </div>
+        </div>
+
+        <!-- Honda CBR1000RR-R -->
+        <div class="bike-card" data-bike-id="6">
+            <img src="https://th.bing.com/th/id/OIP.ndB30_FNGKb6S_LCVqrIOgHaE8?r=0&rs=1&pid=ImgDetMain&cb=idpwebp2&o=7&rm=3" alt="Honda CBR1000RR-R" class="bike-image">
+            <div class="bike-info">
+                <h2 class="bike-name">Honda CBR1000RR-R</h2>
+                <div class="bike-specs">
+                    <span>Engine: 1000cc</span>
+                    <span>Power: 215 HP</span>
+                    <span>Year: 2021,2022,2023</span>
+                </div>
+                <a href="bike-parts.html?bikeId=6" class="shop-now-btn">Shop Now</a>
+            </div>
+        </div>
+
+        <!-- Suzuki GSX-R1000R -->
+        <div class="bike-card" data-bike-id="7">
+            <img src="https://ultimatemotorcycling.com/wp-content/uploads/2020/09/2020-Suzuki-GSX-R1000R-100th-Anniversary-Limited-Edition-First-Look-5.jpg" alt="Suzuki GSX-R1000R" class="bike-image">
+            <div class="bike-info">
+                <h2 class="bike-name">Suzuki GSX-R1000R</h2>
+                <div class="bike-specs">
+                    <span>Engine: 999.8cc</span>
+                    <span>Power: 199 HP</span>
+                    <span>Year: 2021,2022,2023,2024</span>
+                </div>
+                <a href="bike-parts.html?bikeId=7" class="shop-now-btn">Shop Now</a>
+            </div>
+        </div>
+
+        <!-- MV Agusta F4 RC -->
+        <div class="bike-card" data-bike-id="8">
+            <img src="https://mcn-images.bauersecure.com/PageFiles/558551/rc-1.jpg" alt="MV Agusta F4 RC" class="bike-image">
+            <div class="bike-info">
+                <h2 class="bike-name">MV Agusta F4 RC</h2>
+                <div class="bike-specs">
+                    <span>Engine: 998cc</span>
+                    <span>Power: 212 HP</span>
+                    <span>Year: 2023,2024</span>
+                </div>
+                <a href="bike-parts.html?bikeId=8" class="shop-now-btn">Shop Now</a>
+            </div>
+        </div>
+
+        <!-- KTM 1290 Super Duke R -->
+        <div class="bike-card" data-bike-id="9">
+            <img src="https://www.motopinas.com/images/posts/post12245.jpg" alt="KTM 1290 Super Duke R" class="bike-image">
+            <div class="bike-info">
+                <h2 class="bike-name">KTM 1290 Super Duke R</h2>
+                <div class="bike-specs">
+                    <span>Engine: 1301cc</span>
+                    <span>Power: 180 HP</span>
+                    <span>Year: 2024,2025</span>
+                </div>
+                <a href="bike-parts.html?bikeId=9" class="shop-now-btn">Shop Now</a>
+            </div>
+        </div>
+
+        <!-- Triumph Speed Triple 1200 RS -->
+        <div class="bike-card" data-bike-id="10">
+            <img src="https://www.actumoto.ch/wp-content/uploads/2021/04/Triumph_Speed_Triple_1200_RS_statsmall34.jpg" alt="Triumph Speed Triple 1200 RS" class="bike-image">
+            <div class="bike-info">
+                <h2 class="bike-name">Triumph Speed Triple 1200 RS</h2>
+                <div class="bike-specs">
+                    <span>Engine: 1160cc</span>
+                    <span>Power: 178 HP</span>
+                    <span>Year: 2023,2024</span>
+                </div>
+                <a href="bike-parts.html?bikeId=10" class="shop-now-btn">Shop Now</a>
+            </div>
+        </div>
+
+        <!-- Ducati Streetfighter V4 -->
+        <div class="bike-card" data-bike-id="11">
+            <img src="https://www.totalmotorcycle.com/wp-content/uploads/2020/10/2021-Ducati-Streetfighter-V4c.jpg" alt="Ducati Streetfighter V4" class="bike-image">
+            <div class="bike-info">
+                <h2 class="bike-name">Ducati Streetfighter V4</h2>
+                <div class="bike-specs">
+                    <span>Engine: 1103cc</span>
+                    <span>Power: 208 HP</span>
+                    <span>Year: 2021,2022,2023,2024</span>
+                </div>
+                <a href="bike-parts.html?bikeId=11" class="shop-now-btn">Shop Now</a>
+            </div>
+        </div>
+
+        <!-- Kawasaki Z H2 -->
+        <div class="bike-card" data-bike-id="12">
+            <img src="https://th.bing.com/th/id/OIP.71wIRPcL_Ty3x_h-1VCfcQHaE7?r=0&rs=1&pid=ImgDetMain&cb=idpwebp2&o=7&rm=3" alt="Kawasaki Z H2" class="bike-image">
+            <div class="bike-info">
+                <h2 class="bike-name">Kawasaki Z H2</h2>
+                <div class="bike-specs">
+                    <span>Engine: 998cc</span>
+                    <span>Power: 200 HP</span>
+                    <span>Year: 2023,2024</span>
+                </div>
+                <a href="bike-parts.html?bikeId=12" class="shop-now-btn">Shop Now</a>
+            </div>
+        </div>
+
+        <!-- Ducati Monster SP -->
+        <div class="bike-card" data-bike-id="13">
+            <img src="https://cdni.autocarindia.com/ExtraImages/20230502055148_SP%20lead.jpg" alt="Ducati Monster SP" class="bike-image">
+            <div class="bike-info">
+                <h2 class="bike-name">Ducati Monster SP</h2>
+                <div class="bike-specs">
+                    <span>Engine: 937cc</span>
+                    <span>Power: 111 HP</span>
+                    <span>Year: 2021,2022,2023</span>
+                </div>
+                <a href="bike-parts.html?bikeId=13" class="shop-now-btn">Shop Now</a>
+            </div>
+        </div>
+
+        <!-- BMW M 1000 R -->
+        <div class="bike-card" data-bike-id="14">
+            <img src="https://www.motorrad-stilgenbauer.de/wp-content/uploads/P90481380_lowRes_bmw-m-1000-r-10-2022.jpg" alt="BMW M 1000 R" class="bike-image">
+            <div class="bike-info">
+                <h2 class="bike-name">BMW M 1000 R</h2>
+                <div class="bike-specs">
+                    <span>Engine: 999cc</span>
+                    <span>Power: 205 HP</span>
+                    <span>Year: 2021,2022,2023,2025</span>
+                </div>
+                <a href="bike-parts.html?bikeId=14" class="shop-now-btn">Shop Now</a>
+            </div>
+        </div>
+
+        <!-- Yamaha MT-10 SP -->
+        <div class="bike-card" data-bike-id="15">
+            <img src="https://th.bing.com/th/id/OIP.g38R2Wy8Ma2rGUYKJtyc9QAAAA?r=0&rs=1&pid=ImgDetMain&cb=idpwebp2&o=7&rm=3" alt="Yamaha MT-10 SP" class="bike-image">
+            <div class="bike-info">
+                <h2 class="bike-name">Yamaha MT-10 SP</h2>
+                <div class="bike-specs">
+                    <span>Engine: 998cc</span>
+                    <span>Power: 164 HP</span>
+                    <span>Year: 2021,2022,2023,2024</span>
+                </div>
+                <a href="bike-parts.html?bikeId=15" class="shop-now-btn">Shop Now</a>
+            </div>
+        </div>
+
+        <!-- Indian FTR R Carbon -->
+        <div class="bike-card" data-bike-id="16">
+            <img src="https://robbreport.com/wp-content/uploads/2021/03/3-13.jpg" alt="Indian FTR R Carbon" class="bike-image">
+            <div class="bike-info">
+                <h2 class="bike-name">Indian FTR R Carbon</h2>
+                <div class="bike-specs">
+                    <span>Engine: 1203cc</span>
+                    <span>Power: 120 HP</span>
+                    <span>Year: 2021,2022,2023</span>
+                </div>
+                <a href="bike-parts.html?bikeId=16" class="shop-now-btn">Shop Now</a>
+            </div>
+        </div>
+
+        <!-- Husqvarna Vitpilen 701 -->
+        <div class="bike-card" data-bike-id="17">
+            <img src="https://www.totalmotorcycle.com/wp-content/uploads/2019/11/2020-Husqvarna-VITPILEN-701a.jpg" alt="Husqvarna Vitpilen 701" class="bike-image">
+            <div class="bike-info">
+                <h2 class="bike-name">Husqvarna Vitpilen 701</h2>
+                <div class="bike-specs">
+                    <span>Engine: 693cc</span>
+                    <span>Power: 75 HP</span>
+                    <span>Year: 2023,2024</span>
+                </div>
+                <a href="bike-parts.html?bikeId=17" class="shop-now-btn">Shop Now</a>
+            </div>
+        </div>
+
+        <!-- Moto Guzzi V100 Mandello -->
+        <div class="bike-card" data-bike-id="18">
+            <img src="https://th.bing.com/th/id/OIP.2OsRbH_EdcS4fYdq8JppUAHaE8?r=0&rs=1&pid=ImgDetMain&cb=idpwebp2&o=7&rm=3" alt="Moto Guzzi V100 Mandello" class="bike-image">
+            <div class="bike-info">
+                <h2 class="bike-name">Moto Guzzi V100 Mandello</h2>
+                <div class="bike-specs">
+                    <span>Engine: 1042cc</span>
+                    <span>Power: 115 HP</span>
+                    <span>Year: 2023,2025</span>
+                </div>
+                <a href="bike-parts.html?bikeId=18" class="shop-now-btn">Shop Now</a>
+            </div>
+        </div>
+
+        <!-- Norton V4SV -->
+        <div class="bike-card" data-bike-id="19">
+            <img src="https://www.mundomotero.com/wp-content/uploads/2021/11/Norton_V4SV_07.jpg" alt="Norton V4SV" class="bike-image">
+            <div class="bike-info">
+                <h2 class="bike-name">Norton V4SV</h2>
+                <div class="bike-specs">
+                    <span>Engine: 1200cc</span>
+                    <span>Power: 185 HP</span>
+                    <span>Year: 2021,2022,2023</span>
+                </div>
+                <a href="bike-parts.html?bikeId=19" class="shop-now-btn">Shop Now</a>
+            </div>
+        </div>
+
+        <!-- Energica Ego -->
+        <div class="bike-card" data-bike-id="20">
+            <img src="https://i1.wp.com/www.asphaltandrubber.com/wp-content/uploads/2014/07/Energica-Ego-electric-superbike-launch-Scott-Jones-09.jpg" alt="Energica Ego" class="bike-image">
+            <div class="bike-info">
+                <h2 class="bike-name">Energica Ego</h2>
+                <div class="bike-specs">
+                    <span>Motor: Electric</span>
+                    <span>Power: 169 HP</span>
+                    <span>Year: 2023,2024</span>
+                </div>
+                <a href="bike-parts.html?bikeId=20" class="shop-now-btn">Shop Now</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Chat Bot Button -->
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-phone"></i> +919900899916 ,+917619645353</p>
+                <p><i class="fas fa-envelope"></i> sonalivernekar20@gmail.com</p>
+                <p><i class="fas fa-map-marker-alt"></i> Dodda Alageri,Ankola,Uttara Kannada, Karnataka 581314</p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Business Hours</h3>
+                <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
+                <p>Saturday: 10:00 AM - 4:00 PM</p>
+                <p>Sunday: Closed</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 ThrottleGarage. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Include proper JS files for shop-by-bike functionality -->
+    <script src="js/script.js"></script>
+    <script src="js/cart-manager.js"></script>
+    <script src="js/bike-shop.js"></script>
+</body>
+
+</html>

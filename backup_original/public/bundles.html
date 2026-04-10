@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bundle Kits - ThrottleGarage</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <button class="menu-btn" id="menuBtn" aria-label="Toggle Menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="logo">
+                <a href="index.html" class="logo-text">𝕿𝖍𝖗𝖔𝖙𝖙𝖑𝖊𝕲𝖆𝖗𝖆𝖌𝖊</a>
+            </div>
+            
+            <div class="search-container">
+                <form id="searchForm" onsubmit="handleSearch(event)">
+                    <input type="text" id="searchInput" placeholder="Search bikes, parts, and accessories...">
+                    <button type="submit">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+                <div id="searchResults" class="search-results"></div>
+            </div>
+
+            <div class="header-actions">
+                <a href="about.html" class="info-link">
+                    <i class="fas fa-info-circle"></i>
+                    <span>About Us</span>
+                </a>
+                <a href="contact.html" class="info-link">
+                    <i class="fas fa-envelope"></i>
+                    <span>Contact</span>
+                </a>
+                <a href="returns.html" class="info-link">
+                    <i class="fas fa-undo-alt"></i>
+                    <span>Returns</span>
+                </a>
+                <a href="register.html" class="account-link">
+                    <i class="fas fa-user"></i>
+                </a>
+                <a href="cart.html" class="cart-link">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="bundles-page">
+            <div class="bundles-hero">
+                <h1>Bundle Kits</h1>
+                <p>Save money with our pre-packaged upgrade kits designed for specific riding styles</p>
+            </div>
+
+            <div class="bundles-container">
+                <div class="bundles-grid">
+                    <div class="bundle-card">
+                        <div class="bundle-header">
+                            <i class="fas fa-flag-checkered"></i>
+                            <h5>Track Day Kit</h5>
+                        </div>
+                        <div class="bundle-content">
+                            <ul class="bundle-items">
+                                <li><i class="fas fa-check"></i> Racing Slick Tires</li>
+                                <li><i class="fas fa-check"></i> Performance Brake Pads</li>
+                                <li><i class="fas fa-check"></i> Quick-shifter</li>
+                                <li><i class="fas fa-check"></i> Race Fairings</li>
+                            </ul>
+                            <div class="bundle-price">
+                                <span class="original-price">₹89,999</span>
+                                <span class="discounted-price">₹74,999</span>
+                                <span class="savings">Save ₹15,000</span>
+                            </div>
+                            <div class="bundle-buttons">
+                                <button class="view-bundle-btn" onclick="window.location.href='bundle-details.html?id=track-day'">View Details</button>
+                                <button class="add-bundle-btn" data-bundle="track-day">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bundle-card">
+                        <div class="bundle-header">
+                            <i class="fas fa-route"></i>
+                            <h5>Touring Pack</h5>
+                        </div>
+                        <div class="bundle-content">
+                            <ul class="bundle-items">
+                                <li><i class="fas fa-check"></i> Touring Windscreen</li>
+                                <li><i class="fas fa-check"></i> Comfort Seat</li>
+                                <li><i class="fas fa-check"></i> Saddlebags</li>
+                                <li><i class="fas fa-check"></i> Tank Bag</li>
+                            </ul>
+                            <div class="bundle-price">
+                                <span class="original-price">₹64,999</span>
+                                <span class="discounted-price">₹54,999</span>
+                                <span class="savings">Save ₹10,000</span>
+                            </div>
+                            <div class="bundle-buttons">
+                                <button class="view-bundle-btn" onclick="window.location.href='bundle-details.html?id=touring'">View Details</button>
+                                <button class="add-bundle-btn" data-bundle="touring">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bundle-card">
+                        <div class="bundle-header">
+                            <i class="fas fa-mountain"></i>
+                            <h5>Adventure Kit</h5>
+                        </div>
+                        <div class="bundle-content">
+                            <ul class="bundle-items">
+                                <li><i class="fas fa-check"></i> Off-road Tires</li>
+                                <li><i class="fas fa-check"></i> Crash Guards</li>
+                                <li><i class="fas fa-check"></i> Skid Plate</li>
+                                <li><i class="fas fa-check"></i> LED Fog Lights</li>
+                            </ul>
+                            <div class="bundle-price">
+                                <span class="original-price">₹79,999</span>
+                                <span class="discounted-price">₹67,999</span>
+                                <span class="savings">Save ₹12,000</span>
+                            </div>
+                            <div class="bundle-buttons">
+                                <button class="view-bundle-btn" onclick="window.location.href='bundle-details.html?id=adventure'">View Details</button>
+                                <button class="add-bundle-btn" data-bundle="adventure">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="js/script.js"></script>
+    <script>
+        // Bundle Kits functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const addBundleBtns = document.querySelectorAll('.add-bundle-btn');
+            
+            const bundles = {
+                'track-day': {
+                    name: 'Track Day Kit',
+                    price: 74999,
+                    items: ['Racing Slick Tires', 'Performance Brake Pads', 'Quick-shifter', 'Race Fairings']
+                },
+                'touring': {
+                    name: 'Touring Pack',
+                    price: 54999,
+                    items: ['Touring Windscreen', 'Comfort Seat', 'Saddlebags', 'Tank Bag']
+                },
+                'adventure': {
+                    name: 'Adventure Kit',
+                    price: 67999,
+                    items: ['Off-road Tires', 'Crash Guards', 'Skid Plate', 'LED Fog Lights']
+                }
+            };
+
+            addBundleBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const bundleId = this.getAttribute('data-bundle');
+                    const bundle = bundles[bundleId];
+                    
+                    // Add bundle to cart
+                    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+                    cart.push({
+                        id: bundleId,
+                        type: 'bundle',
+                        name: bundle.name,
+                        price: bundle.price,
+                        items: bundle.items
+                    });
+                    localStorage.setItem('cart', JSON.stringify(cart));
+
+                    // Update cart count
+                    const cartCount = document.querySelector('.cart-count');
+                    cartCount.textContent = cart.length;
+                    cartCount.classList.add('has-items');
+
+                    // Show notification
+                    showNotification(`${bundle.name} added to cart!`, 'success');
+
+                    // Change button text temporarily
+                    const originalText = this.textContent;
+                    this.textContent = 'Added to Cart!';
+                    this.disabled = true;
+                    setTimeout(() => {
+                        this.textContent = originalText;
+                        this.disabled = false;
+                    }, 2000);
+                });
+            });
+
+            // Notification function
+            function showNotification(message, type = 'success') {
+                const notification = document.createElement('div');
+                notification.className = `notification ${type}`;
+                notification.innerHTML = `
+                    <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
+                    ${message}
+                `;
+                document.body.appendChild(notification);
+
+                setTimeout(() => {
+                    notification.classList.add('fade-out');
+                    setTimeout(() => notification.remove(), 300);
+                }, 3000);
+            }
+        });
+    </script>
+</body>
+</html> 

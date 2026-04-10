@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riding Gear - 𝕿𝖍𝖗𝖔𝖙𝖙𝖑𝖊𝕲𝖆𝖗𝖆𝖌𝖊</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <header>
+        <div class="header-container">
+            <button class="menu-btn" id="menuBtn" aria-label="Toggle Menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="logo">
+                <a href="index.html" class="logo-text">𝕿𝖍𝖗𝖔𝖙𝖙𝖑𝖊𝕲𝖆𝖗𝖆𝖌𝖊</a>
+            </div>
+
+            <div class="search-container">
+                <form id="searchForm" onsubmit="handleSearch(event)">
+                    <input type="text" id="searchInput" placeholder="Search bikes, parts, and accessories...">
+                    <button type="submit">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+                <div id="searchResults" class="search-results"></div>
+            </div>
+
+            <div class="header-actions">
+                <a href="about.html" class="info-link">
+                    <i class="fas fa-info-circle"></i>
+                    <span>About Us</span>
+                </a>
+                <a href="contact.html" class="info-link">
+                    <i class="fas fa-envelope"></i>
+                    <span>Contact</span>
+                </a>
+                <a href="returns.html" class="info-link">
+                    <i class="fas fa-undo-alt"></i>
+                    <span>Returns</span>
+                </a>
+                <a href="register.html" class="account-link">
+                    <i class="fas fa-user"></i>
+                </a>
+                <a href="cart.html" class="cart-link">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </a>
+            </div>
+        </div>
+
+        <nav class="main-navigation">
+            <div class="nav-container">
+                <ul>
+                    <li><a href="index.html">HOME</a></li>
+                    <li><a href="shop-by-bike.html">SHOP BY BIKE</a></li>
+                    <li><a href="helmets.html">HELMETS</a></li>
+                    <li><a href="riding-gear.html" class="active">RIDING GEAR</a></li>
+                    <li><a href="bike-parts.html">BIKE PARTS</a></li>
+                    <li><a href="apparel.html">APPAREL</a></li>
+                    <li><a href="throttletalk.html">THROTTLETALK</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <div class="page-title">
+        <h1>Premium Motorcycle Riding Gear</h1>
+        <p>High-quality protective gear for your ultimate riding experience</p>
+    </div>
+
+    <!-- Add search section -->
+    <div class="bike-search-section">
+        <div class="search-wrapper">
+            <input type="text" id="gearSearchInput" placeholder="Search riding gear by type, brand, or features...">
+            <i class="fas fa-search search-icon"></i>
+        </div>
+    </div>
+
+    <main class="bikes-grid">
+        <!-- Jackets -->
+        <div class="part-card">
+            <div class="part-image">
+                <img src="https://th.bing.com/th/id/OIP.3h-HlddgDv18itPScIJXDgAAAA?rs=1&pid=ImgDetMain" alt="Dainese Super Speed Textile Jacket" loading="lazy">
+            </div>
+            <div class="part-info">
+                <h3 class="part-name">Dainese Super Speed Textile Jacket</h3>
+                <p class="part-description">Built with advanced D-Stone™ fabric and large ventilation panels, this sport-oriented textile jacket delivers top-tier abrasion resistance and airflow. CE-certified armor at the shoulders and elbows offers race-level protection, while
+                    aggressive styling appeals to spirited street riders.</p>
+                <div class="price">₹12999.99</div>
+                <button class="primary-button view-details-btn" data-gear-id="jacket1">View Details</button>
+            </div>
+        </div>
+
+        <div class="part-card">
+            <div class="part-image">
+                <img src="https://th.bing.com/th/id/OIP.1H2NnEJc8FaGajyVp_ftIAHaHa?rs=1&pid=ImgDetMain" alt="Alpinestars GP Plus R v3 Leather Jacket" loading="lazy">
+            </div>
+            <div class="part-info">
+                <h3 class="part-name">Alpinestars GP Plus R v3 Leather Jacket</h3>
+                <p class="part-description">Made from premium-grade cowhide leather, this jacket is race-track inspired, featuring a pre-curved sport fit, strategic stretch panels, and GP Lite armor. Ideal for riders who demand high-speed stability, protection, and all-day riding
+                    comfort on and off the circuit.</p>
+                <div class="price">₹15549.99</div>
+                <button class="primary-button view-details-btn" data-gear-id="jacket2">View Details</button>
+            </div>
+        </div>
+
+        <div class="part-card">
+            <div class="part-image">
+                <img src="https://th.bing.com/th/id/OIP.7Ndu5qULgNOR9nH1wkHEGQHaHa?o=7rm=3&rs=1&pid=ImgDetMain" alt="REV'IT! Eclipse Mesh Jacket" loading="lazy">
+            </div>
+            <div class="part-info">
+                <h3 class="part-name">REV'IT! Eclipse Mesh Jacket</h3>
+                <p class="part-description">Made from premium-grade cowhide leather, this jacket is race-track inspired, featuring a pre-curved sport fit, strategic stretch panels, and GP Lite armor. Ideal for riders who demand high-speed stability, protection, and all-day riding
+                    comfort on and off the circuit..</p>
+                <div class="price">₹12199.99</div>
+                <button class="primary-button view-details-btn" data-gear-id="jacket3">View Details</button>
+            </div>
+        </div>
+
+        <!-- Gloves -->
+        <div class="part-card">
+            <div class="part-image">
+                <img src="https://th.bing.com/th/id/OIP.fI3hSh1lJpWNVKm2Jiiq0AAAAA?o=7rm=3&rs=1&pid=ImgDetMain" alt="Alpinestars GP Pro R3" loading="lazy">
+            </div>
+            <div class="part-info">
+                <h3 class="part-name">Alpinestars GP Pro R3</h3>
+                <p class="part-description">Built for the track, these gloves offer full-grain leather construction, dual-comp palm sliders, and hard knuckle protection. With excellent tactile feel and high abrasion resistance, they're engineered for racing and aggressive road use..</p>
+                <div class="price">₹1199.99</div>
+                <button class="primary-button view-details-btn" data-gear-id="gloves1">View Details</button>
+            </div>
+        </div>
+
+        <div class="part-card">
+            <div class="part-image">
+                <img src="https://www.cyclegear.com/_a/product_images/1376/5399/dainese_carbon3_short_gloves_black.jpg" alt="Dainese Carbon 3 Short" loading="lazy">
+            </div>
+            <div class="part-info">
+                <h3 class="part-name">Dainese Carbon 3 Short</h3>
+                <p class="part-description">Short-cuff gloves with carbon fiber knuckles and synthetic suede palms provide a lightweight yet protective option for urban and spirited riders. Comfortable and breathable, they're ideal for summer and city use.</p>
+                <div class="price">₹1889.99</div>
+                <button class="primary-button view-details-btn" data-gear-id="gloves2">View Details</button>
+            </div>
+        </div>
+
+        <div class="part-card">
+            <div class="part-image">
+                <img src="https://th.bing.com/th/id/OIP.ZFStlLGcqlRXQcGzeg8QeAHaHa?rs=1&pid=ImgDetMain" alt="REV'IT! Sand 4" loading="lazy">
+            </div>
+            <div class="part-info">
+                <h3 class="part-name">REV'IT! Sand 4</h3>
+                <p class="part-description">Designed for adventure touring, these gloves feature a combination of leather and mesh, TPU knuckle protection, and climate versatility. Built to handle everything from desert heat to mountain chill, they balance durability with comfort.</p>
+                <div class="price">₹1199.99</div>
+                <button class="primary-button view-details-btn" data-gear-id="gloves3">View Details</button>
+            </div>
+        </div>
+
+        <!-- Boots -->
+        <div class="part-card">
+            <div class="part-image">
+                <img src="https://image-cdn.bikebiz.com.au/cdn-cgi/imagedelivery/C79CwLlFC0JqxVSzS8SNAw/699e7f4497as2221019012539/Alpinestars-Smx-Plus-V2-Black-White-Boots/large" alt="Alpinestars SMX Plus v2" loading="lazy">
+            </div>
+            <div class="part-info">
+                <h3 class="part-name">Alpinestars SMX Plus v2</h3>
+                <p class="part-description">High-performance race boots with Alpinestars' Multi-Link Control System for ankle protection, reinforced toe boxes, and replaceable sliders. Ideal for track and high-speed riding, offering top-level protection without compromising on movement..</p>
+                <div class="price">₹1269.99</div>
+                <button class="primary-button view-details-btn" data-gear-id="boots1">View Details</button>
+            </div>
+        </div>
+
+        <div class="part-card">
+            <div class="part-image">
+                <img src="https://th.bing.com/th/id/OIP.Ohdh2i7ZufNIloHxUp61BAHaHa?w=1000&h=1000&rs=1&pid=ImgDetMain" alt="TCX Hero Waterproof" loading="lazy">
+            </div>
+            <div class="part-info">
+                <h3 class="part-name">TCX Hero Waterproof</h3>
+                <p class="part-description">Classic café racer styling meets modern protection with a full-grain leather exterior, waterproof lining, and reinforced heel and toe. A perfect blend of everyday wearability and motorcycling functionality..</p>
+                <div class="price">₹12999.99</div>
+                <button class="primary-button view-details-btn" data-gear-id="boots2">View Details</button>
+            </div>
+        </div>
+
+        <div class="part-card">
+            <div class="part-image">
+                <img src="https://www.motostorm.it/cdn-cgi/image/width=429,quality=75/https://www.motostorm.it/images/products/large/stivali/dainese_torque3out_pista1.jpg" alt="Dainese Torque 3 Out" loading="lazy">
+            </div>
+            <div class="part-info">
+                <h3 class="part-name">Dainese Torque 3 Out</h3>
+                <p class="part-description">Aggressively styled sport boots featuring D-Axial anti-torsion system, replaceable magnesium sliders, and a microfiber upper. Designed for riders pushing limits on the street or track, with top-notch ankle and foot protection.</p>
+                <div class="price">₹8299.99</div>
+                <button class="primary-button view-details-btn" data-gear-id="boots3">View Details</button>
+            </div>
+        </div>
+
+        <!-- Protection -->
+        <div class="part-card">
+            <div class="part-image">
+                <img src="https://th.bing.com/th/id/OIP.jD8oGQ4QaXIq5zA5JNg09wHaHa?rs=1&pid=ImgDetMain" alt="Dainese Pro-Armor Back Protector" loading="lazy">
+            </div>
+            <div class="part-info">
+                <h3 class="part-name">Dainese Pro-Armor Back Protector</h3>
+                <p class="part-description">Lightweight, CE Level 2 certified back protector with flexible, perforated construction for maximum airflow. Designed to fit under most jackets, it adapts to body movement and ensures safety without compromising comfort.</p>
+                <div class="price">₹8129.99</div>
+                <button class="primary-button view-details-btn" data-gear-id="protection1">View Details</button>
+            </div>
+        </div>
+
+        <div class="part-card">
+            <div class="part-image">
+                <img src="https://cdn.webshopapp.com/shops/167915/files/451323060/alpinestars-bionic-action-chest.jpg" alt="Alpinestars Bionic Action Chest Protector" loading="lazy">
+            </div>
+            <div class="part-info">
+                <h3 class="part-name">Alpinestars Bionic Action Chest Protector</h3>
+                <p class="part-description">Offering impact-dispersing protection across the chest, this protector features flexible panels, adjustable straps, and a lightweight polymer shell. A solid choice for off-road, motocross, or any high-impact riding.</p>
+                <div class="price">₹5159.99</div>
+                <button class="primary-button view-details-btn" data-gear-id="protection2">View Details</button>
+            </div>
+        </div>
+
+        <div class="part-card">
+            <div class="part-image">
+                <img src="https://cdn.fcglcdn.com/brainbees/images/products/583x720/11404093a.webp" alt="Knox Micro-Lock Air Knee Guards" loading="lazy">
+            </div>
+            <div class="part-info">
+                <h3 class="part-name">Knox Micro-Lock Air Knee Guards</h3>
+                <p class="part-description">Ultra-lightweight and breathable knee protection with CE Level 1 certification. The Micro-Lock technology hardens on impact, offering unobtrusive all-day safety for touring, commuting, or casual rides.</p>
+                <div class="price">₹379.99</div>
+                <button class="primary-button view-details-btn" data-gear-id="protection3">View Details</button>
+            </div>
+        </div>
+    </main>
+
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-phone"></i> +919900899916 ,+917619645353</p>
+                <p><i class="fas fa-envelope"></i> sonalivernekar20@gmail.com</p>
+                <p><i class="fas fa-map-marker-alt"></i> Dodda Alageri,Ankola,Uttara Kannada, Karnataka 581314</p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/throttlegarage" class="social-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/throttlegarage" class="social-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                    <a href="https://twitter.com/throttlegarage" class="social-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.youtube.com/throttlegarage" class="social-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Business Hours</h3>
+                <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
+                <p>Saturday: 10:00 AM - 4:00 PM</p>
+                <p>Sunday: Closed</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 ThrottleGarage. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Gear Details Modal -->
+    <div id="gearModal" class="product-modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeGearModal()">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="product-detail-container">
+                <div class="product-gallery">
+                    <div class="main-image">
+                        <img src="" alt="Gear Image" id="modalMainImage">
+                    </div>
+                    <div class="thumbnails" id="modalThumbnails">
+                        <!-- Thumbnails will be added dynamically -->
+                    </div>
+                </div>
+                <div class="product-info">
+                    <h1 id="modalProductName"></h1>
+                    <div class="product-price">
+                        <span class="original-price" id="modalOriginalPrice"></span>
+                        <span class="current-price" id="modalCurrentPrice"></span>
+                    </div>
+                    <div class="product-availability" id="modalAvailability">
+                        <i class="fas fa-check-circle"></i>
+                        <span>In Stock</span>
+                    </div>
+                    <div class="quantity-selector">
+                        <h3>Quantity</h3>
+                        <div class="quantity-controls">
+                            <button class="quantity-btn decrease">-</button>
+                            <input type="number" class="quantity-input" value="1" min="1">
+                            <button class="quantity-btn increase">+</button>
+                        </div>
+                    </div>
+                    <button id="modalAddToCart" class="add-to-cart-btn">
+                        <i class="fas fa-shopping-cart"></i>
+                        Add to Cart
+                    </button>
+                    <div class="product-tabs">
+                        <div class="tab-buttons">
+                            <button class="tab-btn active" data-tab="description">Description</button>
+                            <button class="tab-btn" data-tab="features">Features</button>
+                            <button class="tab-btn" data-tab="shipping">Shipping</button>
+                        </div>
+                        <div class="tab-content">
+                            <div class="tab-panel active" id="descriptionPanel">
+                                <p id="modalDescription"></p>
+                            </div>
+                            <div class="tab-panel" id="featuresPanel">
+                                <ul id="modalFeatures" class="part-description"></ul>
+                            </div>
+                            <div class="tab-panel" id="shippingPanel">
+                                <div class="shipping-info">
+                                    <p><i class="fas fa-truck"></i> Free shipping on orders over ₹16,000</p>
+                                    <p><i class="fas fa-clock"></i> Delivery within 3-5 business days</p>
+                                    <p><i class="fas fa-shield-alt"></i> Secure packaging</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+    <script>
+        // Initialize cart functionality when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            updateCartCount();
+
+            // Initialize gear search functionality
+            const searchInput = document.getElementById('gearSearchInput');
+            if (searchInput) {
+                searchInput.addEventListener('input', function() {
+                    const searchTerm = this.value.toLowerCase().trim();
+                    filterGear(searchTerm);
+                });
+            }
+        });
+
+        // Product database
+        const gearDetails = {
+            'jacket1': {
+                name: 'Dainese Super Speed Textile Jacket',
+                image: 'https://th.bing.com/th/id/OIP.3h-HlddgDv18itPScIJXDgAAAA?rs=1&pid=ImgDetMain',
+                price: 12999.99,
+                description: 'Built with advanced D-Stone™ fabric and large ventilation panels, this sport-oriented textile jacket delivers top-tier abrasion resistance and airflow. CE-certified armor at the shoulders and elbows offers race-level protection, while aggressive styling appeals to spirited street riders.',
+                features: [
+                    'D-Stone™ fabric',
+                    'Large ventilation panels',
+                    'CE-certified armor',
+                    'Aggressive styling',
+                    'Abrasion resistance'
+                ]
+            },
+            'jacket2': {
+                name: 'Alpinestars GP Plus R v3 Leather Jacket',
+                image: 'https://th.bing.com/th/id/OIP.1H2NnEJc8FaGajyVp_ftIAHaHa?rs=1&pid=ImgDetMain',
+                price: 15549.99,
+                description: 'Made from premium-grade cowhide leather, this jacket is race-track inspired, featuring a pre-curved sport fit, strategic stretch panels, and GP Lite armor. Ideal for riders who demand high-speed stability, protection, and all-day riding comfort on and off the circuit.',
+                features: [
+                    'Premium-grade cowhide leather',
+                    'Pre-curved sport fit',
+                    'Strategic stretch panels',
+                    'GP Lite armor',
+                    'Track-inspired design'
+                ]
+            },
+            'jacket3': {
+                name: "REV'IT! Eclipse Mesh Jacket",
+                image: 'https://th.bing.com/th/id/OIP.7Ndu5qULgNOR9nH1wkHEGQHaHa?o=7rm=3&rs=1&pid=ImgDetMain',
+                price: 12199.99,
+                description: 'Made from premium-grade cowhide leather, this jacket is race-track inspired, featuring a pre-curved sport fit, strategic stretch panels, and GP Lite armor. Ideal for riders who demand high-speed stability, protection, and all-day riding comfort on and off the circuit..',
+                features: [
+                    'Mesh construction',
+                    'Lightweight',
+                    'Summer ready',
+                    'CE certified protection',
+                    'Adjustable fit'
+                ]
+            },
+            'gloves1': {
+                name: 'Alpinestars GP Pro R3',
+                image: 'https://th.bing.com/th/id/OIP.fI3hSh1lJpWNVKm2Jiiq0AAAAA?o=7rm=3&rs=1&pid=ImgDetMain',
+                price: 1199.99,
+                description: 'Built for the track, these gloves offer full-grain leather construction, dual-comp palm sliders, and hard knuckle protection. With excellent tactile feel and high abrasion resistance, they\'re engineered for racing and aggressive road use..',
+                features: [
+                    'Full-grain leather',
+                    'Dual-comp palm sliders',
+                    'Hard knuckle protection',
+                    'High abrasion resistance',
+                    'Track engineered'
+                ]
+            },
+            'gloves2': {
+                name: 'Dainese Carbon 3 Short',
+                image: 'https://www.cyclegear.com/_a/product_images/1376/5399/dainese_carbon3_short_gloves_black.jpg',
+                price: 1889.99,
+                description: 'Short-cuff gloves with carbon fiber knuckles and synthetic suede palms provide a lightweight yet protective option for urban and spirited riders. Comfortable and breathable, they\'re ideal for summer and city use.',
+                features: [
+                    'Carbon fiber knuckles',
+                    'Synthetic suede palms',
+                    'Short-cuff design',
+                    'Lightweight',
+                    'Breathable'
+                ]
+            },
+            'gloves3': {
+                name: "REV'IT! Sand 4",
+                image: 'https://th.bing.com/th/id/OIP.ZFStlLGcqlRXQcGzeg8QeAHaHa?rs=1&pid=ImgDetMain',
+                price: 1199.99,
+                description: 'Designed for adventure touring, these gloves feature a combination of leather and mesh, TPU knuckle protection, and climate versatility. Built to handle everything from desert heat to mountain chill, they balance durability with comfort.',
+                features: [
+                    'Leather and mesh',
+                    'TPU knuckle protection',
+                    'Climate versatility',
+                    'Adventure touring',
+                    'Durable and comfortable'
+                ]
+            },
+            'boots1': {
+                name: 'Alpinestars SMX Plus v2',
+                image: 'https://image-cdn.bikebiz.com.au/cdn-cgi/imagedelivery/C79CwLlFC0JqxVSzS8SNAw/699e7f4497as2221019012539/Alpinestars-Smx-Plus-V2-Black-White-Boots/large',
+                price: 1269.99,
+                description: 'High-performance race boots with Alpinestars\' Multi-Link Control System for ankle protection, reinforced toe boxes, and replaceable sliders. Ideal for track and high-speed riding, offering top-level protection without compromising on movement..',
+                features: [
+                    'Multi-Link Control System',
+                    'Reinforced toe boxes',
+                    'Replaceable sliders',
+                    'Track and high-speed riding',
+                    'Top-level protection'
+                ]
+            },
+            'boots2': {
+                name: 'TCX Hero Waterproof',
+                image: 'https://th.bing.com/th/id/OIP.Ohdh2i7ZufNIloHxUp61BAHaHa?w=1000&h=1000&rs=1&pid=ImgDetMain',
+                price: 12999.99,
+                description: 'Classic café racer styling meets modern protection with a full-grain leather exterior, waterproof lining, and reinforced heel and toe. A perfect blend of everyday wearability and motorcycling functionality..',
+                features: [
+                    'Full-grain leather exterior',
+                    'Waterproof lining',
+                    'Reinforced heel and toe',
+                    'Café racer styling',
+                    'Everyday wearability'
+                ]
+            },
+            'boots3': {
+                name: 'Dainese Torque 3 Out',
+                image: 'https://www.motostorm.it/cdn-cgi/image/width=429,quality=75/https://www.motostorm.it/images/products/large/stivali/dainese_torque3out_pista1.jpg',
+                price: 8299.99,
+                description: 'Aggressively styled sport boots featuring D-Axial anti-torsion system, replaceable magnesium sliders, and a microfiber upper. Designed for riders pushing limits on the street or track, with top-notch ankle and foot protection.',
+                features: [
+                    'D-Axial anti-torsion system',
+                    'Replaceable magnesium sliders',
+                    'Microfiber upper',
+                    'Aggressive styling',
+                    'Top-notch protection'
+                ]
+            },
+            'protection1': {
+                name: 'Dainese Pro-Armor Back Protector',
+                image: 'https://th.bing.com/th/id/OIP.jD8oGQ4QaXIq5zA5JNg09wHaHa?rs=1&pid=ImgDetMain',
+                price: 8129.99,
+                description: 'Lightweight, CE Level 2 certified back protector with flexible, perforated construction for maximum airflow. Designed to fit under most jackets, it adapts to body movement and ensures safety without compromising comfort.',
+                features: [
+                    'CE Level 2 certified',
+                    'Flexible construction',
+                    'Perforated for airflow',
+                    'Fits under most jackets',
+                    'Adapts to movement'
+                ]
+            },
+            'protection2': {
+                name: 'Alpinestars Bionic Action Chest Protector',
+                image: 'https://cdn.webshopapp.com/shops/167915/files/451323060/alpinestars-bionic-action-chest.jpg',
+                price: 5159.99,
+                description: 'Offering impact-dispersing protection across the chest, this protector features flexible panels, adjustable straps, and a lightweight polymer shell. A solid choice for off-road, motocross, or any high-impact riding.',
+                features: [
+                    'Impact-dispersing protection',
+                    'Flexible panels',
+                    'Adjustable straps',
+                    'Lightweight polymer shell',
+                    'Off-road/motocross ready'
+                ]
+            },
+            'protection3': {
+                name: 'Knox Micro-Lock Air Knee Guards',
+                image: 'https://cdn.fcglcdn.com/brainbees/images/products/583x720/11404093a.webp',
+                price: 379.99,
+                description: 'Ultra-lightweight and breathable knee protection with CE Level 1 certification. The Micro-Lock technology hardens on impact, offering unobtrusive all-day safety for touring, commuting, or casual rides.',
+                features: [
+                    'Ultra-lightweight',
+                    'Breathable',
+                    'CE Level 1 certified',
+                    'Micro-Lock technology',
+                    'All-day comfort'
+                ]
+            }
+        };
+
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const cartCount = document.querySelector('.cart-count');
+
+            if (cartCount) {
+                cartCount.textContent = totalItems;
+                cartCount.classList.toggle('has-items', totalItems > 0);
+            }
+        }
+
+        function showCartNotification(productName) {
+            // Remove existing notification if present
+            const existingNotification = document.querySelector('.cart-notification');
+            if (existingNotification) {
+                existingNotification.remove();
+            }
+
+            // Create new notification
+            const notification = document.createElement('div');
+            notification.className = 'cart-notification';
+            notification.innerHTML = `
+                <i class="fas fa-check-circle"></i>
+                <span>${productName} added to cart</span>
+            `;
+
+            document.body.appendChild(notification);
+
+            // Show notification (add 'show' class for animation)
+            setTimeout(() => notification.classList.add('show'), 10);
+
+            // Remove notification after 3 seconds
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        function filterGear(searchTerm) {
+            const gearCards = document.querySelectorAll('.part-card');
+
+            gearCards.forEach(card => {
+                const name = card.querySelector('.part-name').textContent.toLowerCase();
+                const description = card.querySelector('.part-description').textContent.toLowerCase();
+                const isMatch = name.includes(searchTerm) || description.includes(searchTerm);
+
+                card.style.display = isMatch ? 'block' : 'none';
+            });
+        }
+
+        // Modal logic for riding gear
+        let currentGearId = null;
+
+        function openGearModal(gearId) {
+            currentGearId = gearId;
+            const gear = gearDetails[gearId];
+            const modal = document.getElementById('gearModal');
+            document.getElementById('modalProductName').textContent = gear.name;
+            document.getElementById('modalMainImage').src = gear.image;
+            document.getElementById('modalMainImage').alt = gear.name;
+            document.getElementById('modalDescription').textContent = gear.description;
+            document.getElementById('modalCurrentPrice').textContent = `₹${gear.price.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+            document.getElementById('modalOriginalPrice').textContent = '';
+            // Features
+            const featuresList = document.getElementById('modalFeatures');
+            if (gear.features && Array.isArray(gear.features)) {
+                featuresList.innerHTML = gear.features.map(f => `<li>${f}</li>`).join('');
+            } else {
+                featuresList.innerHTML = '<li>Features information not available</li>';
+            }
+            // Reset quantity
+            modal.querySelector('.quantity-input').value = 1;
+            // Show modal
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            // Reset tabs
+            modal.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            modal.querySelectorAll('.tab-panel').forEach(panel => panel.classList.remove('active'));
+            modal.querySelector('.tab-btn[data-tab="description"]').classList.add('active');
+            document.getElementById('descriptionPanel').classList.add('active');
+        }
+
+        function closeGearModal() {
+            document.getElementById('gearModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tab switching
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const tab = this.getAttribute('data-tab');
+                    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+                    this.classList.add('active');
+                    document.getElementById(tab + 'Panel').classList.add('active');
+                });
+            });
+            // Quantity controls
+            document.querySelector('.quantity-btn.decrease').addEventListener('click', function() {
+                const input = document.querySelector('.quantity-input');
+                let val = parseInt(input.value);
+                if (val > 1) input.value = val - 1;
+            });
+            document.querySelector('.quantity-btn.increase').addEventListener('click', function() {
+                const input = document.querySelector('.quantity-input');
+                let val = parseInt(input.value);
+                input.value = val + 1;
+            });
+            // Add to cart from modal
+            document.getElementById('modalAddToCart').addEventListener('click', function() {
+                if (!currentGearId) return;
+                const gear = gearDetails[currentGearId];
+                const quantity = parseInt(document.querySelector('.quantity-input').value);
+                let cart = JSON.parse(localStorage.getItem('cart')) || [];
+                const existingItem = cart.find(item => item.id === gear.id);
+                if (existingItem) {
+                    existingItem.quantity += quantity;
+                } else {
+                    cart.push({
+                        id: gear.id,
+                        name: gear.name,
+                        price: gear.price,
+                        image: gear.image,
+                        quantity: quantity
+                    });
+                }
+                localStorage.setItem('cart', JSON.stringify(cart));
+                updateCartCount();
+                showCartNotification(gear.name);
+                closeGearModal();
+            });
+            // Modal close on outside click
+            document.getElementById('gearModal').addEventListener('click', function(e) {
+                if (e.target === this) closeGearModal();
+            });
+            // Card view details button
+            document.querySelectorAll('.view-details-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const gearId = this.getAttribute('data-gear-id');
+                    openGearModal(gearId);
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

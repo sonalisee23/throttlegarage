@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bike Parts - 𝕿𝖍𝖗𝖔𝖙𝖙𝖑𝖊𝕲𝖆𝖗𝖆𝖌𝖊</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <header>
+        <div class="header-container">
+            <button id="menuBtn" class="menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <div class="logo">
+                <a href="index.html" class="logo-text">𝕿𝖍𝖗𝖔𝖙𝖙𝖑𝖊𝕲𝖆𝖗𝖆𝖌𝖊</a>
+            </div>
+
+            <div class="search-container">
+                <form id="searchForm" onsubmit="handleSearch(event)">
+                    <input type="text" id="searchInput" placeholder="Search bikes, parts, and accessories...">
+                    <button type="submit">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+                <div id="searchResults" class="search-results"></div>
+            </div>
+
+            <div class="header-actions">
+                <a href="about.html" class="info-link">
+                    <i class="fas fa-info-circle"></i>
+                    <span>About Us</span>
+                </a>
+                <a href="contact.html" class="info-link">
+                    <i class="fas fa-envelope"></i>
+                    <span>Contact</span>
+                </a>
+                <a href="returns.html" class="info-link">
+                    <i class="fas fa-undo-alt"></i>
+                    <span>Returns</span>
+                </a>
+                <a href="register.html" class="account-link">
+                    <i class="fas fa-user"></i>
+                </a>
+                <a href="cart.html" class="cart-link">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <nav class="main-navigation">
+        <div class="nav-container">
+            <ul>
+                <li><a href="index.html">HOME</a></li>
+                <li><a href="shop-by-bike.html">SHOP BY BIKE</a></li>
+                <li><a href="helmets.html">HELMETS</a></li>
+                <li><a href="riding-gear.html">RIDING GEAR</a></li>
+                <li><a href="bike-parts.html" class="active">BIKE PARTS</a></li>
+                <li><a href="apparel.html">APPAREL</a></li>
+                <li><a href="throttletalk.html">THROTTLETALK</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="bike-search-section">
+        <div class="search-wrapper">
+            <input type="text" id="bikeSearchInput" placeholder="Search bike parts by name, brand, or features...">
+            <i class="fas fa-search search-icon"></i>
+        </div>
+    </div>
+
+    <div class="page-title">
+        <h1 id="bike-name">All Bike Parts</h1>
+        <p>High-performance parts for your motorcycle</p>
+    </div>
+
+    <main class="bikes-grid" id="bikeParts">
+        <div id="loading" class="loading">
+            <i class="fas fa-spinner fa-spin"></i> Loading parts...
+        </div>
+        <!-- Parts will be loaded here dynamically as .part-card -->
+    </main>
+
+    <!-- Chat Bot Button -->
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-phone"></i> +919900899916,+917619645353</p>
+                <p><i class="fas fa-envelope"></i> sonalivernekar20@gmail.com</p>
+                <p><i class="fas fa-map-marker-alt"></i> Dodda Alageri,Ankola,Uttara Kannada, Karnataka-581314</p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Business Hours</h3>
+                <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
+                <p>Saturday: 10:00 AM - 4:00 PM</p>
+                <p>Sunday: Closed</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 ThrottleGarage. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Product Detail Modal -->
+    <div id="productDetailModal" class="product-modal">
+        <div class="modal-content">
+            <button class="modal-close">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="product-detail-container">
+                <div class="product-gallery">
+                    <div class="main-image">
+                        <img src="" alt="" id="modalMainImage">
+                    </div>
+                    <div class="thumbnails" id="modalThumbnails">
+                        <!-- Thumbnails will be added dynamically -->
+                    </div>
+                </div>
+                <div class="product-info">
+                    <h1 id="modalProductName"></h1>
+                    <div class="product-price">
+                        <span class="original-price" id="modalOriginalPrice"></span>
+                        <span class="current-price" id="modalCurrentPrice"></span>
+                    </div>
+                    <div class="product-availability" id="modalAvailability">
+                        <i class="fas fa-check-circle"></i>
+                        <span>In Stock</span>
+                    </div>
+                    <div class="size-selector" id="modalSizeSelector">
+                        <h3>Select Size</h3>
+                        <div class="size-options">
+                            <!-- Size options will be added dynamically -->
+                        </div>
+                    </div>
+                    <div class="color-selector" id="modalColorSelector">
+                        <h3>Select Color</h3>
+                        <div class="color-options">
+                            <!-- Color options will be added dynamically -->
+                        </div>
+                    </div>
+                    <div class="quantity-selector">
+                        <h3>Quantity</h3>
+                        <div class="quantity-controls">
+                            <button class="quantity-btn decrease">-</button>
+                            <input type="number" class="quantity-input" value="1" min="1">
+                            <button class="quantity-btn increase">+</button>
+                        </div>
+                    </div>
+                    <button id="modalAddToCart" class="add-to-cart-btn">
+                        <i class="fas fa-shopping-cart"></i>
+                        Add to Cart
+                    </button>
+                    <div class="product-tabs">
+                        <div class="tab-buttons">
+                            <button class="tab-btn active" data-tab="description">Description</button>
+                            <button class="tab-btn" data-tab="features">Features</button>
+                            <button class="tab-btn" data-tab="shipping">Shipping</button>
+                        </div>
+                        <div class="tab-content">
+                            <div class="tab-panel active" id="descriptionPanel">
+                                <p id="modalDescription"></p>
+                            </div>
+                            <div class="tab-panel" id="featuresPanel">
+                                <ul id="modalFeatures" class="part-description"></ul>
+                            </div>
+                            <div class="tab-panel" id="shippingPanel">
+                                <div class="shipping-info">
+                                    <p><i class="fas fa-truck"></i> Free shipping on orders over ₹2000</p>
+                                    <p><i class="fas fa-clock"></i> Delivery within 3-5 business days</p>
+                                    <p><i class="fas fa-shield-alt"></i> Secure packaging</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+    <script src="js/cart-manager.js"></script>
+    <script src="js/bike-shop.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize the bike shop
+            const bikeShop = new BikeShop();
+
+            // Initialize bike parts search functionality
+            const searchInput = document.getElementById('bikeSearchInput');
+            if (searchInput) {
+                searchInput.addEventListener('input', function() {
+                    const searchTerm = this.value.toLowerCase().trim();
+                    filterBikeParts(searchTerm);
+                });
+            }
+
+            // Initialize menu button
+            const menuBtn = document.getElementById('menuBtn');
+            const mainNav = document.querySelector('.main-navigation');
+
+            if (menuBtn && mainNav) {
+                menuBtn.addEventListener('click', function() {
+                    menuBtn.classList.toggle('active');
+                    mainNav.classList.toggle('active');
+
+                    // Toggle icon
+                    const icon = this.querySelector('i');
+                    if (this.classList.contains('active')) {
+                        icon.className = 'fas fa-times';
+                    } else {
+                        icon.className = 'fas fa-bars';
+                    }
+                });
+
+                // Close menu when clicking outside
+                document.addEventListener('click', function(e) {
+                    if (!menuBtn.contains(e.target) && !mainNav.contains(e.target) && mainNav.classList.contains('active')) {
+                        menuBtn.click();
+                    }
+                });
+            }
+        });
+
+        // Function to filter bike parts
+        function filterBikeParts(searchTerm) {
+            const partCards = document.querySelectorAll('.part-card');
+
+            partCards.forEach(card => {
+                const name = card.querySelector('.part-name').textContent.toLowerCase();
+                const description = card.querySelector('.part-description').textContent.toLowerCase();
+                const isMatch = name.includes(searchTerm) || description.includes(searchTerm);
+
+                card.style.display = isMatch ? 'block' : 'none';
+            });
+        }
+    </script>
+</body>
+
+</html>

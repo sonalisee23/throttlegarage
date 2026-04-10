@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Helmets - 𝕿𝖍𝖗𝖔𝖙𝖙𝖑𝖊𝕲𝖆𝖗𝖆𝖌𝖊</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Helmet page specific styles */
+        
+        .helmets-page .part-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .helmets-page .part-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(227, 30, 36, 0.2);
+        }
+        
+        .helmets-page .part-image {
+            width: 100%;
+            height: 200px;
+            margin-bottom: 15px;
+            overflow: hidden;
+            border-radius: 4px;
+        }
+        
+        .helmets-page .part-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .helmets-page .part-card:hover .part-image img {
+            transform: scale(1.05);
+        }
+        
+        .helmets-page .part-info {
+            color: var(--white);
+        }
+        
+        .helmets-page .part-name {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: var(--white);
+        }
+        
+        .helmets-page .part-description {
+            color: var(--text-gray);
+            font-size: 14px;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .helmets-page .part-price {
+            color: var(--primary-red);
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            display: block;
+        }
+        
+        .helmets-page .add-to-cart-btn {
+            background: var(--primary-red);
+            color: var(--white);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .helmets-page .add-to-cart-btn:hover {
+            background: #c01920;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(227, 30, 36, 0.3);
+        }
+        
+        .helmets-page .add-to-cart-btn i {
+            font-size: 18px;
+        }
+        
+        @media (max-width: 768px) {
+            .helmets-page .part-info {
+                text-align: center;
+            }
+            .helmets-page .part-name {
+                font-size: 16px;
+            }
+            .helmets-page .part-description {
+                font-size: 13px;
+            }
+            .helmets-page .part-price {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="header-container">
+            <button class="menu-btn" id="menuBtn" aria-label="Toggle Menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="logo">
+                <a href="index.html" class="logo-text">𝕿𝖍𝖗𝖔𝖙𝖙𝖑𝖊𝕲𝖆𝖗𝖆𝖌𝖊</a>
+            </div>
+
+            <div class="search-container">
+                <form id="searchForm">
+                    <input type="text" id="searchInput" placeholder="Search bikes, parts, and accessories...">
+                    <button type="submit">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+                <div id="searchResults" class="search-results"></div>
+            </div>
+
+            <div class="header-actions">
+                <a href="about.html" class="info-link">
+                    <i class="fas fa-info-circle"></i>
+                    <span>About Us</span>
+                </a>
+                <a href="contact.html" class="info-link">
+                    <i class="fas fa-envelope"></i>
+                    <span>Contact</span>
+                </a>
+                <a href="returns.html" class="info-link">
+                    <i class="fas fa-undo-alt"></i>
+                    <span>Returns</span>
+                </a>
+                <a href="register.html" class="account-link">
+                    <i class="fas fa-user"></i>
+                </a>
+                <a href="cart.html" class="cart-link">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </a>
+            </div>
+        </div>
+
+        <nav class="main-navigation">
+            <div class="nav-container">
+                <ul>
+                    <li><a href="index.html">HOME</a></li>
+                    <li><a href="shop-by-bike.html">SHOP BY BIKE</a></li>
+                    <li><a href="helmets.html" class="active">HELMETS</a></li>
+                    <li><a href="riding-gear.html">RIDING GEAR</a></li>
+                    <li><a href="bike-parts.html">BIKE PARTS</a></li>
+                    <li><a href="apparel.html">APPAREL</a></li>
+                    <li><a href="throttletalk.html">THROTTLETALK</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <div class="page-title">
+        <h1>Premium Motorcycle Helmets</h1>
+        <p>Discover our collection of high-quality, safety-certified helmets for every riding style</p>
+    </div>
+
+    <!-- Helmet Search Section -->
+    <div class="helmet-search-section">
+        <div class="search-wrapper">
+            <input type="text" id="helmetSearchInput" placeholder="Search helmets...">
+            <i class="fas fa-search search-icon"></i>
+        </div>
+    </div>
+
+    <main class="bikes-grid">
+        <!-- AGV Pista GP RR -->
+        <div class="part-card">
+            <div class="part-image">
+                <img src="https://www.twowheel.co.uk/images/detailed/130/agv-pista-gp-rr-performance-carbon-red-race-helmet-3.png" alt="AGV Pista GP RR" loading="lazy">
+            </div>
+            <div class="part-info">
+                <h3 class="part-name">AGV Pista GP RR</h3>
+                <p class="part-description">The AGV Pista GP RR is a top-tier racing helmet with a carbon fiber shell, advanced aerodynamics, and ECE 22.06 certification.</p>
+                <div class="price">₹25,000.00</div>
+                <button class="primary-button view-details-btn" data-helmet-idx="0">
+                    View Details
+                </button>
+            </div>
+        </div>
+
+        <!-- Shoei X-14 -->
+        <div class="part-card">
+            <div class="part-image">
+                <img src="https://www.revzilla.com/product_images/0224/4057/shoei_x14_laverty_tc4.jpg" alt="Shoei X-14" loading="lazy">
+            </div>
+            <div class="part-info">
+                <h3 class="part-name">Shoei X-14</h3>
+                <p class="part-description">Shoei's X-14 is a race-proven helmet with a multi-composite shell and SNELL M2020 safety rating.</p>
+                <div class="price">₹15,000.00</div>
+                <button class="primary-button view-details-btn" data-helmet-idx="1">
+                    View Details
+                </button>
+            </div>
+        </div>
+
+        <!-- Arai Corsair-X -->
+        <div class="part-card">
+            <div class="part-image">
+                <img src="https://www.asphaltandrubber.com/wp-content/gallery/arai-corsair-x-helmet-review/Arai-Corsair-X-helmet-review-26.jpg" alt="Arai Corsair-X" loading="lazy">
+            </div>
+            <div class="part-info">
+                <h3 class="part-name">Arai Corsair-X</h3>
+                <p class="part-description">Arai's Corsair-X features a PB-SNC2 shell and is designed for maximum comfort and safety on the track.</p>
+                <div class="price">₹12,000.00</div>
+                <button class="primary-button view-details-btn" data-helmet-idx="2">
+                    View Details
+                </button>
+            </div>
+        </div>
+
+        <!-- Bell Race Star Flex DLX -->
+        <div class="part-card">
+            <div class="part-image">
+                <img src="https://www.bellhelmets.com/on/demandware.static/-/Sites-bell-master-catalog/default/dw790e0a9b/images/large/bell-race-star-dlx-flex-carbon-street-full-face-motorcycle-helmet-labyrinth-gloss-white-black-right.jpg" alt="Bell Race Star Flex DLX"
+                    loading="lazy">
+            </div>
+            <div class="part-info">
+                <h3 class="part-name">Bell Race Star Flex DLX</h3>
+                <p class="part-description">Bell's Race Star Flex DLX offers a 3K carbon shell and advanced impact protection for serious riders.</p>
+                <div class="price">₹16,000.00</div>
+                <button class="primary-button view-details-btn" data-helmet-idx="3">
+                    View Details
+                </button>
+            </div>
+        </div>
+
+        <!-- HJC RPHA 11 Pro -->
+        <div class="part-card">
+            <div class="part-image">
+                <img src="https://th.bing.com/th/id/OIP.HZLE-2WSqXs_OM1iLAfr2QHaHa?rs=1&pid=ImgDetMain" alt="HJC RPHA 11 Pro" loading="lazy">
+            </div>
+            <div class="part-info">
+                <h3 class="part-name">HJC RPHA 11 Pro</h3>
+                <p class="part-description">The HJC RPHA 11 Pro is a sport helmet with a PIM+ Matrix shell and dual DOT & ECE certification.</p>
+                <div class="price">₹14,000.00</div>
+                <button class="primary-button view-details-btn" data-helmet-idx="4">
+                    View Details
+                </button>
+            </div>
+        </div>
+
+        <!-- Shark Race-R Pro GP -->
+        <div class="part-card">
+            <div class="part-image">
+                <img src="https://images.esellerpro.com/2189/I/501/106/24227-Shark-Race-R-Pro-GP-Winter-Test-Zarco-LE-Motorcycle-Helmet-1600-0.jpg" alt="Shark Race-R Pro GP" loading="lazy">
+            </div>
+            <div class="part-info">
+                <h3 class="part-name">Shark Race-R Pro GP</h3>
+                <p class="part-description">Shark's Race-R Pro GP is a carbon aramid helmet designed for professional racing and high-speed performance.</p>
+                <div class="price">₹75,000.00</div>
+                <button class="primary-button view-details-btn" data-helmet-idx="5">
+                    View Details
+                </button>
+            </div>
+        </div>
+
+        <!-- X-Lite X-803 RS Ultra Carbon -->
+        <div class="part-card">
+            <div class="part-image">
+                <img src="https://www.motostorm.it/images/products/large/caschi_integrali/xlite_x803rs_ultracarbon_goldenedition_oro_2.jpg" alt="X-Lite X-803 RS Ultra Carbon" loading="lazy">
+            </div>
+            <div class="part-info">
+                <h3 class="part-name">X-Lite X-803 RS Ultra Carbon</h3>
+                <p class="part-description">The X-Lite X-803 RS Ultra Carbon is a lightweight, high-performance helmet for track and street use.</p>
+                <div class="price">₹16,000.00</div>
+                <button class="primary-button view-details-btn" data-helmet-idx="6">
+                    View Details
+                </button>
+            </div>
+        </div>
+
+        <!-- Klim Krios Pro -->
+        <div class="part-card">
+            <div class="part-image">
+                <img src="https://th.bing.com/th/id/R.9afcd38ccf9da8754997712a03920a2e?rik=MEYyhyLJzWbGTg&riu=http%3a%2f%2fwww.advspirit.com%2fwp-content%2fuploads%2f2020%2f05%2fKLIM-KRIOS-PRO-HELMET-ECEDOT-Gray-1024x1024.jpeg&ehk=mPW8wWmrildkytZzyfCfqQYBrkwBiG%2bqK2APlZ%2bKpV4%3d&risl=&pid=ImgRaw&r=0"
+                    alt="Klim Krios Pro" loading="lazy">
+            </div>
+            <div class="part-info">
+                <h3 class="part-name">Klim Krios Pro</h3>
+                <p class="part-description">The Klim Krios Pro is an adventure touring helmet with carbon fiber construction and advanced ventilation for long-distance riding.</p>
+                <div class="price">₹18,000.00</div>
+                <button class="primary-button view-details-btn" data-helmet-idx="7">
+                    View Details
+                </button>
+            </div>
+        </div>
+
+        <!-- Klim TK1200 Karbon -->
+        <div class="part-card">
+            <div class="part-image">
+                <img src="https://cdn11.bigcommerce.com/s-r8o1qp/images/stencil/1280x1280/products/6438/60818/klim-tk1200-spark-helmet-asphalt-hi-vis-front-right__20040.1689299362.jpg?c=2" alt="Klim TK1200 Karbon" loading="lazy">
+            </div>
+            <div class="part-info">
+                <h3 class="part-name">Klim TK1200 Karbon</h3>
+                <p class="part-description">The Klim TK1200 Karbon is a premium adventure helmet with carbon fiber construction and superior comfort for extended touring.</p>
+                <div class="price">₹22,000.00</div>
+                <button class="primary-button view-details-btn" data-helmet-idx="8">
+                    View Details
+                </button>
+            </div>
+        </div>
+
+        <!-- Klim K1 -->
+        <div class="part-card">
+            <div class="part-image">
+                <img src="https://th.bing.com/th/id/OIP.kDOanPyWLuYNIiWO_BX4YAHaHa?rs=1&pid=ImgDetMain" alt="Klim K1" loading="lazy">
+            </div>
+            <div class="part-info">
+                <h3 class="part-name">Klim K1</h3>
+                <p class="part-description">The Klim K1 is an entry-level adventure helmet offering excellent value with solid protection and comfort for touring riders.</p>
+                <div class="price">₹12,000.00</div>
+                <button class="primary-button view-details-btn" data-helmet-idx="9">
+                    View Details
+                </button>
+            </div>
+        </div>
+
+        <!-- Klim TK1200 -->
+        <div class="part-card">
+            <div class="part-image">
+                <img src="https://cdn11.bigcommerce.com/s-r8o1qp/images/stencil/1280x1280/products/4992/37481/klim-tk1200-architek-redrock-karbon-helmet-front-left__07493.1582890701.jpg?c=2" alt="Klim TK1200" loading="lazy">
+            </div>
+            <div class="part-info">
+                <h3 class="part-name">Klim TK1200</h3>
+                <p class="part-description">The Klim TK1200 is a versatile adventure helmet designed for both on-road touring and off-road exploration.</p>
+                <div class="price">₹16,000.00</div>
+                <button class="primary-button view-details-btn" data-helmet-idx="10">
+                    View Details
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Notification div for cart messages -->
+    <div id="notification" class="notification"></div>
+
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-phone"></i> +919900899916 ,+917619645353</p>
+                <p><i class="fas fa-envelope"></i> sonalivernekar20@gmail.com</p>
+                <p><i class="fas fa-map-marker-alt"></i> Dodda Alageri,Ankola,Uttara Kannada, Karnataka 581314</p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/throttlegarage" class="social-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/throttlegarage" class="social-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                    <a href="https://twitter.com/throttlegarage" class="social-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.youtube.com/throttlegarage" class="social-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Business Hours</h3>
+                <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
+                <p>Saturday: 10:00 AM - 4:00 PM</p>
+                <p>Sunday: Closed</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 ThrottleGarage. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Helmet Details Modal -->
+    <div id="helmetModal" class="product-modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeHelmetModal()">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="product-detail-container">
+                <div class="product-gallery">
+                    <div class="main-image">
+                        <img src="" alt="Helmet Image" id="modalMainImage">
+                    </div>
+                    <div class="thumbnails" id="modalThumbnails">
+                        <!-- Thumbnails will be added dynamically -->
+                    </div>
+                </div>
+                <div class="product-info">
+                    <h1 id="modalProductName"></h1>
+                    <div class="product-price">
+                        <span class="original-price" id="modalOriginalPrice"></span>
+                        <span class="current-price" id="modalCurrentPrice"></span>
+                    </div>
+                    <div class="product-availability" id="modalAvailability">
+                        <i class="fas fa-check-circle"></i>
+                        <span>In Stock</span>
+                    </div>
+                    <div class="quantity-selector">
+                        <h3>Quantity</h3>
+                        <div class="quantity-controls">
+                            <button class="quantity-btn decrease">-</button>
+                            <input type="number" class="quantity-input" value="1" min="1">
+                            <button class="quantity-btn increase">+</button>
+                        </div>
+                    </div>
+                    <button id="modalAddToCart" class="add-to-cart-btn">
+                        <i class="fas fa-shopping-cart"></i>
+                        Add to Cart
+                    </button>
+                    <div class="product-tabs">
+                        <div class="tab-buttons">
+                            <button class="tab-btn active" data-tab="description">Description</button>
+                            <button class="tab-btn" data-tab="features">Features</button>
+                            <button class="tab-btn" data-tab="shipping">Shipping</button>
+                        </div>
+                        <div class="tab-content">
+                            <div class="tab-panel active" id="descriptionPanel">
+                                <p id="modalDescription"></p>
+                            </div>
+                            <div class="tab-panel" id="featuresPanel">
+                                <ul id="modalFeatures" class="part-description"></ul>
+                            </div>
+                            <div class="tab-panel" id="shippingPanel">
+                                <div class="shipping-info">
+                                    <p><i class="fas fa-truck"></i> Free shipping on orders over ₹2000</p>
+                                    <p><i class="fas fa-clock"></i> Delivery within 3-5 business days</p>
+                                    <p><i class="fas fa-shield-alt"></i> Secure packaging</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/cart-manager.js"></script>
+    <script>
+        // Helmet data
+        const helmets = [{
+            name: "AGV Pista GP RR",
+            image: "https://www.twowheel.co.uk/images/detailed/130/agv-pista-gp-rr-performance-carbon-red-race-helmet-3.png",
+            price: 25000,
+            description: "The AGV Pista GP RR is a top-tier racing helmet with a carbon fiber shell, advanced aerodynamics, and ECE 22.06 certification.",
+            features: [
+                "Carbon fiber shell construction",
+                "Advanced aerodynamic design",
+                "Removable and washable interior",
+                "Integrated ventilation system",
+                "Anti-fog visor technology",
+                "Lightweight design for comfort"
+            ]
+        }, {
+            name: "Shoei X-14",
+            image: "https://www.revzilla.com/product_images/0224/4057/shoei_x14_laverty_tc4.jpg",
+            price: 15000,
+            description: "Shoei's X-14 is a race-proven helmet with a multi-composite shell and SNELL M2020 safety rating.",
+            features: [
+                "Multi-composite shell construction",
+                "Aerodynamic wing design",
+                "Dual-layer EPS liner",
+                "Advanced ventilation system",
+                "CWR-F2 visor system",
+                "Emergency quick-release system"
+            ]
+        }, {
+            name: "Arai Corsair-X",
+            image: "https://www.asphaltandrubber.com/wp-content/gallery/arai-corsair-x-helmet-review/Arai-Corsair-X-helmet-review-26.jpg",
+            price: 12000,
+            description: "Arai's Corsair-X features a PB-SNC2 shell and is designed for maximum comfort and safety on the track.",
+            features: [
+                "PB-SNC2 shell construction",
+                "Peripheral belt reinforcement",
+                "Variable-axis visor system",
+                "Advanced ventilation design",
+                "Removable interior liner",
+                "Lightweight and comfortable fit"
+            ]
+        }, {
+            name: "Bell Race Star Flex DLX",
+            image: "https://www.bellhelmets.com/on/demandware.static/-/Sites-bell-master-catalog/default/dw790e0a9b/images/large/bell-race-star-dlx-flex-carbon-street-full-face-motorcycle-helmet-labyrinth-gloss-white-black-right.jpg",
+            price: 16000,
+            description: "Bell's Race Star Flex DLX offers a 3K carbon shell and advanced impact protection for serious riders.",
+            features: [
+                "3K carbon fiber shell",
+                "Flex system for comfort",
+                "Integrated spoiler",
+                "Advanced ventilation",
+                "Removable interior",
+                "Lightweight construction"
+            ]
+        }, {
+            name: "HJC RPHA 11 Pro",
+            image: "https://th.bing.com/th/id/OIP.HZLE-2WSqXs_OM1iLAfr2QHaHa?rs=1&pid=ImgDetMain",
+            price: 14000,
+            description: "The HJC RPHA 11 Pro is a sport helmet with a PIM+ Matrix shell and dual DOT & ECE certification.",
+            features: [
+                "PIM+ Matrix shell construction",
+                "Advanced aerodynamic design",
+                "Integrated ventilation system",
+                "Removable and washable interior",
+                "Anti-fog visor technology",
+                "Lightweight and comfortable"
+            ]
+        }, {
+            name: "Shark Race-R Pro GP",
+            image: "https://images.esellerpro.com/2189/I/501/106/24227-Shark-Race-R-Pro-GP-Winter-Test-Zarco-LE-Motorcycle-Helmet-1600-0.jpg",
+            price: 75000,
+            description: "Shark's Race-R Pro GP is a carbon aramid helmet designed for professional racing and high-speed performance.",
+            features: [
+                "Carbon aramid shell construction",
+                "Professional racing design",
+                "Advanced ventilation system",
+                "Removable interior liner",
+                "Anti-fog visor technology",
+                "Lightweight and aerodynamic"
+            ]
+        }, {
+            name: "X-Lite X-803 RS Ultra Carbon",
+            image: "https://www.motostorm.it/images/products/large/caschi_integrali/xlite_x803rs_ultracarbon_goldenedition_oro_2.jpg",
+            price: 16000,
+            description: "The X-Lite X-803 RS Ultra Carbon is a lightweight, high-performance helmet for track and street use.",
+            features: [
+                "Ultra carbon shell construction",
+                "Lightweight design",
+                "Advanced ventilation system",
+                "Removable interior liner",
+                "Anti-fog visor technology",
+                "Professional racing fit"
+            ]
+        }, {
+            name: "Klim Krios Pro",
+            image: "https://th.bing.com/th/id/R.9afcd38ccf9da8754997712a03920a2e?rik=MEYyhyLJzWbGTg&riu=http%3a%2f%2fwww.advspirit.com%2fwp-content%2fuploads%2f2020%2f05%2fKLIM-KRIOS-PRO-HELMET-ECEDOT-Gray-1024x1024.jpeg&ehk=mPW8wWmrildkytZzyfCfqQYBrkwBiG%2bqK2APlZ%2bKpV4%3d&risl=&pid=ImgRaw&r=0",
+            price: 18000,
+            description: "The Klim Krios Pro is an adventure touring helmet with carbon fiber construction and advanced ventilation for long-distance riding.",
+            features: [
+                "Carbon fiber shell construction",
+                "Adventure touring design",
+                "Advanced ventilation system",
+                "Removable and washable interior",
+                "Anti-fog visor technology",
+                "Lightweight and comfortable for long rides"
+            ]
+        }, {
+            name: "Klim TK1200 Karbon",
+            image: "https://cdn11.bigcommerce.com/s-r8o1qp/images/stencil/1280x1280/products/6438/60818/klim-tk1200-spark-helmet-asphalt-hi-vis-front-right__20040.1689299362.jpg?c=2",
+            price: 22000,
+            description: "The Klim TK1200 Karbon is a premium adventure helmet with carbon fiber construction and superior comfort for extended touring.",
+            features: [
+                "Carbon fiber shell construction",
+                "Premium adventure touring design",
+                "Advanced ventilation system",
+                "Removable and washable interior",
+                "Anti-fog visor technology",
+                "Superior comfort for long-distance riding"
+            ]
+        }, {
+            name: "Klim K1",
+            image: "https://th.bing.com/th/id/OIP.kDOanPyWLuYNIiWO_BX4YAHaHa?rs=1&pid=ImgDetMain",
+            price: 12000,
+            description: "The Klim K1 is an entry-level adventure helmet offering excellent value with solid protection and comfort for touring riders.",
+            features: [
+                "Polycarbonate shell construction",
+                "Adventure touring design",
+                "Integrated ventilation system",
+                "Removable and washable interior",
+                "Anti-fog visor technology",
+                "Comfortable fit for touring"
+            ]
+        }, {
+            name: "Klim TK1200",
+            image: "https://cdn11.bigcommerce.com/s-r8o1qp/images/stencil/1280x1280/products/4992/37481/klim-tk1200-architek-redrock-karbon-helmet-front-left__07493.1582890701.jpg?c=2",
+            price: 16000,
+            description: "The Klim TK1200 is a versatile adventure helmet designed for both on-road touring and off-road exploration.",
+            features: [
+                "Polycarbonate shell construction",
+                "Versatile adventure design",
+                "Advanced ventilation system",
+                "Removable and washable interior",
+                "Anti-fog visor technology",
+                "Suitable for on-road and off-road use"
+            ]
+        }];
+
+        // Modal logic for helmets
+        let currentHelmetIndex = null;
+
+        function openHelmetModal(idx) {
+            // Validate input
+            if (idx === null || idx === undefined || idx < 0 || idx >= helmets.length) {
+                console.error('Invalid helmet index:', idx);
+                return;
+            }
+
+            currentHelmetIndex = idx;
+            const helmet = helmets[idx];
+
+            // Validate helmet data
+            if (!helmet || !helmet.name) {
+                console.error('Invalid helmet data:', helmet);
+                return;
+            }
+
+            const modal = document.getElementById('helmetModal');
+            if (!modal) {
+                console.error('Helmet modal not found');
+                return;
+            }
+
+            // Populate modal content
+            document.getElementById('modalProductName').textContent = helmet.name || 'Helmet Name Not Available';
+            document.getElementById('modalMainImage').src = helmet.image || '';
+            document.getElementById('modalMainImage').alt = helmet.name || 'Helmet Image';
+            document.getElementById('modalDescription').textContent = helmet.description || 'Description not available';
+            document.getElementById('modalCurrentPrice').textContent = helmet.price ? `₹${helmet.price.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}` : 'Price not available';
+            document.getElementById('modalOriginalPrice').textContent = '';
+
+            // Features
+            const featuresList = document.getElementById('modalFeatures');
+            if (helmet.features && Array.isArray(helmet.features) && helmet.features.length > 0) {
+                featuresList.innerHTML = helmet.features.map(f => `<li>${f}</li>`).join('');
+            } else {
+                featuresList.innerHTML = '<li>Features information not available</li>';
+            }
+
+            // Reset quantity
+            const quantityInput = modal.querySelector('.quantity-input');
+            if (quantityInput) {
+                quantityInput.value = 1;
+            }
+
+            // Show modal
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+
+            // Reset tabs
+            modal.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            modal.querySelectorAll('.tab-panel').forEach(panel => panel.classList.remove('active'));
+            modal.querySelector('.tab-btn[data-tab="description"]').classList.add('active');
+            document.getElementById('descriptionPanel').classList.add('active');
+        }
+
+        function closeHelmetModal() {
+            document.getElementById('helmetModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Tab switching
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const tab = this.getAttribute('data-tab');
+                    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+                    this.classList.add('active');
+                    document.getElementById(tab + 'Panel').classList.add('active');
+                });
+            });
+            // Quantity controls
+            document.querySelector('.quantity-btn.decrease').addEventListener('click', function() {
+                const input = document.querySelector('.quantity-input');
+                let val = parseInt(input.value);
+                if (val > 1) input.value = val - 1;
+            });
+            document.querySelector('.quantity-btn.increase').addEventListener('click', function() {
+                const input = document.querySelector('.quantity-input');
+                let val = parseInt(input.value);
+                input.value = val + 1;
+            });
+            // Add to cart from modal
+            document.getElementById('modalAddToCart').addEventListener('click', function() {
+                if (currentHelmetIndex === null) return;
+                const helmet = helmets[currentHelmetIndex];
+                const quantity = parseInt(document.querySelector('.quantity-input').value);
+                const cartItem = {
+                    id: `helmet-${currentHelmetIndex}`,
+                    name: helmet.name,
+                    price: helmet.price,
+                    image: helmet.image,
+                    description: helmet.description,
+                    quantity: quantity,
+                    category: 'Helmet'
+                };
+                if (window.cartManager) {
+                    window.cartManager.addToCart(cartItem);
+                    window.cartManager.showNotification(`${helmet.name} added to cart`);
+                } else {
+                    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+                    cart.push(cartItem);
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                    showNotification(`${helmet.name} added to cart!`);
+                }
+                closeHelmetModal();
+            });
+            // Modal close on outside click
+            document.getElementById('helmetModal').addEventListener('click', function(e) {
+                if (e.target === this) closeHelmetModal();
+            });
+            // Card view details button
+            document.querySelectorAll('.view-details-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    const idx = parseInt(this.getAttribute('data-helmet-idx'));
+                    console.log('Opening helmet modal for index:', idx);
+
+                    if (isNaN(idx)) {
+                        console.error('Invalid helmet index from button:', this.getAttribute('data-helmet-idx'));
+                        return;
+                    }
+
+                    openHelmetModal(idx);
+                });
+            });
+        });
+    </script>
+
+    <!-- Simple helmet search test -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('=== HELMET SEARCH TEST ===');
+            const searchInput = document.getElementById('helmetSearchInput');
+            const helmetCards = document.querySelectorAll('.part-card');
+
+            console.log('Search input found:', searchInput ? 'YES' : 'NO');
+            console.log('Helmet cards found:', helmetCards.length);
+
+            if (searchInput && helmetCards.length > 0) {
+                console.log('Setting up test helmet search');
+                searchInput.addEventListener('input', function() {
+                    const searchTerm = this.value.toLowerCase().trim();
+                    console.log('Search term:', searchTerm);
+
+                    helmetCards.forEach((card, index) => {
+                        const helmetName = card.querySelector('.part-name').textContent.toLowerCase();
+                        const helmetDescription = card.querySelector('.part-description').textContent.toLowerCase();
+
+                        console.log(`Card ${index}: "${helmetName}" - matches: ${helmetName.includes(searchTerm) || helmetDescription.includes(searchTerm)}`);
+
+                        if (searchTerm === '' ||
+                            helmetName.includes(searchTerm) ||
+                            helmetDescription.includes(searchTerm)) {
+                            card.style.display = 'flex';
+                            card.style.opacity = '1';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+                console.log('Test helmet search event listener added');
+            }
+        });
+    </script>
+
+    <!-- Include the main script file for search functionality -->
+    <script src="js/script.js"></script>
+    <script src="js/cart-manager.js"></script>
+</body>
+
+</html>

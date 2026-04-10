@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="50" viewBox="0 0 200 50" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .text { fill: #333; font-family: Arial, sans-serif; font-weight: bold; }
+    .motorcycle { fill: #e74c3c; }
+  </style>
+  <g>
+    <text x="50" y="32" class="text" font-size="22">𝖳𝗁𝗋𝗈𝗍𝗍𝗅𝖾𝖦𝖺𝗋𝖺𝗀𝖾</text>
+    <path class="motorcycle" d="M40,25 C40,25 38,20 33,20 C28,20 25,23 25,28 C25,33 28,36 33,36 C38,36 40,31 40,31 M33,20 C33,20 25,15 20,15 C15,15 15,20 15,20 M20,15 L10,30 M20,25 L28,25 M10,30 C10,33 12,35 15,35 C18,35 20,33 20,30 C20,27 18,25 15,25 C12,25 10,27 10,30 M38,30 C38,33 36,35 33,35 C30,35 28,33 28,30 C28,27 30,25 33,25 C36,25 38,27 38,30"/>
+  </g>
+</svg> 

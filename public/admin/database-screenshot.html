@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ThrotleGarage Database Screenshot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #222;
+            color: white;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            color: #E31E24;
+            margin-bottom: 30px;
+        }
+        .screenshot-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            border: 1px solid #444;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .screenshot {
+            width: 100%;
+            border: none;
+        }
+        .db-info {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            padding: 20px;
+            margin: 30px auto;
+            max-width: 800px;
+            text-align: left;
+        }
+        .db-section {
+            margin-bottom: 20px;
+        }
+        .db-section h3 {
+            color: #E31E24;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding-bottom: 10px;
+        }
+        .db-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        .db-table th {
+            background-color: rgba(0, 0, 0, 0.3);
+            text-align: left;
+            padding: 8px;
+        }
+        .db-table td {
+            padding: 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        .badge-success {
+            background: rgba(76, 175, 80, 0.2);
+            color: #4CAF50;
+        }
+        .footer {
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 14px;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+    <h1>ThrotleGarage Database - View Screenshot</h1>
+    
+    <p>Successfully created and seeded the ThrotleGarage database with test data for the SuperBike Mods e-commerce platform.</p>
+    
+    <div class="screenshot-container">
+        <!-- Placeholder for actual screenshot - text representation instead -->
+        <div style="background: #2A2A2A; padding: 20px;">
+            <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                <h2 style="margin: 0; color: #E31E24;">ThrotleGarage Database View</h2>
+            </div>
+            
+            <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                <div style="flex: 1; min-width: 300px; background: rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 20px;">
+                    <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255, 255, 255, 0.1); margin-bottom: 15px; padding-bottom: 10px;">
+                        <h3 style="margin: 0; color: #E31E24;">Database Summary</h3>
+                        <i class="fas fa-info-circle"></i>
+                    </div>
+                    <div>
+                        <p><strong>Database:</strong> throtlegarage</p>
+                        <p><strong>Total Users:</strong> 5</p>
+                        <p><strong>Total Products:</strong> 8</p>
+                        <p><strong>Total Orders:</strong> 5</p>
+                    </div>
+                </div>
+                
+                <div style="flex: 1; min-width: 300px; background: rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 20px;">
+                    <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255, 255, 255, 0.1); margin-bottom: 15px; padding-bottom: 10px;">
+                        <h3 style="margin: 0; color: #E31E24;">Admin Credentials</h3>
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <div>
+                        <p><strong>Username:</strong> admin or admin@throtlegarage.com</p>
+                        <p><strong>Password:</strong> admin123</p>
+                        <p><strong>Role:</strong> <span class="badge badge-success">Admin</span></p>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="margin-top: 20px; background: rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 20px;">
+                <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255, 255, 255, 0.1); margin-bottom: 15px; padding-bottom: 10px;">
+                    <h3 style="margin: 0; color: #E31E24;">Database Records</h3>
+                    <i class="fas fa-database"></i>
+                </div>
+                <div>
+                    <p>Database has been successfully populated with test data:</p>
+                    <ul style="text-align: left;">
+                        <li>5 user accounts including admin and customer accounts</li>
+                        <li>8 products across multiple categories (parts, gear, accessories)</li>
+                        <li>5 sample orders with different statuses and payment methods</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="db-info">
+        <div class="db-section">
+            <h3>Database Details</h3>
+            <table class="db-table">
+                <tr>
+                    <th>Name</th>
+                    <td>throtlegarage</td>
+                </tr>
+                <tr>
+                    <th>Status</th>
+                    <td><span class="badge badge-success">Active</span></td>
+                </tr>
+                <tr>
+                    <th>Connection</th>
+                    <td>mongodb://127.0.0.1:27017/throtlegarage</td>
+                </tr>
+                <tr>
+                    <th>Collections</th>
+                    <td>users, products, orders</td>
+                </tr>
+            </table>
+        </div>
+        
+        <div class="db-section">
+            <h3>Sample Data Summary</h3>
+            <table class="db-table">
+                <tr>
+                    <th>Collection</th>
+                    <th>Count</th>
+                    <th>Example</th>
+                </tr>
+                <tr>
+                    <td>Users</td>
+                    <td>5</td>
+                    <td>Admin User, John Rider, Sarah Cruiser, etc.</td>
+                </tr>
+                <tr>
+                    <td>Products</td>
+                    <td>8</td>
+                    <td>SC Project Exhaust, Racing Helmet, Alpinestars Suit, etc.</td>
+                </tr>
+                <tr>
+                    <td>Orders</td>
+                    <td>5</td>
+                    <td>Orders with statuses: delivered, shipped, processing, pending, cancelled</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>ThrotleGarage Database - Created and seeded successfully</p>
+        <p>© 2024 SuperBike Mods</p>
+    </div>
+</body>
+</html> 

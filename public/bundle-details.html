@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bundle Details - ThrottleGarage</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+
+<body>
+    <header>
+        <div class="header-container">
+            <button class="menu-btn" id="menuBtn" aria-label="Toggle Menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="logo">
+                <a href="index.html" class="logo-text">𝕿𝖍𝖗𝖔𝖙𝖙𝖑𝖊𝕲𝖆𝖗𝖆𝖌𝖊</a>
+            </div>
+
+            <div class="search-container">
+                <form id="searchForm" onsubmit="handleSearch(event)">
+                    <input type="text" id="searchInput" placeholder="Search bikes, parts, and accessories...">
+                    <button type="submit">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+                <div id="searchResults" class="search-results"></div>
+            </div>
+
+            <div class="header-actions">
+                <a href="about.html" class="info-link">
+                    <i class="fas fa-info-circle"></i>
+                    <span>About Us</span>
+                </a>
+                <a href="contact.html" class="info-link">
+                    <i class="fas fa-envelope"></i>
+                    <span>Contact</span>
+                </a>
+                <a href="returns.html" class="info-link">
+                    <i class="fas fa-undo-alt"></i>
+                    <span>Returns</span>
+                </a>
+                <a href="register.html" class="account-link">
+                    <i class="fas fa-user"></i>
+                </a>
+                <a href="cart.html" class="cart-link">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="bundle-details-page">
+            <div class="bundle-details-header">
+                <a href="bundles.html" class="back-link">
+                    <i class="fas fa-arrow-left"></i> Back to Bundles
+                </a>
+                <h1 id="bundleTitle">Bundle Details</h1>
+            </div>
+
+            <div class="bundle-details-grid">
+                <div class="bundle-gallery">
+                    <div class="bundle-main-image">
+                        <img id="mainImage" src="" alt="Bundle Main Image">
+                    </div>
+                    <div class="bundle-thumbnails" id="thumbnailsContainer">
+                        <!-- Thumbnails will be added dynamically -->
+                    </div>
+                </div>
+
+                <div class="bundle-info">
+                    <div class="bundle-description" id="bundleDescription">
+                        <!-- Description will be added dynamically -->
+                    </div>
+
+                    <div class="bundle-items-list">
+                        <h3>Included Items</h3>
+                        <ul id="bundleItems">
+                            <!-- Items will be added dynamically -->
+                        </ul>
+                    </div>
+
+                    <div class="specs-grid" id="bundleSpecs">
+                        <!-- Specifications will be added dynamically -->
+                    </div>
+
+                    <div class="bundle-pricing">
+                        <div class="price-info">
+                            <span class="original-price" id="originalPrice"></span>
+                            <span class="discounted-price" id="discountedPrice"></span>
+                            <span class="savings" id="savingsAmount"></span>
+                        </div>
+                    </div>
+
+                    <div class="bundle-additional-info">
+                        <div class="info-tabs">
+                            <button class="tab-btn active" data-tab="features">Features</button>
+                            <button class="tab-btn" data-tab="installation">Installation</button>
+                            <button class="tab-btn" data-tab="compatibility">Compatibility</button>
+                        </div>
+
+                        <div class="tab-panel active" id="featuresPanel">
+                            <ul class="features-list" id="featuresList">
+                                <!-- Features will be added dynamically -->
+                            </ul>
+                        </div>
+
+                        <div class="tab-panel" id="installationPanel">
+                            <!-- Installation guide will be added dynamically -->
+                        </div>
+
+                        <div class="tab-panel" id="compatibilityPanel">
+                            <!-- Compatibility info will be added dynamically -->
+                        </div>
+                    </div>
+
+                    <div class="bundle-buttons">
+                        <button class="add-bundle-btn" id="addToCartBtn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get bundle ID from URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            const bundleId = urlParams.get('id');
+
+            // Bundle data
+            const bundles = {
+                'track-day': {
+                    name: 'Track Day Kit',
+                    description: 'Transform your bike into a track-ready machine with our comprehensive Track Day Kit. Each component is selected for maximum performance and reliability on the circuit.',
+                    originalPrice: 89999,
+                    discountedPrice: 74999,
+                    mainImage: 'images/bundles/track-day-main.jpg',
+                    thumbnails: [
+                        'images/bundles/track-tires.jpg',
+                        'images/bundles/track-brakes.jpg',
+                        'images/bundles/track-quickshifter.jpg',
+                        'images/bundles/track-fairings.jpg'
+                    ],
+                    items: [{
+                        name: 'Racing Slick Tires',
+                        description: 'Maximum grip for track conditions'
+                    }, {
+                        name: 'Performance Brake Pads',
+                        description: 'Enhanced stopping power and fade resistance'
+                    }, {
+                        name: 'Quick-shifter',
+                        description: 'Seamless gear changes for faster lap times'
+                    }, {
+                        name: 'Race Fairings',
+                        description: 'Aerodynamic design for better performance'
+                    }],
+                    specs: [{
+                        label: 'Installation Time',
+                        value: '4-6 hours'
+                    }, {
+                        label: 'Skill Level',
+                        value: 'Intermediate'
+                    }, {
+                        label: 'Warranty',
+                        value: '1 Year'
+                    }, {
+                        label: 'Track Testing',
+                        value: 'Yes'
+                    }],
+                    features: [
+                        'Professional-grade components',
+                        'Track-tested performance',
+                        'Complete installation guide',
+                        'Technical support included'
+                    ],
+                    installation: 'Professional installation recommended. Step-by-step guide included with detailed instructions for each component.',
+                    compatibility: 'Compatible with most sport bikes. Check specific model compatibility before purchase.'
+                },
+                'touring': {
+                    name: 'Touring Pack',
+                    description: 'Enhance your long-distance riding comfort with our carefully curated Touring Pack. Perfect for riders who love to explore.',
+                    originalPrice: 64999,
+                    discountedPrice: 54999,
+                    mainImage: 'images/bundles/touring-main.jpg',
+                    thumbnails: [
+                        'images/bundles/touring-windscreen.jpg',
+                        'images/bundles/touring-seat.jpg',
+                        'images/bundles/touring-saddlebags.jpg',
+                        'images/bundles/touring-tankbag.jpg'
+                    ],
+                    items: [{
+                        name: 'Touring Windscreen',
+                        description: 'Enhanced wind protection for long rides'
+                    }, {
+                        name: 'Comfort Seat',
+                        description: 'Ergonomic design for extended comfort'
+                    }, {
+                        name: 'Saddlebags',
+                        description: 'Waterproof storage solution'
+                    }, {
+                        name: 'Tank Bag',
+                        description: 'Easy access storage for essentials'
+                    }],
+                    specs: [{
+                        label: 'Installation Time',
+                        value: '2-3 hours'
+                    }, {
+                        label: 'Skill Level',
+                        value: 'Beginner'
+                    }, {
+                        label: 'Warranty',
+                        value: '2 Years'
+                    }, {
+                        label: 'Waterproof Rating',
+                        value: 'IP66'
+                    }],
+                    features: [
+                        'All-weather protection',
+                        'Ergonomic design',
+                        'Tool-free installation',
+                        'Lockable storage'
+                    ],
+                    installation: 'Easy DIY installation with basic tools. Detailed manual included.',
+                    compatibility: 'Universal fit for most touring and adventure bikes.'
+                },
+                'adventure': {
+                    name: 'Adventure Kit',
+                    description: 'Built for the off-road enthusiast, our Adventure Kit provides essential protection and visibility for your next expedition.',
+                    originalPrice: 79999,
+                    discountedPrice: 67999,
+                    mainImage: 'images/bundles/adventure-main.jpg',
+                    thumbnails: [
+                        'images/bundles/adventure-tires.jpg',
+                        'images/bundles/adventure-guards.jpg',
+                        'images/bundles/adventure-plate.jpg',
+                        'images/bundles/adventure-lights.jpg'
+                    ],
+                    items: [{
+                        name: 'Off-road Tires',
+                        description: 'All-terrain grip and durability'
+                    }, {
+                        name: 'Crash Guards',
+                        description: 'Robust protection for your bike'
+                    }, {
+                        name: 'Skid Plate',
+                        description: 'Heavy-duty underside protection'
+                    }, {
+                        name: 'LED Fog Lights',
+                        description: 'Enhanced visibility in all conditions'
+                    }],
+                    specs: [{
+                        label: 'Installation Time',
+                        value: '3-4 hours'
+                    }, {
+                        label: 'Skill Level',
+                        value: 'Intermediate'
+                    }, {
+                        label: 'Warranty',
+                        value: '2 Years'
+                    }, {
+                        label: 'Impact Rating',
+                        value: 'Military Grade'
+                    }],
+                    features: [
+                        'Heavy-duty construction',
+                        'Weather-resistant finish',
+                        'Modular design',
+                        'Easy maintenance'
+                    ],
+                    installation: 'Professional installation recommended for optimal fitment and safety.',
+                    compatibility: 'Designed for adventure and dual-sport motorcycles.'
+                }
+            };
+
+            // Get bundle data
+            const bundle = bundles[bundleId];
+            if (!bundle) {
+                window.location.href = 'bundles.html';
+                return;
+            }
+
+            // Update page content
+            document.title = `${bundle.name} - ThrottleGarage`;
+            document.getElementById('bundleTitle').textContent = bundle.name;
+            document.getElementById('bundleDescription').textContent = bundle.description;
+            document.getElementById('originalPrice').textContent = `₹${bundle.originalPrice.toLocaleString()}`;
+            document.getElementById('discountedPrice').textContent = `₹${bundle.discountedPrice.toLocaleString()}`;
+            document.getElementById('savingsAmount').textContent = `Save ₹${(bundle.originalPrice - bundle.discountedPrice).toLocaleString()}`;
+
+            // Update items list
+            const itemsList = document.getElementById('bundleItems');
+            bundle.items.forEach(item => {
+                const li = document.createElement('li');
+                li.innerHTML = `<i class="fas fa-check"></i><strong>${item.name}</strong><p>${item.description}</p>`;
+                itemsList.appendChild(li);
+            });
+
+            // Update specifications
+            const specsGrid = document.getElementById('bundleSpecs');
+            bundle.specs.forEach(spec => {
+                const specItem = document.createElement('div');
+                specItem.className = 'spec-item';
+                specItem.innerHTML = `
+                    <span class="spec-label">${spec.label}</span>
+                    <span class="spec-value">${spec.value}</span>
+                `;
+                specsGrid.appendChild(specItem);
+            });
+
+            // Update features list
+            const featuresList = document.getElementById('featuresList');
+            bundle.features.forEach(feature => {
+                const li = document.createElement('li');
+                li.innerHTML = `<i class="fas fa-check"></i>${feature}`;
+                featuresList.appendChild(li);
+            });
+
+            // Update installation panel
+            document.getElementById('installationPanel').textContent = bundle.installation;
+
+            // Update compatibility panel
+            document.getElementById('compatibilityPanel').textContent = bundle.compatibility;
+
+            // Handle tab switching
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            const tabPanels = document.querySelectorAll('.tab-panel');
+
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const tabId = this.getAttribute('data-tab');
+
+                    // Update active states
+                    tabBtns.forEach(btn => btn.classList.remove('active'));
+                    tabPanels.forEach(panel => panel.classList.remove('active'));
+
+                    this.classList.add('active');
+                    document.getElementById(`${tabId}Panel`).classList.add('active');
+                });
+            });
+
+            // Handle Add to Cart
+            const addToCartBtn = document.getElementById('addToCartBtn');
+            addToCartBtn.addEventListener('click', function() {
+                const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+                cart.push({
+                    id: bundleId,
+                    type: 'bundle',
+                    name: bundle.name,
+                    price: bundle.discountedPrice,
+                    items: bundle.items.map(item => item.name)
+                });
+                localStorage.setItem('cart', JSON.stringify(cart));
+
+                // Update cart count
+                const cartCount = document.querySelector('.cart-count');
+                cartCount.textContent = cart.length;
+                cartCount.classList.add('has-items');
+
+                // Show notification
+                showNotification(`${bundle.name} added to cart!`, 'success');
+
+                // Change button text temporarily
+                const originalText = this.textContent;
+                this.textContent = 'Added to Cart!';
+                this.disabled = true;
+                setTimeout(() => {
+                    this.textContent = originalText;
+                    this.disabled = false;
+                }, 2000);
+            });
+
+            // Notification function
+            function showNotification(message, type = 'success') {
+                const notification = document.createElement('div');
+                notification.className = `notification ${type}`;
+                notification.textContent = message;
+                document.body.appendChild(notification);
+
+                setTimeout(() => {
+                    notification.classList.add('show');
+                }, 100);
+
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                    setTimeout(() => {
+                        notification.remove();
+                    }, 300);
+                }, 3000);
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,125 @@
+/* Font Awesome Local Icons */
+@font-face {
+    font-family: 'Font Awesome 6 Free';
+    font-style: normal;
+    font-weight: 900;
+    src: url('../fonts/fa-solid-900.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Font Awesome 6 Brands';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../fonts/fa-brands-400.woff2') format('woff2');
+}
+
+.fas, .fa-solid {
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+}
+
+.fab, .fa-brands {
+    font-family: 'Font Awesome 6 Brands';
+    font-weight: 400;
+}
+
+.fas, .fa-solid, .fab, .fa-brands {
+    font-style: normal;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    line-height: 1;
+}
+
+/* Common icons used in the project */
+.fa-shopping-cart:before {
+    content: "\f07a";
+}
+
+.fa-user:before {
+    content: "\f007";
+}
+
+.fa-search:before {
+    content: "\f002";
+}
+
+.fa-home:before {
+    content: "\f015";
+}
+
+.fa-motorcycle:before {
+    content: "\f21c";
+}
+
+.fa-camera:before {
+    content: "\f030";
+}
+
+.fa-cog:before {
+    content: "\f013";
+}
+
+.fa-shopping-bag:before {
+    content: "\f290";
+}
+
+.fa-plus:before {
+    content: "\f067";
+}
+
+.fa-phone:before {
+    content: "\f095";
+}
+
+.fa-envelope:before {
+    content: "\f0e0";
+}
+
+.fa-map-marker-alt:before {
+    content: "\f3c5";
+}
+
+.fa-certificate:before {
+    content: "\f0a3";
+}
+
+.fa-shield-alt:before {
+    content: "\f3ed";
+}
+
+.fa-check-circle:before {
+    content: "\f058";
+}
+
+.fa-star:before {
+    content: "\f005";
+}
+
+.fa-robot:before {
+    content: "\f544";
+}
+
+/* Social Media Icons */
+.fa-facebook-f:before {
+    content: "\f39e";
+}
+
+.fa-instagram:before {
+    content: "\f16d";
+}
+
+.fa-twitter:before {
+    content: "\f099";
+}
+
+.fa-youtube:before {
+    content: "\f167";
+}
+
+.fa-tiktok:before {
+    content: "\e07b";
+} 

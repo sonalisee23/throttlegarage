@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listing Details - ThrottleGarage</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .main-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            position: relative;
+        }
+        
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: var(--primary-red);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+        }
+        
+        .back-button:hover {
+            background: #ff2a2a;
+            transform: translateY(-2px);
+        }
+        
+        .listing-details-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+        
+        .listing-gallery {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 20px;
+        }
+        
+        .main-image {
+            aspect-ratio: 16/9;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        
+        .main-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .thumbnail-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+        }
+        
+        .thumbnail {
+            aspect-ratio: 1;
+            border-radius: 5px;
+            overflow: hidden;
+            cursor: pointer;
+            opacity: 0.6;
+            transition: all 0.3s ease;
+        }
+        
+        .thumbnail:hover,
+        .thumbnail.active {
+            opacity: 1;
+        }
+        
+        .thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .listing-info {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 30px;
+        }
+        
+        .listing-title {
+            font-size: 2rem;
+            color: white;
+            margin: 0 0 20px;
+        }
+        
+        .listing-meta {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .meta-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 5px;
+        }
+        
+        .meta-label {
+            color: #999;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+        
+        .meta-value {
+            color: white;
+            font-size: 16px;
+            font-weight: 500;
+        }
+        
+        .listing-price {
+            font-size: 2rem;
+            color: var(--primary-red);
+            font-weight: 600;
+            margin-bottom: 30px;
+        }
+        
+        .listing-description {
+            color: white;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+        
+        .trade-preference {
+            background: rgba(76, 175, 80, 0.1);
+            border: 1px solid rgba(76, 175, 80, 0.2);
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .trade-preference h3 {
+            color: #4CAF50;
+            margin: 0 0 10px;
+            font-size: 18px;
+        }
+        
+        .trade-preference p {
+            color: white;
+            margin: 0;
+            line-height: 1.6;
+        }
+        
+        .seller-info {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+        }
+        
+        .seller-name {
+            color: white;
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+        
+        .member-since {
+            color: #999;
+            font-size: 14px;
+        }
+        
+        .action-buttons {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        
+        .contact-button,
+        .trade-button {
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-button {
+            background: var(--primary-red);
+            color: white;
+        }
+        
+        .contact-button:hover {
+            background: #ff2a2a;
+            transform: translateY(-2px);
+        }
+        
+        .trade-button {
+            background: #4CAF50;
+            color: white;
+        }
+        
+        .trade-button:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+        }
+        
+        .message-thread {
+            display: none;
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            color: white;
+            margin-bottom: 8px;
+        }
+        
+        .form-group textarea {
+            width: 100%;
+            height: 100px;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            color: white;
+            font-size: 15px;
+            resize: vertical;
+        }
+        
+        .messages {
+            margin-top: 30px;
+        }
+        
+        .message {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        
+        .message-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .message-sender {
+            color: white;
+            font-weight: 500;
+        }
+        
+        .message-time {
+            color: #999;
+            font-size: 14px;
+        }
+        
+        .message-content {
+            color: white;
+            line-height: 1.6;
+        }
+        
+        @media (max-width: 768px) {
+            .listing-details-container {
+                grid-template-columns: 1fr;
+            }
+            .action-buttons {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <a href="index.html" class="logo-text">𝕿𝖍𝖗𝖔𝖙𝖙𝖑𝖊𝕲𝖆𝖗𝖆𝖌𝖊</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <div class="listing-details-container">
+            <div class="listing-gallery">
+                <div class="main-image">
+                    <img id="mainImage" src="" alt="Main Image">
+                </div>
+                <div class="thumbnail-grid" id="thumbnailGrid">
+                    <!-- Thumbnails will be dynamically inserted here -->
+                </div>
+            </div>
+
+            <div class="listing-info">
+                <h1 class="listing-title" id="listingTitle"></h1>
+
+                <div class="listing-meta">
+                    <div class="meta-item">
+                        <div class="meta-label">Category</div>
+                        <div class="meta-value" id="listingCategory"></div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="meta-label">Condition</div>
+                        <div class="meta-value" id="listingCondition"></div>
+                    </div>
+                </div>
+
+                <div class="listing-price" id="listingPrice"></div>
+
+                <div class="listing-description" id="listingDescription"></div>
+
+                <div id="tradePreference" style="display: none;">
+                    <h3>Trade Preferences</h3>
+                    <p id="tradePreferenceText"></p>
+                </div>
+
+                <div class="seller-info">
+                    <div class="seller-name" id="sellerName"></div>
+                    <div class="member-since" id="memberSince"></div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="contact-button" id="contactButton">
+                        <i class="fas fa-envelope"></i>
+                        Contact Seller
+                    </button>
+                    <button class="trade-button" id="tradeButton">
+                        <i class="fas fa-exchange-alt"></i>
+                        Propose Trade
+                    </button>
+                </div>
+
+                <div class="message-thread" id="messageThread">
+                    <div class="form-group">
+                        <label for="message">Your Message</label>
+                        <textarea id="message" placeholder="Type your message here..."></textarea>
+                    </div>
+                    <button class="contact-button" id="sendMessage">Send Message</button>
+
+                    <div id="messages">
+                        <!-- Messages will be dynamically inserted here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-phone"></i> +919900899916,+917619645353</p>
+                <p><i class="fas fa-envelope"></i> sonalivernekar20@gmail.com</p>
+                <p><i class="fas fa-map-marker-alt"></i> Dodda Alageri,Ankola,Uttara Kannada, Karnataka 581314</p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/throttlegarage" class="social-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/throttlegarage" class="social-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                    <a href="https://twitter.com/throttlegarage" class="social-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.youtube.com/throttlegarage" class="social-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Business Hours</h3>
+                <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
+                <p>Saturday: 10:00 AM - 4:00 PM</p>
+                <p>Sunday: Closed</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 ThrottleGarage. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async() => {
+            const params = new URLSearchParams(window.location.search);
+            const listingId = params.get('id');
+
+            if (!listingId) {
+                return;
+            }
+
+            // Function to format price
+            function formatPrice(price) {
+                return new Intl.NumberFormat('en-IN', {
+                    style: 'currency',
+                    currency: 'INR'
+                }).format(price);
+            }
+
+            // Function to format date
+            function formatDate(dateString) {
+                const date = new Date(dateString);
+                const options = {
+                    year: 'numeric',
+                    month: 'long'
+                };
+                return date.toLocaleDateString('en-US', options);
+            }
+
+            // Function to create thumbnail
+            function createThumbnail(imagePath, index) {
+                const div = document.createElement('div');
+                div.className = `thumbnail ${index === 0 ? 'active' : ''}`;
+                div.innerHTML = `<img src="/uploads/trade/${imagePath}" alt="Thumbnail ${index + 1}">`;
+
+                div.addEventListener('click', () => {
+                    document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
+                    div.classList.add('active');
+                    document.getElementById('mainImage').src = `/uploads/trade/${imagePath}`;
+                });
+
+                return div;
+            }
+
+            try {
+                // Fetch listing details
+                const response = await fetch(`/api/trade/listings/${listingId}`);
+                if (!response.ok) throw new Error('Failed to fetch listing');
+
+                const listing = await response.json();
+
+                // Update page title and content
+                document.title = `${listing.title} - ThrottleGarage`;
+                listingTitle.textContent = listing.title;
+                listingCategory.textContent = listing.category;
+                listingCondition.textContent = listing.part_condition;
+                listingPrice.textContent = listing.price ? formatPrice(listing.price) : 'Trade Only';
+                listingDescription.textContent = listing.description;
+                sellerName.textContent = listing.seller_name;
+                memberSince.textContent = `Member since ${formatDate(listing.created_at)}`;
+
+                if (listing.trade_preference) {
+                    tradePreference.style.display = 'block';
+                    tradePreferenceText.textContent = listing.trade_preference;
+                }
+
+                if (listing.images) {
+                    const images = JSON.parse(listing.images);
+                    if (images.length > 0) {
+                        mainImage.src = `/uploads/trade/${images[0]}`;
+                        images.forEach((image, index) => {
+                            thumbnailGrid.appendChild(createThumbnail(image, index));
+                        });
+                    }
+                }
+
+                // Check if current user is the seller
+                const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+                if (token) {
+                    const userData = JSON.parse(localStorage.getItem('userData') || sessionStorage.getItem('userData'));
+                    if (userData && userData.id === listing.user_id) {
+                        contactButton.style.display = 'none';
+                        tradeButton.style.display = 'none';
+                    }
+                }
+
+                // Handle contact button click
+                contactButton.addEventListener('click', () => {
+                    const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+                    if (!token) {
+                        alert('Please log in to contact the seller');
+                        sessionStorage.setItem('returnUrl', window.location.href);
+                        window.location.href = 'login.html';
+                        return;
+                    }
+                    messageThread.style.display = 'block';
+                    contactButton.style.display = 'none';
+                });
+
+                // Handle trade button click
+                tradeButton.addEventListener('click', () => {
+                    const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+                    if (!token) {
+                        alert('Please log in to propose a trade');
+                        sessionStorage.setItem('returnUrl', window.location.href);
+                        window.location.href = 'login.html';
+                        return;
+                    }
+                    messageThread.style.display = 'block';
+                    message.value = 'Hi, I\'m interested in trading for your item. ';
+                    tradeButton.style.display = 'none';
+                });
+
+                // Handle message sending
+                sendMessage.addEventListener('click', async() => {
+                    const messageText = message.value.trim();
+                    if (!messageText) return;
+
+                    try {
+                        const response = await fetch('/api/trade/messages', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${token}`
+                            },
+                            body: JSON.stringify({
+                                listing_id: listingId,
+                                receiver_id: listing.user_id,
+                                message: messageText
+                            })
+                        });
+
+                        if (!response.ok) throw new Error('Failed to send message');
+
+                        message.value = '';
+                        alert('Message sent successfully!');
+
+                    } catch (error) {
+                        console.error('Error:', error);
+                        alert('Failed to send message. Please try again.');
+                    }
+                });
+
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Failed to load listing details. Please try again.');
+            }
+        });
+    </script>
+</body>
+
+</html>

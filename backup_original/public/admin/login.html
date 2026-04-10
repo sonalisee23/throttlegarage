@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - SuperBike Mods</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/fontawesome.css">
+    <style>
+        /* Admin-specific styles */
+        .admin-login-container {
+            max-width: 400px;
+            margin: 100px auto;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .admin-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .admin-header h1 {
+            color: var(--primary-red);
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .admin-form input {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 12px 15px;
+            border-radius: 5px;
+            width: 100%;
+            margin-bottom: 20px;
+            color: white;
+        }
+        
+        .admin-form input:focus {
+            border-color: var(--primary-red);
+            outline: none;
+        }
+        
+        .admin-form button {
+            background: var(--primary-red);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 5px;
+            width: 100%;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        
+        .admin-form button:hover {
+            background: #ff3333;
+        }
+        
+        .admin-footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .error-message {
+            background: rgba(255, 0, 0, 0.1);
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            color: #ff6666;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-login-container">
+        <div class="admin-header">
+            <h1>SuperBike Mods</h1>
+            <p>Admin Panel</p>
+        </div>
+        
+        <div id="errorMessage" class="error-message"></div>
+        
+        <form class="admin-form" id="adminLoginForm">
+            <input type="text" id="adminUsername" placeholder="Username" required>
+            <input type="password" id="adminPassword" placeholder="Password" required>
+            <button type="submit">Login</button>
+        </form>
+        
+        <div class="admin-footer">
+            <p>&copy; 2024 SuperBike Mods. Admin Portal</p>
+            <p><a href="../index.html" style="color: rgba(255, 255, 255, 0.6);">Return to Site</a></p>
+        </div>
+    </div>
+    
+    <script>
+        document.getElementById('adminLoginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('adminUsername').value;
+            const password = document.getElementById('adminPassword').value;
+            
+            try {
+                const response = await fetch('/api/admin/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+
+                const result = await response.json();
+
+                if (response.ok && result.success && result.token) {
+                    // Store the admin token and authentication flag
+                    localStorage.setItem('adminToken', result.token);
+                    localStorage.setItem('adminAuthenticated', 'true');
+                    
+                    // Redirect to dashboard or saved URL
+                    const redirectUrl = sessionStorage.getItem('adminRedirectUrl') || 'dashboard.html';
+                    sessionStorage.removeItem('adminRedirectUrl');
+                    window.location.href = redirectUrl;
+                } else {
+                    throw new Error(result.message || 'Invalid username or password!');
+                }
+            } catch (err) {
+                const errorMsg = document.getElementById('errorMessage');
+                errorMsg.textContent = err.message;
+                errorMsg.style.display = 'block';
+                setTimeout(() => { errorMsg.style.display = 'none'; }, 3000);
+            }
+        });
+    </script>
+</body>
+</html> 

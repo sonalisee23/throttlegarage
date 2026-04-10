@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>𝕿𝖍𝖗𝖔𝖙𝖙𝖑𝖊𝕲𝖆𝖗𝖆𝖌𝖊</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .contact-hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=1920&h=600') center/cover;
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .contact-hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: linear-gradient(to top, var(--bg-color), transparent);
+        }
+        
+        .contact-hero h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .contact-hero p {
+            font-size: 1.2em;
+            max-width: 800px;
+            margin: 0 auto;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        
+        .contact-container {
+            max-width: 1200px;
+            margin: -40px auto 40px;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 40px;
+        }
+        
+        .contact-info {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 40px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .contact-info h3 {
+            color: var(--primary-red);
+            margin-bottom: 30px;
+            font-size: 28px;
+            position: relative;
+        }
+        
+        .contact-info h3::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--primary-red);
+            border-radius: 2px;
+        }
+        
+        .contact-info-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .contact-info-item:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        
+        .contact-info-item i {
+            font-size: 28px;
+            color: var(--primary-red);
+            margin-right: 20px;
+            width: 30px;
+            margin-top: 3px;
+        }
+        
+        .contact-info-item h4 {
+            color: var(--text-color);
+            margin: 0 0 10px 0;
+            font-size: 20px;
+            font-weight: 600;
+        }
+        
+        .contact-info-item p {
+            margin: 0;
+            color: var(--text-color);
+            line-height: 1.6;
+            font-size: 16px;
+        }
+        
+        .contact-info-item div {
+            flex: 1;
+        }
+        
+        .contact-form {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 40px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            color: var(--text-color);
+            font-weight: 500;
+            font-size: 16px;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            font-size: 16px;
+            color: var(--text-color);
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-red);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        
+        .form-group textarea {
+            height: 150px;
+            resize: vertical;
+        }
+        
+        .submit-btn {
+            background: var(--primary-red);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .submit-btn:hover::before {
+            left: 100%;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
+        }
+        
+        .map-container {
+            margin-top: 60px;
+            border-radius: 20px;
+            overflow: hidden;
+            height: 400px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        .success-message {
+            display: none;
+            background: #4CAF50;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            text-align: center;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            .contact-hero h1 {
+                font-size: 2.5em;
+            }
+            .contact-hero p {
+                font-size: 1.1em;
+            }
+            .contact-info,
+            .contact-form {
+                padding: 30px;
+            }
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const contactForm = document.querySelector('.contact-form form');
+            const successMessage = document.querySelector('.success-message');
+
+            if (contactForm) {
+                contactForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+
+                    const formData = {
+                        name: this.querySelector('input[name="name"]').value,
+                        email: this.querySelector('input[name="email"]').value,
+                        subject: this.querySelector('input[name="subject"]').value,
+                        message: this.querySelector('textarea[name="message"]').value
+                    };
+
+                    try {
+                        const response = await fetch('/api/contact/submit', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(formData)
+                        });
+
+                        const data = await response.json();
+
+                        if (response.ok) {
+                            // Show success message
+                            successMessage.style.display = 'block';
+                            successMessage.textContent = 'Message sent successfully!';
+
+                            // Clear form
+                            contactForm.reset();
+
+                            // Hide success message after 5 seconds
+                            setTimeout(() => {
+                                successMessage.style.display = 'none';
+                            }, 5000);
+                        } else {
+                            throw new Error(data.message || 'Failed to send message');
+                        }
+                    } catch (error) {
+                        console.error('Error:', error);
+                        alert('Failed to send message: ' + error.message);
+                    }
+                });
+            }
+        });
+    </script>
+</head>
+
+<body>
+    <header>
+        <div class="header-container">
+            <button class="menu-btn" id="menuBtn" aria-label="Toggle Menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="logo">
+                <a href="index.html" class="logo-text">𝕿𝖍𝖗𝖔𝖙𝖙𝖑𝖊𝕲𝖆𝖗𝖆𝖌𝖊</a>
+            </div>
+
+            <div class="search-container">
+                <form id="searchForm" onsubmit="handleSearch(event)">
+                    <input type="text" id="searchInput" placeholder="Search bikes, parts, and accessories...">
+                    <button type="submit">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+                <div id="searchResults" class="search-results"></div>
+            </div>
+
+            <div class="header-actions">
+                <a href="about.html" class="info-link">
+                    <i class="fas fa-info-circle"></i>
+                    <span>About Us</span>
+                </a>
+                <a href="contact.html" class="info-link active">
+                    <i class="fas fa-envelope"></i>
+                    <span>Contact</span>
+                </a>
+                <a href="returns.html" class="info-link">
+                    <i class="fas fa-undo-alt"></i>
+                    <span>Returns</span>
+                </a>
+                <a href="register.html" class="account-link">
+                    <i class="fas fa-user"></i>
+                </a>
+                <a href="cart.html" class="cart-link">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <nav class="main-navigation">
+        <div class="nav-container">
+            <ul>
+                <li><a href="index.html">HOME</a></li>
+                <li><a href="shop-by-bike.html">SHOP BY BIKE</a></li>
+                <li><a href="helmets.html">HELMETS</a></li>
+                <li><a href="riding-gear.html">RIDING GEAR</a></li>
+                <li><a href="bike-parts.html">BIKE PARTS</a></li>
+                <li><a href="apparel.html">APPAREL</a></li>
+                <li><a href="throttletalk.html">THROTTLETALK</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <section class="contact-hero">
+            <div class="container">
+                <h1>Get in Touch</h1>
+                <p>Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
+            </div>
+        </section>
+
+        <div class="contact-container">
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3>Contact Information</h3>
+                    <div class="contact-info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Location</h4>
+                            <p>Dodda Alageri,Ankola,Uttara Kannada, Karnataka 581314</p>
+                        </div>
+                    </div>
+                    <div class="contact-info-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h4>Phone</h4>
+                            <p>+919900899916 ,+917619645353</p>
+                        </div>
+                    </div>
+                    <div class="contact-info-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email</h4>
+                            <p>sonalivernekar20@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-info-item">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <h4>Business Hours</h4>
+                            <p>Monday - Friday: 9:00 AM - 6:00 PM<br> Saturday: 10:00 AM - 4:00 PM<br> Sunday: Closed</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-form">
+                    <form id="contactForm" onsubmit="handleSubmit(event)">
+                        <div class="form-group">
+                            <label for="name">Your Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" name="subject" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Send Message</button>
+                        <div class="success-message" style="display: none;"></div>
+                    </form>
+                    <div id="successMessage" class="success-message">
+                        Thank you for your message. We'll get back to you soon!
+                    </div>
+                </div>
+            </div>
+
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d248849.90089870957!2d77.46612708649594!3d12.95394561473644!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sbtm%20layout%20!5e0!3m2!1sen!2sin!4v1774327797110!5m2!1sen!2sin" width="600" height="450"
+                    style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </main>
+
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-phone"></i> +919900899916 ,+917619645353</p>
+                <p><i class="fas fa-envelope"></i> sonalivernekar20@gmail.com</p>
+                <p><i class="fas fa-map-marker-alt"></i> Dodda Alageri,Ankola,Uttara Kannada, Karnataka 581314</p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/throttlegarage" class="social-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/throttlegarage" class="social-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                    <a href="https://twitter.com/throttlegarage" class="social-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.youtube.com/throttlegarage" class="social-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Business Hours</h3>
+                <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
+                <p>Saturday: 10:00 AM - 4:00 PM</p>
+                <p>Sunday: Closed</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 ThrottleGarage. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const contactForm = document.querySelector('.contact-form form');
+            const successMessage = document.querySelector('.success-message');
+
+            contactForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+
+                const formData = {
+                    name: this.querySelector('input[name="name"]').value,
+                    email: this.querySelector('input[name="email"]').value,
+                    subject: this.querySelector('input[name="subject"]').value,
+                    message: this.querySelector('textarea[name="message"]').value
+                };
+
+                try {
+                    const response = await fetch('/api/contact/submit', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(formData)
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok) {
+                        // Show success message
+                        successMessage.style.display = 'block';
+                        successMessage.textContent = 'Message sent successfully!';
+
+                        // Clear form
+                        contactForm.reset();
+
+                        // Hide success message after 5 seconds
+                        setTimeout(() => {
+                            successMessage.style.display = 'none';
+                        }, 5000);
+                    } else {
+                        throw new Error(data.message || 'Failed to send message');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('Failed to send message: ' + error.message);
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

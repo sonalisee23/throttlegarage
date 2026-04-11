@@ -284,7 +284,6 @@ function loadOrdersData(orders) {
                 <td><span class="status-badge status-${order.status ?? 'pending'}">${capitalizeFirstLetter(order.status ?? 'pending')}</span></td>
                 <td>
                     <div class="action-buttons">
-                        <button class="action-btn view-btn" data-order-id="${order.id}"><i class="fas fa-eye"></i></button>
                         <button class="action-btn edit-btn" data-order-id="${order.id}"><i class="fas fa-edit"></i></button>
                         <button class="action-btn delete-btn" data-order-id="${order.id}"><i class="fas fa-trash"></i></button>
                     </div>
@@ -349,16 +348,41 @@ function setupEventListeners() {
             }
         }
 
-        // Edit order button handler
+        // // Edit order button handler
+        // else if (e.target.closest('.edit-btn[data-order-id]')) {
+        //     const button = e.target.closest('.edit-btn[data-order-id]');
+        //     const orderId = button.getAttribute('data-order-id');
+        //     const order = allOrders.find(o => o.id === orderId);
+
+        //     if (order) {
+        //         showEditOrderForm(order);
+        //     }
+        // }
         else if (e.target.closest('.edit-btn[data-order-id]')) {
             const button = e.target.closest('.edit-btn[data-order-id]');
             const orderId = button.getAttribute('data-order-id');
-            const order = allOrders.find(o => o.id === orderId);
 
-            if (order) {
+            try {
+                const token = localStorage.getItem('adminToken');
+
+                // ✅ Fetch latest order from DB
+                const res = await fetch(`/api/admin/orders/${orderId}`, {
+                    headers: { 'auth-token': token }
+                });
+
+                if (!res.ok) throw new Error('Failed to fetch order');
+
+                const order = await res.json();
+
+                // ✅ Open modal with real data
                 showEditOrderForm(order);
+
+            } catch (err) {
+                alert('Error fetching order: ' + err.message);
             }
         }
+
+
         // Delete order button handler
         else if (e.target.closest('.delete-btn[data-order-id]')) {
             const button = e.target.closest('.delete-btn[data-order-id]');
@@ -418,63 +442,123 @@ function setupEventListeners() {
     // Edit order form submission
     const editOrderForm = document.getElementById('editOrderForm');
     if (editOrderForm) {
+        // editOrderForm.addEventListener('submit', async function(e) {
+
+        //     const token = localStorage.getItem('adminToken');
+
+        //     const res = await fetch(`/api/admin/orders/${orderId}`, {
+        //         method: 'PUT',
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //             'auth-token': token
+        //         },
+        //         body: JSON.stringify({ status })
+        //     });
+
+        //     if (!res.ok) throw new Error('Update failed');
+
+        //     // update UI
+        //     const index = allOrders.findIndex(o => o.id === orderId);
+        //     if (index !== -1) {
+        //         allOrders[index].status = status;
+        //         loadOrdersData(allOrders);
+        //     }
+
+        // });
+
+        // editOrderForm.addEventListener('submit', async function(e) {
+        //     e.preventDefault(); // ✅ VERY IMPORTANT
+
+        //     const orderId = this.getAttribute('data-order-id'); // ✅ FIX
+        //     const status = document.getElementById('orderStatus').value; // ✅ FIX
+        //     const token = localStorage.getItem('adminToken');
+
+        //     try {
+        //         const res = await fetch(`/api/admin/orders/${orderId}`, {
+        //             method: 'PUT',
+        //             headers: {
+        //                 'Content-Type': 'application/json',
+        //                 'auth-token': token
+        //             },
+        //             body: JSON.stringify({ status })
+        //         });
+
+        //         if (!res.ok) throw new Error('Update failed');
+
+        //         // ✅ Update UI
+        //         const index = allOrders.findIndex(o => o.id == orderId);
+        //         if (index !== -1) {
+        //             allOrders[index].status = status;
+        //             loadOrdersData(allOrders);
+        //         }
+
+        //         // ✅ Close modal
+        //         closeModal(document.getElementById('editOrderModal'));
+
+        //         alert('Order updated successfully!');
+
+        //     } catch (err) {
+        //         alert('Error updating order: ' + err.message);
+        //     }
+        // });
+
+
         editOrderForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
 
-            // e.preventDefault();
-
-            // // Get selected order status
-            // const status = document.getElementById('orderStatus').value;
-            // const orderId = this.getAttribute('data-order-id');
-
-            // // Update order status in the sample data
-            // const orderIndex = sampleOrders.findIndex(o => o.id === orderId);
-            // if (orderIndex !== -1) {
-            //     sampleOrders[orderIndex].status = status;
-
-            //     // Refresh orders table
-            //     loadOrdersData(sampleOrders);
-
-            //     // Update status in the dashboard table if present
-            //     const dashboardOrderRow = document.querySelector(`#dashboard-section tr[data-order-id="${orderId}"]`);
-            //     if (dashboardOrderRow) {
-            //         const statusCell = dashboardOrderRow.querySelector('td:nth-child(5)');
-            //         if (statusCell) {
-            //             statusCell.innerHTML = `<span class="status-badge status-${status}">${capitalizeFirstLetter(status)}</span>`;
-            //         }
-            //     }
-
-            //     // Close modal
-            //     closeModal(document.getElementById('editOrderModal'));
-
-            //     // Show success message
-            //     alert('Order status updated successfully!');
-            // }
-
-
-
-
+            const orderId = this.getAttribute('data-order-id');
+            const status = document.getElementById('orderStatus').value;
             const token = localStorage.getItem('adminToken');
 
-            const res = await fetch(`/api/admin/orders/${orderId}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'auth-token': token
-                },
-                body: JSON.stringify({ status })
-            });
+            try {
+                const res = await fetch(`/api/admin/orders/${orderId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'auth-token': token
+                    },
+                    body: JSON.stringify({ status })
+                });
 
-            if (!res.ok) throw new Error('Update failed');
+                // if (!res.ok) throw new Error('Update failed');
 
-            // update UI
-            const index = allOrders.findIndex(o => o.id === orderId);
-            if (index !== -1) {
-                allOrders[index].status = status;
-                loadOrdersData(allOrders);
+                // // ✅ Reload fresh data from DB
+                // const updatedOrders = await fetchAdminOrders();
+                // allOrders = updatedOrders;
+                // loadOrdersData(allOrders);
+
+                // // ✅ Close modal
+                // closeModal(document.getElementById('editOrderModal'));
+
+                // alert('Order updated successfully!');
+
+                if (!res.ok) throw new Error('Update failed');
+
+                // ✅ STEP 1: Fetch fresh data from DB
+                const [stats, orders] = await Promise.all([
+                    fetchAdminStats(),
+                    fetchAdminOrders()
+                ]);
+
+                // ✅ STEP 2: Update global data
+                allOrders = orders;
+
+                // ✅ STEP 3: Refresh UI everywhere
+                loadOrdersData(allOrders); // Orders page
+                renderRecentOrders(allOrders); // Dashboard table
+                renderDashboardCards(stats); // Dashboard stats
+
+                // ✅ STEP 4: Close modal
+                closeModal(document.getElementById('editOrderModal'));
+
+                alert('Order updated successfully!');
+
+            } catch (err) {
+                alert('Error updating order: ' + err.message);
             }
-
-
         });
+
+
     }
 }
 
@@ -502,7 +586,7 @@ function showOrderDetails(order) {
             <p><strong>Phone:</strong> ${order.phone}</p>
             <p><strong>Address:</strong> ${order.address}</p>
             <p><strong>Date:</strong> ${order.date}</p>
-            <p><strong>Status:</strong> <span class="status-badge status-${order.status}">${capitalizeFirstLetter(order.status)}</span></p>
+            <p><strong>Status:</strong> <span class="status-badge status-${order.status}">${formatStatus(order.status)}</span></p>
         </div>
         
         <h3>Order Items</h3>
@@ -530,18 +614,41 @@ function showOrderDetails(order) {
     openModal(document.getElementById('viewOrderModal'));
 }
 
-// Show edit order form in modal
+function formatStatus(status) {
+    if (status === 'delivered') return 'Completed';
+    if (status === 'cancelled') return 'Rejected';
+    return capitalizeFirstLetter(status);
+}
+
+// // Show edit order form in modal
+// function showEditOrderForm(order) {
+//     const editOrderForm = document.getElementById('editOrderForm');
+//     const orderStatus = document.getElementById('orderStatus');
+
+//     // Set form data attribute
+//     editOrderForm.setAttribute('data-order-id', order.id);
+
+//     // Set selected status
+//     orderStatus.value = order.status;
+
+//     // Open modal
+//     openModal(document.getElementById('editOrderModal'));
+// }
+
 function showEditOrderForm(order) {
     const editOrderForm = document.getElementById('editOrderForm');
     const orderStatus = document.getElementById('orderStatus');
 
-    // Set form data attribute
+    // ✅ store order id
     editOrderForm.setAttribute('data-order-id', order.id);
 
-    // Set selected status
+    // ✅ set values
     orderStatus.value = order.status;
 
-    // Open modal
+    // (optional future fields)
+    // document.getElementById('customerName').value = order.customer;
+
+    // ✅ open modal
     openModal(document.getElementById('editOrderModal'));
 }
 
@@ -649,7 +756,6 @@ function renderRecentOrders(orders) {
             <td><span class="status-badge status-${order.status ?? 'pending'}">${capitalizeFirstLetter(order.status ?? 'pending')}</span></td>
             <td>
                 <div class="action-buttons">
-                    <button class="action-btn view-btn" data-order-id="${order.id}"><i class="fas fa-eye"></i></button>
                     <button class="action-btn edit-btn" data-order-id="${order.id}"><i class="fas fa-edit"></i></button>
                 </div>
             </td>

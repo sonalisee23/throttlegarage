@@ -166,29 +166,62 @@ router.get('/orders', verifyAdminToken, async(req, res) => {
     }
 });
 
-// Get a specific order
+// // Get a specific order
+// router.get('/orders/:id', verifyAdminToken, async(req, res) => {
+//     try {
+//         const orderId = req.params.id;
+
+//         // For demo purposes, return dummy order
+//         // In production, this would come from the database
+//         const order = {
+//             id: orderId,
+//             customer: 'John Doe',
+//             email: 'john.doe@example.com',
+//             date: '2024-05-15',
+//             amount: 432.99,
+//             status: 'completed',
+//             items: [
+//                 { id: 1, name: 'Racing Exhaust System', price: 899.99, quantity: 1 },
+//                 { id: 2, name: 'Performance ECU Tuner', price: 699.99, quantity: 1 }
+//             ],
+//             address: '123 Main St, New York, NY 10001',
+//             phone: '(555) 123-4567'
+//         };
+
+//         res.json(order);
+//     } catch (err) {
+//         res.status(500).json({ message: err.message });
+//     }
+// });
+
 router.get('/orders/:id', verifyAdminToken, async(req, res) => {
     try {
         const orderId = req.params.id;
 
-        // For demo purposes, return dummy order
-        // In production, this would come from the database
-        const order = {
-            id: orderId,
-            customer: 'John Doe',
-            email: 'john.doe@example.com',
-            date: '2024-05-15',
-            amount: 432.99,
-            status: 'completed',
-            items: [
-                { id: 1, name: 'Racing Exhaust System', price: 899.99, quantity: 1 },
-                { id: 2, name: 'Performance ECU Tuner', price: 699.99, quantity: 1 }
-            ],
-            address: '123 Main St, New York, NY 10001',
-            phone: '(555) 123-4567'
-        };
+        // Get order + user
+        const [
+            [order]
+        ] = await db.pool.query(`
+            SELECT o.*, u.fullName as customer, u.email
+            FROM orders o
+            JOIN users u ON o.user_id = u.id
+            WHERE o.id = ?
+        `, [orderId]);
 
-        res.json(order);
+        if (!order) {
+            return res.status(404).json({ message: 'Order not found' });
+        }
+
+        res.json({
+            id: order.id,
+            customer: order.customer,
+            email: order.email,
+            date: order.created_at.toISOString().split('T')[0],
+            amount: Number(order.total_amount),
+            status: order.status,
+            address: order.shipping_address
+        });
+
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
@@ -196,27 +229,13 @@ router.get('/orders/:id', verifyAdminToken, async(req, res) => {
 
 // Update an order
 router.put('/orders/:id', verifyAdminToken, async(req, res) => {
-    // try {
-    //     const orderId = req.params.id;
-    //     const { status } = req.body;
-
-    //     // For demo purposes, just return success
-    //     // In production, this would update the database
-    //     res.json({
-    //         success: true,
-    //         message: `Order ${orderId} updated successfully`,
-    //         order: {
-    //             id: orderId,
-    //             status
-    //         }
-    //     });
-    // } catch (err) {
-    //     res.status(500).json({ message: err.message });
-    // }
-
     try {
         const orderId = req.params.id;
-        const { status } = req.body;
+        let { status } = req.body;
+
+        // ✅ Map frontend values to DB values
+        if (status === 'completed') status = 'delivered';
+        if (status === 'rejected') status = 'cancelled';
 
         await db.pool.query(
             'UPDATE orders SET status = ? WHERE id = ?', [status, orderId]

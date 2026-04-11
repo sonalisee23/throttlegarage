@@ -166,34 +166,6 @@ router.get('/orders', verifyAdminToken, async(req, res) => {
     }
 });
 
-// // Get a specific order
-// router.get('/orders/:id', verifyAdminToken, async(req, res) => {
-//     try {
-//         const orderId = req.params.id;
-
-//         // For demo purposes, return dummy order
-//         // In production, this would come from the database
-//         const order = {
-//             id: orderId,
-//             customer: 'John Doe',
-//             email: 'john.doe@example.com',
-//             date: '2024-05-15',
-//             amount: 432.99,
-//             status: 'completed',
-//             items: [
-//                 { id: 1, name: 'Racing Exhaust System', price: 899.99, quantity: 1 },
-//                 { id: 2, name: 'Performance ECU Tuner', price: 699.99, quantity: 1 }
-//             ],
-//             address: '123 Main St, New York, NY 10001',
-//             phone: '(555) 123-4567'
-//         };
-
-//         res.json(order);
-//     } catch (err) {
-//         res.status(500).json({ message: err.message });
-//     }
-// });
-
 router.get('/orders/:id', verifyAdminToken, async(req, res) => {
     try {
         const orderId = req.params.id;
@@ -294,21 +266,22 @@ router.get('/users/:id', verifyAdminToken, async(req, res) => {
     try {
         const userId = req.params.id;
 
-        // For demo purposes, return dummy user
-        // In production, this would come from the database
-        const user = {
-            id: userId,
-            name: 'John Doe',
-            email: 'john.doe@example.com',
-            registeredDate: '2024-01-15',
-            status: 'active',
-            orders: 5,
-            phone: '(555) 123-4567',
-            address: '123 Main St, New York, NY 10001'
-        };
+        console.log('Fetching user:', userId);
+
+        const [
+            [user]
+        ] = await db.pool.query(
+            'SELECT id, fullName as name, email, created_at as registeredDate, status FROM users WHERE id = ?', [userId]
+        );
+
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
 
         res.json(user);
+
     } catch (err) {
+        console.error('User fetch error:', err);
         res.status(500).json({ message: err.message });
     }
 });
@@ -319,16 +292,36 @@ router.put('/users/:id', verifyAdminToken, async(req, res) => {
         const userId = req.params.id;
         const { status } = req.body;
 
-        // For demo purposes, just return success
-        // In production, this would update the database
+        await db.pool.query(
+            'UPDATE users SET status = ? WHERE id = ?', [status, userId]
+        );
+
         res.json({
             success: true,
-            message: `User ${userId} updated successfully`,
-            user: {
-                id: userId,
-                status
-            }
+            message: 'User updated successfully'
         });
+
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
+//Delete User
+
+router.delete('/users/:id', verifyAdminToken, async(req, res) => {
+    try {
+        const userId = req.params.id;
+
+        const [result] = await db.pool.query(
+            'DELETE FROM users WHERE id = ?', [userId]
+        );
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        res.json({ success: true, message: 'User deleted successfully' });
+
     } catch (err) {
         res.status(500).json({ message: err.message });
     }

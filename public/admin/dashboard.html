@@ -620,7 +620,32 @@
         </div>
     </div>
 
-    <script src="js/admin.js"></script>
+    <!-- Edit User Modal -->
+    <div id="editUserModal" class="modal">
+        <div class="modal-content">
+            <button class="close-modal">&times;</button>
+            <div class="modal-header">
+                <h2 class="modal-title">Edit User</h2>
+            </div>
+
+            <form id="editUserForm">
+                <div class="form-group">
+                    <label for="userStatus">User Status</label>
+                    <select id="userStatus" class="form-control">
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+                </select>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Update User</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="./js/admin.js"></script>
 </body>
 
 </html>

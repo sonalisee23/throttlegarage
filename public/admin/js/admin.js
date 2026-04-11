@@ -313,7 +313,6 @@ function loadUsersData(users) {
                 <td><span class="status-badge ${(user.status === 'active' ? 'status-completed' : 'status-cancelled')}">${capitalizeFirstLetter(user.status ?? 'inactive')}</span></td>
                 <td>
                     <div class="action-buttons">
-                        <button class="action-btn view-btn" data-user-id="${user.id}"><i class="fas fa-eye"></i></button>
                         <button class="action-btn edit-btn" data-user-id="${user.id}"><i class="fas fa-edit"></i></button>
                         <button class="action-btn delete-btn" data-user-id="${user.id}"><i class="fas fa-trash"></i></button>
                     </div>
@@ -326,6 +325,9 @@ function loadUsersData(users) {
 
 // Setup all event listeners
 function setupEventListeners() {
+
+    // const editUserForm = document.getElementById('editUserForm');
+
     // Logout button
     const logoutBtn = document.getElementById('logoutBtn');
     if (logoutBtn) {
@@ -335,37 +337,20 @@ function setupEventListeners() {
         });
     }
 
-    // View order buttons - use event delegation for buttons that may be loaded dynamically
     document.addEventListener('click', async function(e) {
-        // View order button handler
-        if (e.target.closest('.view-btn[data-order-id]')) {
-            const button = e.target.closest('.view-btn[data-order-id]');
-            const orderId = button.getAttribute('data-order-id');
-            const order = allOrders.find(o => o.id === orderId);
 
-            if (order) {
-                showOrderDetails(order);
-            }
-        }
+        const editOrderBtn = e.target.closest('.edit-btn');
+        const deleteOrderBtn = e.target.closest('.delete-btn');
 
-        // // Edit order button handler
-        // else if (e.target.closest('.edit-btn[data-order-id]')) {
-        //     const button = e.target.closest('.edit-btn[data-order-id]');
-        //     const orderId = button.getAttribute('data-order-id');
-        //     const order = allOrders.find(o => o.id === orderId);
-
-        //     if (order) {
-        //         showEditOrderForm(order);
-        //     }
-        // }
-        else if (e.target.closest('.edit-btn[data-order-id]')) {
-            const button = e.target.closest('.edit-btn[data-order-id]');
-            const orderId = button.getAttribute('data-order-id');
+        // =======================
+        // ✅ EDIT ORDER
+        // =======================
+        if (editOrderBtn && editOrderBtn.dataset.orderId) {
+            const orderId = editOrderBtn.dataset.orderId;
 
             try {
                 const token = localStorage.getItem('adminToken');
 
-                // ✅ Fetch latest order from DB
                 const res = await fetch(`/api/admin/orders/${orderId}`, {
                     headers: { 'auth-token': token }
                 });
@@ -373,8 +358,6 @@ function setupEventListeners() {
                 if (!res.ok) throw new Error('Failed to fetch order');
 
                 const order = await res.json();
-
-                // ✅ Open modal with real data
                 showEditOrderForm(order);
 
             } catch (err) {
@@ -382,37 +365,126 @@ function setupEventListeners() {
             }
         }
 
+        // =======================
+        // ✅ DELETE ORDER
+        // =======================
+        else if (deleteOrderBtn && deleteOrderBtn.dataset.orderId) {
+            const orderId = deleteOrderBtn.dataset.orderId;
 
-        // Delete order button handler
-        else if (e.target.closest('.delete-btn[data-order-id]')) {
-            const button = e.target.closest('.delete-btn[data-order-id]');
-
-            const orderId = button.getAttribute('data-order-id');
-
-            if (confirm('Are you sure you want to delete this order?')) {
+            if (confirm('Delete this order?')) {
                 try {
                     const token = localStorage.getItem('adminToken');
 
                     const res = await fetch(`/api/admin/orders/${orderId}`, {
                         method: 'DELETE',
-                        headers: {
-                            'auth-token': token
-                        }
+                        headers: { 'auth-token': token }
                     });
 
                     if (!res.ok) throw new Error('Delete failed');
 
-                    // Remove from UI
                     allOrders = allOrders.filter(o => o.id !== orderId);
                     loadOrdersData(allOrders);
 
-                    alert('Order deleted successfully!');
+                    alert('Order deleted!');
                 } catch (err) {
-                    alert('Error deleting order: ' + err.message);
+                    alert('Error: ' + err.message);
                 }
             }
         }
+
+        // =======================
+        // ✅ EDIT USER (FIXED)
+        // =======================
+        else if (editOrderBtn && editOrderBtn.dataset.userId) {
+            const userId = editOrderBtn.dataset.userId;
+
+            console.log("Edit user clicked:", userId); // DEBUG
+
+            try {
+                const token = localStorage.getItem('adminToken');
+
+                const res = await fetch(`/api/admin/users/${userId}`, {
+                    headers: { 'auth-token': token }
+                });
+
+                if (!res.ok) throw new Error('Failed to fetch user');
+
+                const user = await res.json();
+
+                console.log("User fetched:", user); // DEBUG
+
+                showEditUserForm(user);
+
+            } catch (err) {
+                alert('Error fetching user: ' + err.message);
+            }
+        }
+
+        // =======================
+        // ✅ DELETE USER
+        // =======================
+        else if (deleteOrderBtn && deleteOrderBtn.dataset.userId) {
+            const userId = deleteOrderBtn.dataset.userId;
+
+            if (confirm('Delete this user?')) {
+                try {
+                    const token = localStorage.getItem('adminToken');
+
+                    const res = await fetch(`/api/admin/users/${userId}`, {
+                        method: 'DELETE',
+                        headers: { 'auth-token': token }
+                    });
+
+                    if (!res.ok) throw new Error('Delete failed');
+
+                    const users = await fetchAdminUsers();
+                    loadUsersData(users);
+
+                    alert('User deleted!');
+                } catch (err) {
+                    alert('Error: ' + err.message);
+                }
+            }
+        }
+
     });
+
+    // ✅ FIXED: User Edit Submit (OUTSIDE click)
+    const editUserForm = document.getElementById('editUserForm');
+
+    if (editUserForm) {
+        editUserForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const userId = this.getAttribute('data-user-id');
+            const status = document.getElementById('userStatus').value;
+            const token = localStorage.getItem('adminToken');
+
+            console.log("Submitting user update:", userId, status); // DEBUG
+
+            try {
+                const res = await fetch(`/api/admin/users/${userId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'auth-token': token
+                    },
+                    body: JSON.stringify({ status })
+                });
+
+                if (!res.ok) throw new Error('Update failed');
+
+                const users = await fetchAdminUsers();
+                loadUsersData(users);
+
+                closeModal(document.getElementById('editUserModal'));
+
+                alert('User updated successfully!');
+            } catch (err) {
+                alert('Error updating user: ' + err.message);
+            }
+        });
+    }
 
     // Modal close buttons
     document.querySelectorAll('.close-modal').forEach(btn => {
@@ -442,66 +514,6 @@ function setupEventListeners() {
     // Edit order form submission
     const editOrderForm = document.getElementById('editOrderForm');
     if (editOrderForm) {
-        // editOrderForm.addEventListener('submit', async function(e) {
-
-        //     const token = localStorage.getItem('adminToken');
-
-        //     const res = await fetch(`/api/admin/orders/${orderId}`, {
-        //         method: 'PUT',
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //             'auth-token': token
-        //         },
-        //         body: JSON.stringify({ status })
-        //     });
-
-        //     if (!res.ok) throw new Error('Update failed');
-
-        //     // update UI
-        //     const index = allOrders.findIndex(o => o.id === orderId);
-        //     if (index !== -1) {
-        //         allOrders[index].status = status;
-        //         loadOrdersData(allOrders);
-        //     }
-
-        // });
-
-        // editOrderForm.addEventListener('submit', async function(e) {
-        //     e.preventDefault(); // ✅ VERY IMPORTANT
-
-        //     const orderId = this.getAttribute('data-order-id'); // ✅ FIX
-        //     const status = document.getElementById('orderStatus').value; // ✅ FIX
-        //     const token = localStorage.getItem('adminToken');
-
-        //     try {
-        //         const res = await fetch(`/api/admin/orders/${orderId}`, {
-        //             method: 'PUT',
-        //             headers: {
-        //                 'Content-Type': 'application/json',
-        //                 'auth-token': token
-        //             },
-        //             body: JSON.stringify({ status })
-        //         });
-
-        //         if (!res.ok) throw new Error('Update failed');
-
-        //         // ✅ Update UI
-        //         const index = allOrders.findIndex(o => o.id == orderId);
-        //         if (index !== -1) {
-        //             allOrders[index].status = status;
-        //             loadOrdersData(allOrders);
-        //         }
-
-        //         // ✅ Close modal
-        //         closeModal(document.getElementById('editOrderModal'));
-
-        //         alert('Order updated successfully!');
-
-        //     } catch (err) {
-        //         alert('Error updating order: ' + err.message);
-        //     }
-        // });
-
 
         editOrderForm.addEventListener('submit', async function(e) {
             e.preventDefault();
@@ -519,18 +531,6 @@ function setupEventListeners() {
                     },
                     body: JSON.stringify({ status })
                 });
-
-                // if (!res.ok) throw new Error('Update failed');
-
-                // // ✅ Reload fresh data from DB
-                // const updatedOrders = await fetchAdminOrders();
-                // allOrders = updatedOrders;
-                // loadOrdersData(allOrders);
-
-                // // ✅ Close modal
-                // closeModal(document.getElementById('editOrderModal'));
-
-                // alert('Order updated successfully!');
 
                 if (!res.ok) throw new Error('Update failed');
 
@@ -560,6 +560,18 @@ function setupEventListeners() {
 
 
     }
+}
+
+function showEditUserForm(user) {
+    const form = document.getElementById('editUserForm');
+    const status = document.getElementById('userStatus');
+
+    console.log('Editing user:', user); // ✅ DEBUG
+
+    form.setAttribute('data-user-id', user.id); // VERY IMPORTANT
+    status.value = user.status;
+
+    openModal(document.getElementById('editUserModal'));
 }
 
 // Show order details in modal
@@ -619,21 +631,6 @@ function formatStatus(status) {
     if (status === 'cancelled') return 'Rejected';
     return capitalizeFirstLetter(status);
 }
-
-// // Show edit order form in modal
-// function showEditOrderForm(order) {
-//     const editOrderForm = document.getElementById('editOrderForm');
-//     const orderStatus = document.getElementById('orderStatus');
-
-//     // Set form data attribute
-//     editOrderForm.setAttribute('data-order-id', order.id);
-
-//     // Set selected status
-//     orderStatus.value = order.status;
-
-//     // Open modal
-//     openModal(document.getElementById('editOrderModal'));
-// }
 
 function showEditOrderForm(order) {
     const editOrderForm = document.getElementById('editOrderForm');

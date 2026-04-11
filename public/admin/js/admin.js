@@ -1,26 +1,26 @@
 // Admin Panel JavaScript
+let allOrders = [];
 
 // Check if user is authenticated as admin
 function checkAdminAuth() {
     const isAdmin = localStorage.getItem('adminAuthenticated');
-    
+
     // Handle various path formats (relative paths, etc.)
     const currentPath = window.location.pathname;
     const isLoginPage = currentPath.includes('login.html') || currentPath.endsWith('/login');
-    
+
     if (!isAdmin && !isLoginPage) {
         // Save the current page URL for redirection after login
         const fullPath = window.location.pathname.split('/').pop() + window.location.hash;
         sessionStorage.setItem('adminRedirectUrl', fullPath);
-        
+
         // Redirect to login
         window.location.href = 'login.html';
     }
 }
 
 // Sample data for demonstration
-const sampleOrders = [
-    {
+const sampleOrders = [{
         id: 'ORD-001',
         customer: 'John Doe',
         email: 'john.doe@example.com',
@@ -88,8 +88,7 @@ const sampleOrders = [
     }
 ];
 
-const sampleUsers = [
-    {
+const sampleUsers = [{
         id: 'USR-001',
         name: 'John Doe',
         email: 'john.doe@example.com',
@@ -145,10 +144,10 @@ const sampleUsers = [
 document.addEventListener('DOMContentLoaded', async function() {
     // Check admin authentication
     checkAdminAuth();
-    
+
     // Setup navigation
     setupNavigation();
-    
+
     // Load initial data
     try {
         const [stats, orders, users] = await Promise.all([
@@ -161,7 +160,8 @@ document.addEventListener('DOMContentLoaded', async function() {
         console.log('Fetched users:', users);
         renderDashboardCards(stats);
         renderRecentOrders(orders);
-        loadOrdersData(orders);
+        allOrders = orders;
+        loadOrdersData(allOrders);
         loadUsersData(users);
     } catch (err) {
         let errorMsg = err.message;
@@ -191,7 +191,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             errDiv.textContent = 'Dashboard error: ' + errorMsg;
         }
     }
-    
+
     // Setup event listeners
     setupEventListeners();
 });
@@ -199,63 +199,63 @@ document.addEventListener('DOMContentLoaded', async function() {
 // Setup navigation between sections
 function setupNavigation() {
     const navLinks = document.querySelectorAll('.nav-link');
-    
+
     // Check for hash in URL to set active section
     const hash = window.location.hash;
     if (hash) {
         const sectionId = hash.replace('#', '') + '-section';
         const section = document.getElementById(sectionId);
         const link = document.querySelector(`[data-section="${sectionId}"]`);
-        
+
         if (section && link) {
             // Activate the appropriate section and link
             document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
             navLinks.forEach(l => l.classList.remove('active'));
-            
+
             section.classList.add('active');
             link.classList.add('active');
-            
+
             // Update header title
             const sectionTitle = link.textContent.trim();
             document.querySelector('.dashboard-title').textContent = sectionTitle;
         }
     }
-    
+
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
-            
+
             // Remove active class from all links and sections
             navLinks.forEach(link => link.classList.remove('active'));
             document.querySelectorAll('.content-section').forEach(section => {
                 section.classList.remove('active');
             });
-            
+
             // Add active class to clicked link
             this.classList.add('active');
-            
+
             // Show corresponding section
             const sectionId = this.getAttribute('data-section');
             const section = document.getElementById(sectionId);
             if (section) {
                 section.classList.add('active');
-                
+
                 // Update URL hash
                 const hashPart = sectionId.replace('-section', '');
                 window.location.hash = hashPart;
-                
+
                 // Update header title
                 const sectionTitle = this.textContent.trim();
                 document.querySelector('.dashboard-title').textContent = sectionTitle;
             }
-            
+
             // Close sidebar on mobile after navigation
             if (window.innerWidth <= 768) {
                 document.getElementById('adminSidebar').classList.remove('active');
             }
         });
     });
-    
+
     // Mobile sidebar toggle
     const toggleSidebar = document.getElementById('toggleSidebar');
     if (toggleSidebar) {
@@ -335,32 +335,61 @@ function setupEventListeners() {
             window.location.href = 'login.html';
         });
     }
-    
+
     // View order buttons - use event delegation for buttons that may be loaded dynamically
-    document.addEventListener('click', function(e) {
+    document.addEventListener('click', async function(e) {
         // View order button handler
         if (e.target.closest('.view-btn[data-order-id]')) {
             const button = e.target.closest('.view-btn[data-order-id]');
             const orderId = button.getAttribute('data-order-id');
-            const order = sampleOrders.find(o => o.id === orderId);
-            
+            const order = allOrders.find(o => o.id === orderId);
+
             if (order) {
                 showOrderDetails(order);
             }
         }
-        
+
         // Edit order button handler
         else if (e.target.closest('.edit-btn[data-order-id]')) {
             const button = e.target.closest('.edit-btn[data-order-id]');
             const orderId = button.getAttribute('data-order-id');
-            const order = sampleOrders.find(o => o.id === orderId);
-            
+            const order = allOrders.find(o => o.id === orderId);
+
             if (order) {
                 showEditOrderForm(order);
             }
         }
+        // Delete order button handler
+        else if (e.target.closest('.delete-btn[data-order-id]')) {
+            const button = e.target.closest('.delete-btn[data-order-id]');
+
+            const orderId = button.getAttribute('data-order-id');
+
+            if (confirm('Are you sure you want to delete this order?')) {
+                try {
+                    const token = localStorage.getItem('adminToken');
+
+                    const res = await fetch(`/api/admin/orders/${orderId}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'auth-token': token
+                        }
+                    });
+
+                    if (!res.ok) throw new Error('Delete failed');
+
+                    // Remove from UI
+                    allOrders = allOrders.filter(o => o.id !== orderId);
+                    loadOrdersData(allOrders);
+
+                    alert('Order deleted successfully!');
+                } catch (err) {
+                    alert('Error deleting order: ' + err.message);
+                }
+            }
+        }
     });
-    
+
     // Modal close buttons
     document.querySelectorAll('.close-modal').forEach(btn => {
         btn.addEventListener('click', function() {
@@ -368,7 +397,7 @@ function setupEventListeners() {
             closeModal(modal);
         });
     });
-    
+
     // Close modal when clicking outside the content
     document.querySelectorAll('.modal').forEach(modal => {
         modal.addEventListener('click', function(e) {
@@ -377,7 +406,7 @@ function setupEventListeners() {
             }
         });
     });
-    
+
     // Cancel buttons in modals
     document.querySelectorAll('[data-dismiss="modal"]').forEach(btn => {
         btn.addEventListener('click', function() {
@@ -385,40 +414,66 @@ function setupEventListeners() {
             closeModal(modal);
         });
     });
-    
+
     // Edit order form submission
     const editOrderForm = document.getElementById('editOrderForm');
     if (editOrderForm) {
-        editOrderForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Get selected order status
-            const status = document.getElementById('orderStatus').value;
-            const orderId = this.getAttribute('data-order-id');
-            
-            // Update order status in the sample data
-            const orderIndex = sampleOrders.findIndex(o => o.id === orderId);
-            if (orderIndex !== -1) {
-                sampleOrders[orderIndex].status = status;
-                
-                // Refresh orders table
-                loadOrdersData(sampleOrders);
-                
-                // Update status in the dashboard table if present
-                const dashboardOrderRow = document.querySelector(`#dashboard-section tr[data-order-id="${orderId}"]`);
-                if (dashboardOrderRow) {
-                    const statusCell = dashboardOrderRow.querySelector('td:nth-child(5)');
-                    if (statusCell) {
-                        statusCell.innerHTML = `<span class="status-badge status-${status}">${capitalizeFirstLetter(status)}</span>`;
-                    }
-                }
-                
-                // Close modal
-                closeModal(document.getElementById('editOrderModal'));
-                
-                // Show success message
-                alert('Order status updated successfully!');
+        editOrderForm.addEventListener('submit', async function(e) {
+
+            // e.preventDefault();
+
+            // // Get selected order status
+            // const status = document.getElementById('orderStatus').value;
+            // const orderId = this.getAttribute('data-order-id');
+
+            // // Update order status in the sample data
+            // const orderIndex = sampleOrders.findIndex(o => o.id === orderId);
+            // if (orderIndex !== -1) {
+            //     sampleOrders[orderIndex].status = status;
+
+            //     // Refresh orders table
+            //     loadOrdersData(sampleOrders);
+
+            //     // Update status in the dashboard table if present
+            //     const dashboardOrderRow = document.querySelector(`#dashboard-section tr[data-order-id="${orderId}"]`);
+            //     if (dashboardOrderRow) {
+            //         const statusCell = dashboardOrderRow.querySelector('td:nth-child(5)');
+            //         if (statusCell) {
+            //             statusCell.innerHTML = `<span class="status-badge status-${status}">${capitalizeFirstLetter(status)}</span>`;
+            //         }
+            //     }
+
+            //     // Close modal
+            //     closeModal(document.getElementById('editOrderModal'));
+
+            //     // Show success message
+            //     alert('Order status updated successfully!');
+            // }
+
+
+
+
+            const token = localStorage.getItem('adminToken');
+
+            const res = await fetch(`/api/admin/orders/${orderId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'auth-token': token
+                },
+                body: JSON.stringify({ status })
+            });
+
+            if (!res.ok) throw new Error('Update failed');
+
+            // update UI
+            const index = allOrders.findIndex(o => o.id === orderId);
+            if (index !== -1) {
+                allOrders[index].status = status;
+                loadOrdersData(allOrders);
             }
+
+
         });
     }
 }
@@ -426,7 +481,7 @@ function setupEventListeners() {
 // Show order details in modal
 function showOrderDetails(order) {
     const orderDetails = document.getElementById('orderDetails');
-    
+
     let itemsHTML = '';
     order.items.forEach(item => {
         itemsHTML += `
@@ -438,7 +493,7 @@ function showOrderDetails(order) {
             </tr>
         `;
     });
-    
+
     orderDetails.innerHTML = `
         <div class="order-info">
             <p><strong>Order ID:</strong> ${order.id}</p>
@@ -471,7 +526,7 @@ function showOrderDetails(order) {
             </tfoot>
         </table>
     `;
-    
+
     openModal(document.getElementById('viewOrderModal'));
 }
 
@@ -479,13 +534,13 @@ function showOrderDetails(order) {
 function showEditOrderForm(order) {
     const editOrderForm = document.getElementById('editOrderForm');
     const orderStatus = document.getElementById('orderStatus');
-    
+
     // Set form data attribute
     editOrderForm.setAttribute('data-order-id', order.id);
-    
+
     // Set selected status
     orderStatus.value = order.status;
-    
+
     // Open modal
     openModal(document.getElementById('editOrderModal'));
 }
@@ -600,4 +655,4 @@ function renderRecentOrders(orders) {
             </td>
         </tr>
     `).join('');
-} 
+}

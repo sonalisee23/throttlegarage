@@ -27,20 +27,18 @@ const verifyAdminToken = (req, res, next) => {
 };
 
 // Admin login
-router.post('/login', async (req, res) => {
+router.post('/login', async(req, res) => {
     try {
         const { username, password } = req.body;
-        
+
         // For demo purposes, using a hardcoded admin credential
         // In production, this should be authenticated against a database
         if (username === 'admin' && password === 'admin123') {
             // Create and assign a token
-            const token = jwt.sign(
-                { id: 'admin', isAdmin: true },
-                process.env.JWT_SECRET || 'superbike-mods-secret-key',
-                { expiresIn: '1h' }
+            const token = jwt.sign({ id: 'admin', isAdmin: true },
+                process.env.JWT_SECRET || 'superbike-mods-secret-key', { expiresIn: '1h' }
             );
-            
+
             return res.json({
                 success: true,
                 token,
@@ -51,7 +49,7 @@ router.post('/login', async (req, res) => {
                 }
             });
         }
-        
+
         return res.status(401).json({ message: 'Invalid username or password' });
     } catch (err) {
         res.status(500).json({ message: err.message });
@@ -59,26 +57,44 @@ router.post('/login', async (req, res) => {
 });
 
 // Get dashboard stats
-router.get('/stats', verifyAdminToken, async (req, res) => {
+router.get('/stats', verifyAdminToken, async(req, res) => {
     try {
         // Total Orders
-        const [[{ totalOrders }]] = await db.pool.query('SELECT COUNT(*) as totalOrders FROM orders');
+        const [
+            [{ totalOrders }]
+        ] = await db.pool.query('SELECT COUNT(*) as totalOrders FROM orders');
         // Total Revenue (completed or delivered orders)
-        const [[{ totalRevenue }]] = await db.pool.query("SELECT IFNULL(SUM(total_amount),0) as totalRevenue FROM orders WHERE status IN ('completed','delivered')");
+        const [
+            [{ totalRevenue }]
+        ] = await db.pool.query("SELECT IFNULL(SUM(total_amount),0) as totalRevenue FROM orders WHERE status IN ('completed','delivered')");
         // Total Users
-        const [[{ totalUsers }]] = await db.pool.query('SELECT COUNT(*) as totalUsers FROM users');
+        const [
+            [{ totalUsers }]
+        ] = await db.pool.query('SELECT COUNT(*) as totalUsers FROM users');
         // Orders last month
-        const [[{ lastMonthOrders }]] = await db.pool.query("SELECT COUNT(*) as lastMonthOrders FROM orders WHERE created_at >= DATE_SUB(CURDATE(), INTERVAL 1 MONTH)");
+        const [
+            [{ lastMonthOrders }]
+        ] = await db.pool.query("SELECT COUNT(*) as lastMonthOrders FROM orders WHERE created_at >= DATE_SUB(CURDATE(), INTERVAL 1 MONTH)");
         // Revenue last month
-        const [[{ lastMonthRevenue }]] = await db.pool.query("SELECT IFNULL(SUM(total_amount),0) as lastMonthRevenue FROM orders WHERE status IN ('completed','delivered') AND created_at >= DATE_SUB(CURDATE(), INTERVAL 1 MONTH)");
+        const [
+            [{ lastMonthRevenue }]
+        ] = await db.pool.query("SELECT IFNULL(SUM(total_amount),0) as lastMonthRevenue FROM orders WHERE status IN ('completed','delivered') AND created_at >= DATE_SUB(CURDATE(), INTERVAL 1 MONTH)");
         // Users last month
-        const [[{ lastMonthUsers }]] = await db.pool.query("SELECT COUNT(*) as lastMonthUsers FROM users WHERE created_at >= DATE_SUB(CURDATE(), INTERVAL 1 MONTH)");
+        const [
+            [{ lastMonthUsers }]
+        ] = await db.pool.query("SELECT COUNT(*) as lastMonthUsers FROM users WHERE created_at >= DATE_SUB(CURDATE(), INTERVAL 1 MONTH)");
         // Conversion rate (dummy, unless you track sessions)
         const conversionRate = 3.2;
         // Trends (percent change from previous month)
-        const [[{ prevMonthOrders }]] = await db.pool.query("SELECT COUNT(*) as prevMonthOrders FROM orders WHERE created_at >= DATE_SUB(CURDATE(), INTERVAL 2 MONTH) AND created_at < DATE_SUB(CURDATE(), INTERVAL 1 MONTH)");
-        const [[{ prevMonthRevenue }]] = await db.pool.query("SELECT IFNULL(SUM(total_amount),0) as prevMonthRevenue FROM orders WHERE status IN ('completed','delivered') AND created_at >= DATE_SUB(CURDATE(), INTERVAL 2 MONTH) AND created_at < DATE_SUB(CURDATE(), INTERVAL 1 MONTH)");
-        const [[{ prevMonthUsers }]] = await db.pool.query("SELECT COUNT(*) as prevMonthUsers FROM users WHERE created_at >= DATE_SUB(CURDATE(), INTERVAL 2 MONTH) AND created_at < DATE_SUB(CURDATE(), INTERVAL 1 MONTH)");
+        const [
+            [{ prevMonthOrders }]
+        ] = await db.pool.query("SELECT COUNT(*) as prevMonthOrders FROM orders WHERE created_at >= DATE_SUB(CURDATE(), INTERVAL 2 MONTH) AND created_at < DATE_SUB(CURDATE(), INTERVAL 1 MONTH)");
+        const [
+            [{ prevMonthRevenue }]
+        ] = await db.pool.query("SELECT IFNULL(SUM(total_amount),0) as prevMonthRevenue FROM orders WHERE status IN ('completed','delivered') AND created_at >= DATE_SUB(CURDATE(), INTERVAL 2 MONTH) AND created_at < DATE_SUB(CURDATE(), INTERVAL 1 MONTH)");
+        const [
+            [{ prevMonthUsers }]
+        ] = await db.pool.query("SELECT COUNT(*) as prevMonthUsers FROM users WHERE created_at >= DATE_SUB(CURDATE(), INTERVAL 2 MONTH) AND created_at < DATE_SUB(CURDATE(), INTERVAL 1 MONTH)");
         // Calculate trends
         function trend(current, prev) {
             if (prev === 0) return current > 0 ? 100 : 0;
@@ -100,7 +116,7 @@ router.get('/stats', verifyAdminToken, async (req, res) => {
 });
 
 // Get all orders
-router.get('/orders', verifyAdminToken, async (req, res) => {
+router.get('/orders', verifyAdminToken, async(req, res) => {
     try {
         // Get all orders with user info
         const [ordersRaw] = await db.pool.query(`
@@ -151,10 +167,10 @@ router.get('/orders', verifyAdminToken, async (req, res) => {
 });
 
 // Get a specific order
-router.get('/orders/:id', verifyAdminToken, async (req, res) => {
+router.get('/orders/:id', verifyAdminToken, async(req, res) => {
     try {
         const orderId = req.params.id;
-        
+
         // For demo purposes, return dummy order
         // In production, this would come from the database
         const order = {
@@ -171,7 +187,7 @@ router.get('/orders/:id', verifyAdminToken, async (req, res) => {
             address: '123 Main St, New York, NY 10001',
             phone: '(555) 123-4567'
         };
-        
+
         res.json(order);
     } catch (err) {
         res.status(500).json({ message: err.message });
@@ -179,28 +195,71 @@ router.get('/orders/:id', verifyAdminToken, async (req, res) => {
 });
 
 // Update an order
-router.put('/orders/:id', verifyAdminToken, async (req, res) => {
+router.put('/orders/:id', verifyAdminToken, async(req, res) => {
+    // try {
+    //     const orderId = req.params.id;
+    //     const { status } = req.body;
+
+    //     // For demo purposes, just return success
+    //     // In production, this would update the database
+    //     res.json({
+    //         success: true,
+    //         message: `Order ${orderId} updated successfully`,
+    //         order: {
+    //             id: orderId,
+    //             status
+    //         }
+    //     });
+    // } catch (err) {
+    //     res.status(500).json({ message: err.message });
+    // }
+
     try {
         const orderId = req.params.id;
         const { status } = req.body;
-        
-        // For demo purposes, just return success
-        // In production, this would update the database
+
+        await db.pool.query(
+            'UPDATE orders SET status = ? WHERE id = ?', [status, orderId]
+        );
+
         res.json({
             success: true,
-            message: `Order ${orderId} updated successfully`,
-            order: {
-                id: orderId,
-                status
-            }
+            message: 'Order updated successfully'
         });
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
+
+});
+
+// Delete an order
+router.delete('/orders/:id', verifyAdminToken, async(req, res) => {
+    try {
+        const orderId = req.params.id;
+
+        // Delete order items first (important for foreign key)
+        await db.pool.query(
+            'DELETE FROM order_items WHERE order_id = ?', [orderId]
+        );
+
+        // Delete order
+        const [result] = await db.pool.query(
+            'DELETE FROM orders WHERE id = ?', [orderId]
+        );
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ message: 'Order not found' });
+        }
+
+        res.json({ success: true, message: 'Order deleted successfully' });
+    } catch (err) {
+        console.error('Delete error:', err);
+        res.status(500).json({ message: 'Database error' });
+    }
 });
 
 // Get all users
-router.get('/users', verifyAdminToken, async (req, res) => {
+router.get('/users', verifyAdminToken, async(req, res) => {
     try {
         const [users] = await db.pool.query(
             'SELECT id, fullName as name, email, created_at as registeredDate, status FROM users ORDER BY created_at DESC'
@@ -212,10 +271,10 @@ router.get('/users', verifyAdminToken, async (req, res) => {
 });
 
 // Get a specific user
-router.get('/users/:id', verifyAdminToken, async (req, res) => {
+router.get('/users/:id', verifyAdminToken, async(req, res) => {
     try {
         const userId = req.params.id;
-        
+
         // For demo purposes, return dummy user
         // In production, this would come from the database
         const user = {
@@ -228,7 +287,7 @@ router.get('/users/:id', verifyAdminToken, async (req, res) => {
             phone: '(555) 123-4567',
             address: '123 Main St, New York, NY 10001'
         };
-        
+
         res.json(user);
     } catch (err) {
         res.status(500).json({ message: err.message });
@@ -236,11 +295,11 @@ router.get('/users/:id', verifyAdminToken, async (req, res) => {
 });
 
 // Update a user
-router.put('/users/:id', verifyAdminToken, async (req, res) => {
+router.put('/users/:id', verifyAdminToken, async(req, res) => {
     try {
         const userId = req.params.id;
         const { status } = req.body;
-        
+
         // For demo purposes, just return success
         // In production, this would update the database
         res.json({
@@ -257,12 +316,11 @@ router.put('/users/:id', verifyAdminToken, async (req, res) => {
 });
 
 // Get all products
-router.get('/products', verifyAdminToken, async (req, res) => {
+router.get('/products', verifyAdminToken, async(req, res) => {
     try {
         // For demo purposes, return dummy products
         // In production, this would come from the database
-        const products = [
-            {
+        const products = [{
                 id: 'PRD-001',
                 name: 'Racing Exhaust System',
                 category: 'Exhaust',
@@ -277,7 +335,7 @@ router.get('/products', verifyAdminToken, async (req, res) => {
                 stock: 8
             }
         ];
-        
+
         res.json(products);
     } catch (err) {
         res.status(500).json({ message: err.message });
@@ -285,10 +343,10 @@ router.get('/products', verifyAdminToken, async (req, res) => {
 });
 
 // Get a specific product
-router.get('/products/:id', verifyAdminToken, async (req, res) => {
+router.get('/products/:id', verifyAdminToken, async(req, res) => {
     try {
         const productId = req.params.id;
-        
+
         // For demo purposes, return dummy product
         // In production, this would come from the database
         const product = {
@@ -301,7 +359,7 @@ router.get('/products/:id', verifyAdminToken, async (req, res) => {
             compatibility: ['BMW S1000RR', 'Ducati Panigale V4'],
             image: 'https://images.unsplash.com/photo-1609630875171-b1321377ee65?auto=format&fit=crop&w=600&q=80'
         };
-        
+
         res.json(product);
     } catch (err) {
         res.status(500).json({ message: err.message });
@@ -309,11 +367,11 @@ router.get('/products/:id', verifyAdminToken, async (req, res) => {
 });
 
 // Update a product
-router.put('/products/:id', verifyAdminToken, async (req, res) => {
+router.put('/products/:id', verifyAdminToken, async(req, res) => {
     try {
         const productId = req.params.id;
         const { price, stock } = req.body;
-        
+
         // For demo purposes, just return success
         // In production, this would update the database
         res.json({
@@ -330,4 +388,4 @@ router.put('/products/:id', verifyAdminToken, async (req, res) => {
     }
 });
 
-module.exports = router; 
+module.exports = router;

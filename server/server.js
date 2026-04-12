@@ -22,7 +22,7 @@ const PORT = 5001;
 const JWT_SECRET = process.env.JWT_SECRET || 'superbike-mods-secret-key';
 
 // Authentication middleware (MySQL)
-const authenticateToken = async (req, res, next) => {
+const authenticateToken = async(req, res, next) => {
     try {
         const authHeader = req.headers['authorization'];
         const token = authHeader && authHeader.split(' ')[1];
@@ -84,8 +84,12 @@ async function startServer() {
     }
 }
 
+app.get('/api/cart', (req, res) => {
+    res.json([]);
+});
+
 // Register (MySQL)
-app.post('/api/auth/register', async (req, res) => {
+app.post('/api/auth/register', async(req, res) => {
     try {
         console.log('Registration attempt:', req.body);
         const { fullName, email, password } = req.body;
@@ -102,8 +106,7 @@ app.post('/api/auth/register', async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 10);
         console.log('Hashed password:', hashedPassword);
         const [insertResult] = await pool.query(
-            'INSERT INTO users (fullName, email, password) VALUES (?, ?, ?)',
-            [fullName, email, hashedPassword]
+            'INSERT INTO users (fullName, email, password) VALUES (?, ?, ?)', [fullName, email, hashedPassword]
         );
         console.log('Insert result:', insertResult);
         res.status(201).json({ message: 'Registration successful' });
@@ -114,7 +117,7 @@ app.post('/api/auth/register', async (req, res) => {
 });
 
 // Login (MySQL)
-app.post('/api/auth/login', async (req, res) => {
+app.post('/api/auth/login', async(req, res) => {
     try {
         const { email, password } = req.body;
         if (!email || !password) {
@@ -145,7 +148,7 @@ app.post('/api/auth/login', async (req, res) => {
 });
 
 // Password update endpoint
-app.put('/api/users/password', authenticateToken, async (req, res) => {
+app.put('/api/users/password', authenticateToken, async(req, res) => {
     try {
         const userId = req.user.id;
         const { currentPassword, newPassword } = req.body;
@@ -173,13 +176,12 @@ app.put('/api/users/password', authenticateToken, async (req, res) => {
 });
 
 // Update user profile endpoint
-app.put('/api/users/profile', authenticateToken, async (req, res) => {
+app.put('/api/users/profile', authenticateToken, async(req, res) => {
     try {
         const userId = req.user.id;
         const { fullName, email, phone } = req.body;
         await pool.query(
-            'UPDATE users SET fullName = ?, email = ?, phone = ? WHERE id = ?',
-            [fullName, email, phone, userId]
+            'UPDATE users SET fullName = ?, email = ?, phone = ? WHERE id = ?', [fullName, email, phone, userId]
         );
         res.json({ message: 'Profile updated successfully' });
     } catch (error) {
@@ -188,7 +190,7 @@ app.put('/api/users/profile', authenticateToken, async (req, res) => {
 });
 
 // Get all users (for admin/forgot password functionality)
-app.get('/api/users', async (req, res) => {
+app.get('/api/users', async(req, res) => {
     try {
         const [users] = await pool.query('SELECT id, fullName, email, phone, role FROM users');
         res.json({ users });
@@ -199,10 +201,10 @@ app.get('/api/users', async (req, res) => {
 });
 
 // Reset password endpoint (for forgot password)
-app.post('/api/auth/reset-password', async (req, res) => {
+app.post('/api/auth/reset-password', async(req, res) => {
     try {
         const { email, newPassword } = req.body;
-        
+
         if (!email || !newPassword) {
             return res.status(400).json({ message: 'Email and new password are required' });
         }
@@ -215,10 +217,10 @@ app.post('/api/auth/reset-password', async (req, res) => {
 
         // Hash the new password
         const hashedPassword = await bcrypt.hash(newPassword, 10);
-        
+
         // Update the password
         await pool.query('UPDATE users SET password = ? WHERE email = ?', [hashedPassword, email]);
-        
+
         console.log(`Password reset successful for email: ${email}`);
         res.json({ message: 'Password reset successfully' });
     } catch (error) {
@@ -228,7 +230,7 @@ app.post('/api/auth/reset-password', async (req, res) => {
 });
 
 // Start server and initialize tables
-(async () => {
+(async() => {
     try {
         await initDatabase();
         await startServer();
@@ -238,4 +240,4 @@ app.post('/api/auth/reset-password', async (req, res) => {
     }
 })();
 
-module.exports = app; 
+module.exports = app;

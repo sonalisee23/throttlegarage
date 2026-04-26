@@ -9,6 +9,20 @@
     />
     <link rel="stylesheet" href="css/style.css">
     <style>
+        .review-nav-btn {
+            padding: 10px 22px;
+            background: var(--primary-red);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        
+        .review-nav-btn:hover {
+            background: #c01920;
+        }
+        
         .about-hero {
             background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=1920&h=600') center/cover;
             color: white;
@@ -458,70 +472,8 @@
 
                 <div class="customer-experience">
                     <h2>What Our Riders Say</h2>
-                    <div class="testimonials-grid">
-                        <div class="testimonial-card">
-                            <div class="testimonial-content">
-                                "The quality of parts and the expert guidance I received were exceptional. My R15 V4 has never performed better!"
-                            </div>
-                            <div class="rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                            <div class="testimonial-author">
-                                <div class="author-avatar">
-                                    <img src="images/avatars/placeholder.txt" alt="Rider">
-                                </div>
-                                <div class="author-info">
-                                    <h4>Rahul Sharma</h4>
-                                    <p>Yamaha R15 V4 Owner</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="testimonial-card">
-                            <div class="testimonial-content">
-                                "Their commitment to safety and quality is unmatched. The performance upgrades they suggested made a huge difference."
-                            </div>
-                            <div class="rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                            <div class="testimonial-author">
-                                <div class="author-avatar">
-                                    <img src="images/avatars/placeholder.txt" alt="Rider">
-                                </div>
-                                <div class="author-info">
-                                    <h4>Priya Desai</h4>
-                                    <p>KTM Duke 390 Owner</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="testimonial-card">
-                            <div class="testimonial-content">
-                                "From selection to installation, the team guided me perfectly. The parts are genuine and the service is outstanding!"
-                            </div>
-                            <div class="rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                            <div class="testimonial-author">
-                                <div class="author-avatar">
-                                    <img src="images/avatars/placeholder.txt" alt="Rider">
-                                </div>
-                                <div class="author-info">
-                                    <h4>Arjun Mehta</h4>
-                                    <p>Kawasaki Ninja Owner</p>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="testimonials-grid" id="reviewsSlider">
+                        <p style="color:white;text-align:center;">Loading reviews...</p>
                     </div>
                 </div>
             </div>
@@ -559,6 +511,94 @@
     </footer>
 
     <script src="js/script.js"></script>
+
+    <script>
+        let reviews = [];
+        let currentPage = 0;
+        const reviewsPerPage = 3;
+
+        async function loadAboutReviews() {
+            try {
+                const res = await fetch('/api/reviews');
+                reviews = await res.json();
+
+                if (!reviews.length) {
+                    document.getElementById('reviewsSlider').innerHTML =
+                        '<p style="color:white;text-align:center;">No reviews yet.</p>';
+                    return;
+                }
+
+                showReviewPage();
+            } catch (err) {
+                console.error('Review load error:', err);
+                document.getElementById('reviewsSlider').innerHTML =
+                    '<p style="color:white;text-align:center;">Failed to load reviews.</p>';
+            }
+        }
+
+        function showReviewPage() {
+            const slider = document.getElementById('reviewsSlider');
+            const start = currentPage * reviewsPerPage;
+            const pageReviews = reviews.slice(start, start + reviewsPerPage);
+
+            let html = '';
+
+            pageReviews.forEach(review => {
+                const rating = Number(review.rating) || 0;
+                let stars = '';
+
+                for (let i = 0; i < rating; i++) {
+                    stars += '<i class="fas fa-star"></i>';
+                }
+
+                html += `
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        "${review.review_text}"
+                    </div>
+
+                    <div class="rating">
+                        ${stars}
+                    </div>
+
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <img src="images/avatars/placeholder.txt" alt="Rider">
+                        </div>
+                        <div class="author-info">
+                            <h4>${review.user_name || 'ThrottleGarage User'}</h4>
+                            <p>${new Date(review.created_at).toLocaleDateString()}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+            });
+
+            html += `
+            <div style="grid-column: 1 / -1; display:flex; justify-content:center; gap:15px; margin-top:20px;">
+                <button onclick="prevReviews()" class="review-nav-btn">Previous</button>
+                <button onclick="nextReviews()" class="review-nav-btn">Next</button>
+            </div>
+        `;
+
+            slider.innerHTML = html;
+        }
+
+        function nextReviews() {
+            const totalPages = Math.ceil(reviews.length / reviewsPerPage);
+            currentPage = (currentPage + 1) % totalPages;
+            showReviewPage();
+        }
+
+        function prevReviews() {
+            const totalPages = Math.ceil(reviews.length / reviewsPerPage);
+            currentPage = (currentPage - 1 + totalPages) % totalPages;
+            showReviewPage();
+        }
+
+        document.addEventListener('DOMContentLoaded', loadAboutReviews);
+    </script>
+
 </body>
 
 </html>

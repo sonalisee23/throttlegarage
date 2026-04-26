@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Admin Returns</title>
+</head>
+
+<body>
+
+    <h2>Returned Products</h2>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Order</th>
+                <th>Product</th>
+                <th>Reason</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody id="returnsTable"></tbody>
+    </table>
+
+    <script>
+        async function loadReturns() {
+            console.log("API CALLED");
+
+            const res = await fetch('/api/admin/returns');
+            const data = await res.json();
+
+            console.log("DATA:", data);
+
+            const table = document.getElementById("returnsTable");
+            table.innerHTML = "";
+
+            data.forEach(r => {
+                const row = `
+        <tr>
+          <td>${r.order_number || r.order_id}</td>
+          <td>${r.product_name || r.product_id}</td>
+          <td>${r.reason}</td>
+          <td>${r.status}</td>
+          <td>
+            <button onclick="updateStatus(${r.id}, 'Approved')">Approve</button>
+            <button onclick="updateStatus(${r.id}, 'Rejected')">Reject</button>
+          </td>
+        </tr>
+      `;
+                table.innerHTML += row;
+            });
+        }
+
+        async function updateStatus(id, status) {
+            await fetch(`/api/admin/return/${id}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    status
+                })
+            });
+
+            alert("Updated!");
+            loadReturns();
+        }
+
+        // 🔥 AUTO LOAD DATA
+        loadReturns();
+    </script>
+
+
+
+</body>
+
+</html>

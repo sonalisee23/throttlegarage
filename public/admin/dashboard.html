@@ -484,6 +484,11 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="#returns" class="nav-link" data-section="returns-section">
+                        <i class="fas fa-undo"></i> Returns
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="#users" class="nav-link" data-section="users-section">
                         <i class="fas fa-users"></i> Users
                     </a>
@@ -547,6 +552,28 @@
                     </thead>
                     <tbody id="ordersTableBody">
                         <!-- Orders will be loaded here dynamically -->
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Returns Section -->
+            <section id="returns-section" class="content-section">
+                <h2>Return Requests</h2>
+
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Return ID</th>
+                            <th>Order ID</th>
+                            <th>Product</th>
+                            <th>User ID</th>
+                            <th>Reason</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="returnsTableBody">
+                        <!-- Returns will load here -->
                     </tbody>
                 </table>
             </section>

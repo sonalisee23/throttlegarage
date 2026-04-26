@@ -64,6 +64,7 @@ router.get('/', async(req, res) => {
             }
             acc[item.order_id].items.push({
                 ...productInfo,
+                id: item.product_id,
                 product_id: item.product_id,
                 quantity: item.quantity,
                 price: item.price
@@ -109,7 +110,7 @@ router.post('/return', async(req, res) => {
             const productId = item.productId || item.id;
 
             // Check if this is a string ID (bike part) or integer ID (database product)
-            if (typeof productId === 'string') {
+            if (typeof productId === 'string' || Number(productId) === -999) {
                 // For string IDs, store in custom_data with special product_id
                 const localProductData = {
                     local_product_id: productId,

@@ -7,6 +7,7 @@ const path = require('path');
 const mysql = require('mysql2/promise');
 const { initDatabase } = require('./config/database');
 const fetch = require('node-fetch');
+const Return = require('./models/Return');
 
 // Import routes
 const productRoutes = require('./routes/products');
@@ -16,6 +17,8 @@ const orderRoutes = require('./routes/orders');
 const tradeRoutes = require('./routes/trade');
 const cartRoutes = require('./routes/cart');
 const adminRoutes = require('./routes/admin');
+const reviewRoutes = require('./routes/reviews');
+
 
 const app = express();
 const PORT = 5001;
@@ -60,7 +63,7 @@ app.use('/api/orders', authenticateToken, orderRoutes);
 app.use('/api/trade', tradeRoutes);
 app.use('/api/cart', cartRoutes);
 app.use('/api/admin', adminRoutes);
-
+app.use('/api/reviews', reviewRoutes);
 
 // Serve static files from the public directory
 app.use(express.static(path.join(__dirname, '../public')));
@@ -227,6 +230,71 @@ app.post('/api/auth/reset-password', async(req, res) => {
         console.error('Password reset error:', error);
         res.status(500).json({ message: 'Server error', error: error.message });
     }
+});
+// app.post('/api/return', (req, res) => {
+//     const { order_id, product_id, user_id, reason } = req.body;
+
+//     Return.createReturn({ order_id, product_id, user_id, reason }, (err) => {
+//         if (err) return res.status(500).json(err);
+//         res.json({ message: "Return submitted" });
+//     });
+// });
+
+app.post('/api/return', (req, res) => {
+    const { order_id, product_id, user_id, reason } = req.body;
+
+    if (!Number.isInteger(Number(order_id))) {
+        return res.status(400).json({ message: "Invalid order_id" });
+    }
+
+    if (!Number.isInteger(Number(product_id))) {
+        return res.status(400).json({ message: "Invalid product_id" });
+    }
+
+    if (!Number.isInteger(Number(user_id))) {
+        return res.status(400).json({ message: "Invalid user_id" });
+    }
+
+    Return.createReturn({ order_id, product_id, user_id, reason }, (err) => {
+        if (err) return res.status(500).json(err);
+        res.json({ message: "Return submitted" });
+    });
+});
+
+app.get('/api/admin/returns', (req, res) => {
+    Return.getAllReturns((err, data) => {
+        if (err) return res.status(500).json(err);
+        res.json(data);
+    });
+});
+
+app.put('/api/admin/return/:id', (req, res) => {
+    const { status } = req.body;
+
+    Return.updateReturnStatus(req.params.id, status, (err) => {
+        if (err) return res.status(500).json(err);
+        res.json({ message: "Updated" });
+    });
+});
+
+// 🔥 USER RETURNS API (PASTE HERE)
+app.get('/api/user/returns/:userId', (req, res) => {
+    const userId = req.params.userId;
+
+    const sql = `
+        SELECT * FROM returns
+        WHERE user_id = ?
+        ORDER BY id DESC
+    `;
+
+    pool.query(sql, [userId], (err, results) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).json(err);
+        }
+
+        res.json(results);
+    });
 });
 
 // Start server and initialize tables

@@ -2,8 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const loginForm = document.getElementById('loginForm');
 
     // Sample user data - in a real app, this would come from a backend
-    const validUsers = [
-        {
+    const validUsers = [{
             email: 'test@example.com',
             password: 'password123',
             fullName: 'Test User'
@@ -101,22 +100,22 @@ function clearErrors() {
 
 function showError(message) {
     clearErrors();
-    
+
     const errorDiv = document.createElement('div');
     errorDiv.className = 'auth-message error';
     errorDiv.textContent = message;
-    
+
     const form = document.getElementById('loginForm');
     form.insertBefore(errorDiv, form.firstChild);
 }
 
 function showSuccess(message) {
     clearErrors();
-    
+
     const successDiv = document.createElement('div');
     successDiv.className = 'auth-message success';
     successDiv.textContent = message;
-    
+
     const form = document.getElementById('loginForm');
     form.insertBefore(successDiv, form.firstChild);
-} 
+}

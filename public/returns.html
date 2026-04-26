@@ -511,6 +511,7 @@
             <h3>Create Return Request</h3>
             <form id="returnForm">
                 <input type="hidden" id="returnOrderId">
+                <input type="hidden" id="returnProductId">
                 <div class="return-form-group">
                     <label for="returnReason">Return Reason</label>
                     <select id="returnReason" required>
@@ -614,8 +615,8 @@
                     // Ignore API errors, fallback to local
                 }
                 // Load local confirmed orders
-                const localOrders = JSON.parse(localStorage.getItem('localOrders') || '[]');
-                orders = orders.concat(localOrders);
+                // const localOrders = JSON.parse(localStorage.getItem('localOrders') || '[]');
+                // orders = orders.concat(localOrders);
                 // Sort orders by date (newest first)
                 orders.sort((a, b) => new Date(b.createdAt || b.created_at) - new Date(a.createdAt || a.created_at));
                 console.log('Total orders to display:', orders);
@@ -663,9 +664,7 @@
                             ` : ''}
                             <div class="action-buttons">
                                 <button class="action-button track-button" onclick="trackOrder('${order.id || 'local-' + orderDate}')">Track Order</button>
-                                <button class="action-button return-button" onclick="showReturnModal('${order.id || 'local-' + orderDate}')">Return Order</button>
-                            </div>
-                        </div>
+                                <button class="action-button return-button" onclick='showReturnModal(${JSON.stringify(order)})'>Return Order</button>                        </div>
                     `;
                 }).join('');
             } catch (error) {
@@ -683,7 +682,32 @@
             try {
                 console.log('Loading returns...');
                 const returnsList = document.getElementById('returnsList');
-                const localReturns = JSON.parse(localStorage.getItem('localReturns') || '[]');
+
+                // const savedUser = JSON.parse(localStorage.getItem('user') || sessionStorage.getItem('user') || '{}');
+                const savedUser = JSON.parse(localStorage.getItem('userData') || sessionStorage.getItem('userData') || '{}');
+
+if (!savedUser.id) {
+    returnsList.innerHTML = `
+        <div class="no-orders">
+            <i class="fas fa-user-lock"></i>
+            <p>Please log in to view your returns.</p>
+        </div>
+    `;
+    return;
+}
+
+// const res = await fetch(`/api/user/returns/${savedUser.id}`);
+
+const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+
+const res = await fetch('/api/orders/returns', {
+    headers: {
+        'Authorization': `Bearer ${token}`
+    }
+});
+
+                // const res = await fetch('/api/user/returns/1');
+const localReturns = await res.json();
                 if (!localReturns.length) {
                     returnsList.innerHTML = `
                         <div class="no-orders">
@@ -723,11 +747,30 @@
             }
         }
 
-        function showReturnModal(orderId) {
-            console.log('Opening return modal for order:', orderId);
-            document.getElementById('returnOrderId').value = orderId;
-            document.getElementById('returnModal').classList.add('active');
-        }
+        // function showReturnModal(orderId) {
+        //     console.log('Opening return modal for order:', orderId);
+        //     document.getElementById('returnOrderId').value = orderId;
+        //     document.getElementById('returnModal').classList.add('active');
+        // }
+
+        function showReturnModal(order) {
+    if (!order || !order.id) {
+        alert('This order cannot be returned because it is not saved in database.');
+        return;
+    }
+
+    if (!order.items || order.items.length === 0) {
+        alert('No products found in this order.');
+        return;
+    }
+
+    document.getElementById('returnOrderId').value = order.id;
+    document.getElementById('returnProductId').value = order.items[0].product_id;
+
+    window.selectedReturnOrder = order;
+
+    document.getElementById('returnModal').classList.add('active');
+}
 
         function closeReturnModal() {
             console.log('Closing return modal');
@@ -735,30 +778,100 @@
             document.getElementById('returnForm').reset();
         }
 
-        document.getElementById('returnForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            console.log('Submitting return form...');
-            const orderId = document.getElementById('returnOrderId').value;
-            const reason = document.getElementById('returnReason').value;
-            const details = document.getElementById('returnDetails').value;
-            // Create a return request object
-            const returnRequest = {
-                id: 'return-' + Date.now(),
-                orderId,
-                reason,
-                details,
-                created_at: new Date().toISOString(),
-                status: 'pending',
-                items: []
-            };
-            // Save to localStorage
-            const localReturns = JSON.parse(localStorage.getItem('localReturns') || '[]');
-            localReturns.unshift(returnRequest);
-            localStorage.setItem('localReturns', JSON.stringify(localReturns));
-            alert('Return request created successfully');
-            closeReturnModal();
-            loadReturns();
-        });
+//        document.getElementById('returnForm').addEventListener('submit', async function(e) {
+//     e.preventDefault();
+
+//     const orderId = document.getElementById('returnOrderId').value;
+//     const reason = document.getElementById('returnReason').value;
+//     const details = document.getElementById('returnDetails').value;
+
+//     // const userId = 1;      // temporary
+//     // const productId = 1;   // temporary
+//     const savedUser = JSON.parse(localStorage.getItem('userData') || sessionStorage.getItem('userData') || '{}');
+// const userId = savedUser.id;
+// const productId = document.getElementById('returnProductId').value;
+
+// if (!userId) {
+//     alert('Please login again. User ID missing.');
+//     return;
+// }
+
+//     const res = await fetch('/api/return', {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify({
+//             order_id: orderId,
+//             product_id: productId,
+//             user_id: userId,
+//             reason: reason + " - " + details
+//         })
+//     });
+
+//     const data = await res.json();
+
+//     alert(data.message || 'Return request created successfully');
+
+//     closeReturnModal();
+//     loadReturns();
+// });
+
+document.getElementById('returnForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+    const order = window.selectedReturnOrder;
+
+    if (!token) {
+        alert('Please login again.');
+        return;
+    }
+
+    if (!order || !order.id) {
+        alert('Order data missing.');
+        return;
+    }
+
+    const reason = document.getElementById('returnReason').value;
+    const details = document.getElementById('returnDetails').value;
+
+    const items = order.items.map(item => ({
+        productId: item.product_id,
+        id: item.product_id,
+        name: item.product_name,
+        image: item.image_url,
+        quantity: item.quantity,
+        reason: reason + " - " + details
+    }));
+
+    const res = await fetch('/api/orders/return', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+            orderId: order.id,
+            items,
+            reason: reason + " - " + details
+        })
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+        alert(data.message || data.error || 'Return request failed');
+        return;
+    }
+
+    alert(data.message || 'Return request created successfully');
+
+    closeReturnModal();
+    loadOrders();
+    loadReturns();
+});
+
 
         // Add the trackOrder function to handle tracking logic
         function trackOrder(orderId) {
@@ -823,6 +936,7 @@
             <p>&copy; 2026 ThrottleGarage. All rights reserved.</p>
         </div>
     </footer>
+
 </body>
 
 </html>

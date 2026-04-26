@@ -2,6 +2,22 @@ const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const db = require('../config/database');
+const Return = require('../models/Return');
+
+// 🔥 RETURNS ROUTE (PUT HERE AT TOP)
+router.get('/returns', (req, res) => {
+    console.log("🔥 /returns route HIT");
+
+    Return.getAllReturns((err, data) => {
+        if (err) {
+            console.log("❌ DB ERROR:", err);
+            return res.status(500).json(err);
+        }
+
+        console.log("✅ DATA:", data);
+        res.json(data);
+    });
+});
 
 // Middleware to verify admin token
 const verifyAdminToken = (req, res, next) => {
@@ -399,5 +415,30 @@ router.put('/products/:id', verifyAdminToken, async(req, res) => {
         res.status(500).json({ message: err.message });
     }
 });
+
+// ================= RETURN MANAGEMENT =================
+
+
+
+// 🔹 Approve / Reject return
+router.put('/return/:id', async(req, res) => {
+    try {
+        const { status } = req.body;
+
+        Return.updateReturnStatus(req.params.id, status, (err) => {
+            if (err) return res.status(500).json(err);
+            res.json({ message: "Return updated" });
+        });
+
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
+// 🔹 TEST ROUTE (add here)
+router.get('/test', (req, res) => {
+    res.send("Admin route working");
+});
+
 
 module.exports = router;

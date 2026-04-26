@@ -247,6 +247,10 @@ function setupNavigation() {
                 // Update header title
                 const sectionTitle = this.textContent.trim();
                 document.querySelector('.dashboard-title').textContent = sectionTitle;
+
+                if (sectionId === 'returns-section') {
+                    loadReturns();
+                }
             }
 
             // Close sidebar on mobile after navigation
@@ -758,4 +762,61 @@ function renderRecentOrders(orders) {
             </td>
         </tr>
     `).join('');
+}
+
+async function loadReturns() {
+    try {
+        const res = await fetch('/api/admin/returns');
+        const data = await res.json();
+
+        const table = document.getElementById('returnsTableBody');
+        table.innerHTML = '';
+
+        data.forEach(r => {
+            const row = `
+                <tr>
+                    <td>${r.id}</td>
+                    <td>${r.order_number || r.order_id}</td>
+                    <td>${r.product_name || r.product_id}</td>
+                    <td>${r.user_id}</td>
+                    <td>${r.reason}</td>
+                    <td>
+                        <span class="status-badge status-pending">
+                            ${r.status}
+                        </span>
+                    </td>
+                    <td>
+                        <button class="btn btn-primary" onclick="updateReturnStatus(${r.id}, 'approved')">
+                            Approve
+                        </button>
+                        <button class="btn btn-secondary" onclick="updateReturnStatus(${r.id}, 'rejected')">
+                            Reject
+                        </button>
+                    </td>
+                </tr>
+            `;
+            table.innerHTML += row;
+        });
+
+    } catch (err) {
+        console.error('Returns load error:', err);
+    }
+}
+
+async function updateReturnStatus(id, status) {
+    try {
+        await fetch(`/api/admin/return/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ status })
+        });
+
+        alert(`Return ${status}`);
+        loadReturns();
+
+    } catch (err) {
+        console.error('Return update error:', err);
+    }
 }

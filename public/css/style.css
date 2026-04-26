@@ -1,4 +1,5 @@
 /* Reset and Variables */
+
 :root {
     --primary-red: #E31E24;
     --nav-bg: #2A2A2A;
@@ -31,15 +32,15 @@ body {
     background: var(--background-color);
     color: var(--white);
     position: relative;
-    background-image: 
-        linear-gradient(rgba(26, 26, 26, 0.97), rgba(26, 26, 26, 0.97)),
-        url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0l15 15H15L30 0zm0 60l15-15H15L30 60zm-15-15l15 15V30l-15 15zm30 0l-15 15V30l15 15zM0 30l15 15V15L0 30zm60 0L45 15v30l15-15zM15 15h30V0H15v15zm0 30h30v15H15V45z' fill='%23E31E24' fill-opacity='0.05'/%3E%3C/svg%3E");
+    background-image: linear-gradient(rgba(26, 26, 26, 0.97), rgba(26, 26, 26, 0.97)), url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0l15 15H15L30 0zm0 60l15-15H15L30 60zm-15-15l15 15V30l-15 15zm30 0l-15 15V30l15 15zM0 30l15 15V15L0 30zm60 0L45 15v30l15-15zM15 15h30V0H15v15zm0 30h30v15H15V45z' fill='%23E31E24' fill-opacity='0.05'/%3E%3C/svg%3E");
     background-attachment: fixed;
     background-size: 60px 60px;
     animation: backgroundShift 20s linear infinite;
 }
 
+
 /* Header Styles */
+
 header {
     width: 100%;
     background: var(--white);
@@ -58,8 +59,6 @@ header {
     position: relative;
 }
 
-
-
 .logo {
     display: flex;
     align-items: center;
@@ -76,7 +75,9 @@ header {
     display: block;
 }
 
+
 /* Logo Text Styles */
+
 .logo-text {
     font-size: 24px;
     font-weight: bold;
@@ -90,7 +91,9 @@ header {
     color: #ff6600;
 }
 
+
 /* Search Styles */
+
 .search-container {
     flex: 0 1 650px;
     margin: 0 auto;
@@ -140,7 +143,9 @@ header {
     color: var(--primary-red);
 }
 
+
 /* Contact Styles */
+
 .header-contact {
     display: flex;
     flex-direction: column;
@@ -164,7 +169,9 @@ header {
     color: var(--primary-red);
 }
 
+
 /* Header Actions */
+
 .header-actions {
     flex: 0 0 auto;
     display: flex;
@@ -212,6 +219,11 @@ header {
     font-size: 22px;
 }
 
+.header-actions .account-link span,
+.header-actions .cart-link span {
+    font-size: 16px;
+}
+
 .cart-count {
     position: absolute;
     top: -10px;
@@ -227,7 +239,9 @@ header {
     box-shadow: 0 2px 4px rgba(227, 30, 36, 0.3);
 }
 
+
 /* Navigation Styles */
+
 .main-navigation {
     background: var(--nav-bg);
     width: 100%;
@@ -270,12 +284,13 @@ header {
     color: var(--primary-red);
 }
 
+
 /* Responsive Navigation */
+
 @media (max-width: 1200px) {
     .nav-container {
         padding: 0 20px;
     }
-    
     .main-navigation ul {
         gap: 30px;
     }
@@ -285,23 +300,22 @@ header {
     .main-navigation {
         display: none;
     }
-
     .main-navigation.active {
         display: block;
     }
-
     .main-navigation ul {
         flex-direction: column;
         gap: 0;
     }
-
     .main-navigation a {
         padding: 15px 20px;
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
 }
 
+
 /* Compatibility Section */
+
 .compatibility-section {
     max-width: 1200px;
     margin: 0 auto;
@@ -335,11 +349,12 @@ header {
     gap: 0.5rem;
 }
 
+
 /* Hero Section */
+
 .hero {
     height: 100vh;
-    background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
-                url('https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?auto=format&fit=crop&w=1920&q=80');
+    background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?auto=format&fit=crop&w=1920&q=80');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -425,7 +440,9 @@ header {
     opacity: 0.9;
 }
 
+
 /* Part Selector */
+
 .selector {
     padding: 6rem 5%;
     text-align: center;
@@ -464,7 +481,8 @@ header {
     margin-top: 2rem;
 }
 
-.bike-select, .part-select {
+.bike-select,
+.part-select {
     padding: 1rem 2rem;
     border: 2px solid rgba(255, 58, 58, 0.3);
     border-radius: 50px;
@@ -478,13 +496,16 @@ header {
     letter-spacing: 1px;
 }
 
-.bike-select:focus, .part-select:focus {
+.bike-select:focus,
+.part-select:focus {
     border-color: var(--primary-color);
     outline: none;
     box-shadow: 0 0 20px rgba(255, 58, 58, 0.3);
 }
 
+
 /* Product Grid */
+
 .products {
     padding: 4rem 5%;
     background: var(--background-color);
@@ -530,7 +551,7 @@ header {
     opacity: 0.1;
 }
 
-.product-card > * {
+.product-card>* {
     position: relative;
     z-index: 1;
 }
@@ -563,7 +584,9 @@ header {
     font-size: 0.9rem;
 }
 
+
 /* AR Demo Section */
+
 .ar-demo {
     padding: 5rem 2rem;
     text-align: center;
@@ -612,7 +635,9 @@ header {
     box-shadow: none;
 }
 
+
 /* AR Preview Styles */
+
 .ar-preview {
     display: none;
     position: fixed;
@@ -670,7 +695,9 @@ header {
     transform: scale(1.1);
 }
 
+
 /* Notification Styles */
+
 .notification {
     position: fixed;
     top: 20px;
@@ -714,7 +741,9 @@ header {
     }
 }
 
+
 /* AR Button States */
+
 .ar-button {
     display: inline-flex;
     align-items: center;
@@ -743,17 +772,25 @@ header {
     box-shadow: 0 10px 20px rgba(227, 30, 36, 0.3);
 }
 
+
 /* Loading spinner animation */
+
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 .fa-spin {
     animation: spin 1s linear infinite;
 }
 
+
 /* Media queries for better mobile support */
+
 @media (max-width: 768px) {
     .notification {
         top: auto;
@@ -762,14 +799,15 @@ header {
         right: 20px;
         max-width: none;
     }
-
     .ar-button {
         padding: 0.8rem 2rem;
         font-size: 1rem;
     }
 }
 
+
 /* Ensure proper video orientation on mobile */
+
 @media (orientation: portrait) {
     .ar-preview video[style*="rotate(90deg)"] {
         width: 100vh;
@@ -782,11 +820,9 @@ header {
     .ar-demo h2 {
         font-size: 2rem;
     }
-    
     .ar-demo p {
         font-size: 1rem;
     }
-    
     .ar-button {
         padding: 0.8rem 2rem;
         font-size: 1rem;
@@ -795,6 +831,7 @@ header {
 
 
 /* Modal Styles */
+
 .modal {
     display: none;
     position: fixed;
@@ -923,7 +960,9 @@ header {
     color: var(--accent-color);
 }
 
+
 /* Auth Pages Styles */
+
 .auth-page {
     min-height: 100vh;
     display: flex;
@@ -975,8 +1014,8 @@ header {
     margin-bottom: 1.5rem;
 }
 
-.auth-form label, 
-.form-group label, 
+.auth-form label,
+.form-group label,
 .auth-page label,
 .profile-page label,
 .auth-container label {
@@ -1115,7 +1154,9 @@ header {
     }
 }
 
+
 /* Animations */
+
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -1128,18 +1169,32 @@ header {
 }
 
 @keyframes gradientPulse {
-    0% { opacity: 0.3; }
-    50% { opacity: 0.5; }
-    100% { opacity: 0.3; }
+    0% {
+        opacity: 0.3;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 0.3;
+    }
 }
 
 @keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-    100% { transform: scale(1); }
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
 }
 
+
 /* Profile Page Styles */
+
 .profile-page {
     padding: 8rem 2rem 2rem;
     min-height: 100vh;
@@ -1168,7 +1223,8 @@ header {
     background: var(--card-bg);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 8px;
-    color: var(--white); /* Changed to white for better visibility */
+    color: var(--white);
+    /* Changed to white for better visibility */
     text-decoration: none;
     display: flex;
     align-items: center;
@@ -1187,13 +1243,16 @@ header {
 .profile-section h2 {
     font-size: 1.5rem;
     margin-bottom: 1.5rem;
-    color: var(--white); /* Changed to white for better visibility */
+    color: var(--white);
+    /* Changed to white for better visibility */
     display: flex;
     align-items: center;
     gap: 0.5rem;
 }
 
+
 /* Personal Information Form Inputs */
+
 .profile-form .form-group {
     margin-bottom: 1.5rem;
 }
@@ -1220,23 +1279,29 @@ header {
     box-shadow: 0 0 0 2px rgba(227, 30, 36, 0.2);
 }
 
+
 /* Cart Section Styles */
+
 .cart-item-details h3 {
     font-size: 16px;
     font-weight: 600;
     margin-bottom: 4px;
-    color: var(--white); /* Changed to white for better visibility */
+    color: var(--white);
+    /* Changed to white for better visibility */
 }
 
 .bike-name {
     font-size: 1.25rem;
     font-weight: 600;
-    color: var(--white); /* Changed to white for better visibility */
+    color: var(--white);
+    /* Changed to white for better visibility */
     margin: 0;
     line-height: 1.3;
 }
 
+
 /* My Bikes Section */
+
 .add-bike-btn {
     background: var(--primary-red);
     color: var(--white);
@@ -1360,11 +1425,11 @@ header {
     transition: all 0.3s ease;
 }
 
-.toggle input:checked + .toggle-slider {
+.toggle input:checked+.toggle-slider {
     background: var(--gradient-1);
 }
 
-.toggle input:checked + .toggle-slider:before {
+.toggle input:checked+.toggle-slider:before {
     transform: translateX(24px);
 }
 
@@ -1504,18 +1569,18 @@ header {
     margin: 0 auto;
 }
 
+
 /* Responsive adjustments */
+
 @media (max-width: 768px) {
     .bikes-grid {
         grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
         gap: 20px;
         padding: 20px;
     }
-
     .bike-info {
         padding: 15px;
     }
-
     .bike-specs {
         padding: 12px;
     }
@@ -1528,7 +1593,9 @@ header {
     }
 }
 
+
 /* Search Results Styles */
+
 .search-results {
     position: absolute;
     top: 100%;
@@ -1607,7 +1674,9 @@ header {
     font-style: italic;
 }
 
+
 /* Highlight effect for searched bike */
+
 @keyframes highlightBike {
     0% {
         transform: translateY(-5px);
@@ -1631,7 +1700,9 @@ header {
     border-color: var(--primary-red);
 }
 
+
 /* Bike Search Section Styles */
+
 .bike-search-section {
     padding: 20px 30px;
     background: var(--nav-bg);
@@ -1676,16 +1747,20 @@ header {
     pointer-events: none;
 }
 
-.search-wrapper input:focus + .search-icon {
+.search-wrapper input:focus+.search-icon {
     color: var(--primary-red);
 }
 
+
 /* Update bikes grid spacing */
+
 .bikes-grid {
     padding-top: 20px;
 }
 
+
 /* About Us Section */
+
 .about-us {
     padding: 4rem 2rem;
     background-color: #f8f9fa;
@@ -1755,17 +1830,18 @@ header {
     font-weight: 500;
 }
 
+
 /* Responsive Design for About Section */
+
 @media (max-width: 968px) {
     .about-container {
         flex-direction: column;
         gap: 2rem;
     }
-
-    .about-image, .about-content {
+    .about-image,
+    .about-content {
         width: 100%;
     }
-
     .about-features {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -1775,13 +1851,14 @@ header {
     .about-features {
         grid-template-columns: 1fr;
     }
-
     .about-content h2 {
         font-size: 2rem;
     }
 }
 
+
 /* Footer Styles */
+
 .footer {
     background: var(--nav-bg);
     padding: 4rem 2rem 1rem;
@@ -1873,7 +1950,9 @@ header {
     font-size: 0.9rem;
 }
 
+
 /* Responsive Footer */
+
 @media (max-width: 768px) {
     .footer-container {
         grid-template-columns: repeat(2, 1fr);
@@ -1884,30 +1963,27 @@ header {
     .footer-container {
         grid-template-columns: 1fr;
     }
-    
     .footer {
         padding: 3rem 1.5rem 1rem;
     }
-    
     .footer-section {
         text-align: center;
     }
-    
     .footer-section h3::after {
         left: 50%;
         transform: translateX(-50%);
     }
-    
     .footer-section p {
         justify-content: center;
     }
-    
     .social-links {
         justify-content: center;
     }
 }
 
+
 /* Helmet Card Specific Styles */
+
 .helmet-card .bike-specs {
     background: rgba(227, 30, 36, 0.05);
     border: 1px solid rgba(227, 30, 36, 0.1);
@@ -1970,7 +2046,9 @@ header {
     color: #333 !important;
 }
 
+
 /* Helmet Search Results */
+
 .helmet-search-results {
     margin-top: 2rem;
     text-align: center;
@@ -1984,7 +2062,9 @@ header {
     font-style: italic;
 }
 
+
 /* Cart notification */
+
 .cart-notification {
     position: fixed;
     top: 20px;
@@ -1995,7 +2075,7 @@ header {
     border-radius: 4px;
     display: flex;
     align-items: center;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
     transform: translateY(-100px);
     opacity: 0;
     transition: transform 0.3s, opacity 0.3s;
@@ -2012,7 +2092,9 @@ header {
     font-size: 18px;
 }
 
+
 /* Cart count indicator */
+
 .cart-count {
     background-color: #e74c3c;
     color: white;
@@ -2036,7 +2118,9 @@ header {
     transform: scale(1);
 }
 
+
 /* Features Grid */
+
 .features-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -2089,7 +2173,9 @@ header {
     }
 }
 
+
 /* Featured Products Section */
+
 .featured-products {
     padding: 5rem 2rem;
     text-align: center;
@@ -2129,12 +2215,15 @@ header {
     overflow-x: auto;
     scroll-behavior: smooth;
     padding: 1rem 0.5rem;
-    -ms-overflow-style: none;  /* Hide scrollbar IE and Edge */
-    scrollbar-width: none;  /* Hide scrollbar Firefox */
+    -ms-overflow-style: none;
+    /* Hide scrollbar IE and Edge */
+    scrollbar-width: none;
+    /* Hide scrollbar Firefox */
 }
 
 .products-grid::-webkit-scrollbar {
-    display: none;  /* Hide scrollbar Chrome, Safari, Opera */
+    display: none;
+    /* Hide scrollbar Chrome, Safari, Opera */
 }
 
 .product-card {
@@ -2189,7 +2278,6 @@ header {
     .scroll-btn {
         display: none;
     }
-    
     .products-grid {
         padding: 1rem 0;
     }
@@ -2202,7 +2290,8 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #f5f5f5; /* fallback background */
+    background: #f5f5f5;
+    /* fallback background */
 }
 
 .product-image img {
@@ -2277,7 +2366,9 @@ header {
     }
 }
 
+
 /* Cart Page Styles */
+
 .cart-page {
     max-width: 1200px;
     margin: 40px auto;
@@ -2322,8 +2413,8 @@ header {
     border-radius: 10px;
     align-items: center;
     border: 1px solid #333;
-    background: rgba(255,255,255,0.03);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    background: rgba(255, 255, 255, 0.03);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 .cart-item-image {
@@ -2385,7 +2476,7 @@ header {
     font-size: 20px;
     font-weight: bold;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
     position: relative;
     overflow: hidden;
 }
@@ -2397,7 +2488,7 @@ header {
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
     transition: left 0.5s;
 }
 
@@ -2414,7 +2505,7 @@ header {
 
 .quantity-btn:active {
     transform: translateY(0) scale(0.95);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .quantity-btn.decrease-qty {
@@ -2449,7 +2540,7 @@ header {
     font-weight: 700;
     font-size: 16px;
     border: 2px solid rgba(52, 152, 219, 0.3);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(10px);
 }
 
@@ -2464,18 +2555,18 @@ header {
     color: #fff;
 }
 
+
 /* Responsive adjustments */
+
 @media (max-width: 768px) {
     .cart-item {
         grid-template-columns: 1fr;
         gap: 15px;
         text-align: center;
     }
-    
     .quantity-controls {
         justify-content: center;
     }
-    
     .cart-item-price {
         text-align: center;
     }
@@ -2558,7 +2649,9 @@ header {
     transform: none;
 }
 
+
 /* Bike Products Section */
+
 .bike-products {
     padding: 4rem 5%;
     background: linear-gradient(135deg, rgba(26, 26, 26, 0.97) 0%, rgba(42, 42, 42, 0.97) 100%);
@@ -2690,7 +2783,6 @@ header {
     .bike-products .products-grid {
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     }
-
     .bike-products .section-title h2 {
         font-size: 2rem;
     }
@@ -2702,7 +2794,9 @@ header {
     }
 }
 
+
 /* Profile Cart Items */
+
 .cart-items-list {
     margin-top: 15px;
     border-radius: 8px;
@@ -2813,7 +2907,9 @@ header {
     background-color: #c91c22;
 }
 
+
 /* Profile messages */
+
 .profile-message {
     position: fixed;
     top: 20px;
@@ -2844,7 +2940,9 @@ header {
     color: white;
 }
 
+
 /* Bike Parts Section */
+
 .bike-parts-section {
     padding: 4rem 5%;
     background: linear-gradient(135deg, rgba(26, 26, 26, 0.97) 0%, rgba(42, 42, 42, 0.97) 100%);
@@ -2945,7 +3043,9 @@ header {
     font-style: italic;
 }
 
+
 /* Notification Styling */
+
 .notification {
     position: fixed;
     top: 20px;
@@ -2973,7 +3073,9 @@ header {
     font-size: 1.2rem;
 }
 
+
 /* Highlight effect for bike cards */
+
 .bike-card.highlight {
     border-color: var(--primary-red);
     box-shadow: 0 10px 30px rgba(227, 30, 36, 0.5);
@@ -2981,17 +3083,24 @@ header {
 }
 
 @keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.03); }
-    100% { transform: scale(1); }
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.03);
+    }
+    100% {
+        transform: scale(1);
+    }
 }
 
+
 /* Responsive adjustments */
+
 @media (max-width: 768px) {
     .parts-grid {
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     }
-    
     .parts-header h2 {
         font-size: 2rem;
     }
@@ -3003,14 +3112,18 @@ header {
     }
 }
 
+
 /* Parts Container for bike-parts.html page */
+
 .parts-container {
     padding: 4rem 5%;
     background: linear-gradient(135deg, rgba(26, 26, 26, 0.97) 0%, rgba(42, 42, 42, 0.97) 100%);
     margin-bottom: 2rem;
 }
 
+
 /* Update parts grid styling to work in both contexts */
+
 .parts-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -3019,7 +3132,9 @@ header {
     margin: 0 auto;
 }
 
+
 /* Add New Bike Button */
+
 button.add-bike-btn,
 button[id="Add New Bike"] {
     background-color: var(--primary-red);
@@ -3042,7 +3157,9 @@ button[id="Add New Bike"]:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+
 /* Profile Page Text Elements */
+
 .profile-page h1,
 .profile-page h2,
 .profile-page h3,
@@ -3062,13 +3179,17 @@ button[id="Add New Bike"]:hover {
     border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
+
 /* Fix for the "No bikes added yet" text */
-.profile-page .profile-section > div {
+
+.profile-page .profile-section>div {
     color: var(--white);
     font-size: 16px;
 }
 
+
 /* Welcome Banner */
+
 .profile-page .welcome-banner {
     text-align: center;
     margin-bottom: 2rem;
@@ -3105,7 +3226,9 @@ button[id="Add New Bike"]:hover {
     margin-right: 0.5rem;
 }
 
+
 /* Bike Parts Page Specific Styles */
+
 .parts-container {
     max-width: 1400px;
     margin: 40px auto;
@@ -3147,7 +3270,9 @@ button[id="Add New Bike"]:hover {
     font-size: 16px;
 }
 
+
 /* Primary Button Style */
+
 .primary-button {
     display: inline-flex;
     align-items: center;
@@ -3172,7 +3297,9 @@ button[id="Add New Bike"]:hover {
     font-size: 18px;
 }
 
+
 /* Settings Buttons */
+
 .settings-buttons {
     display: flex;
     flex-wrap: wrap;
@@ -3185,7 +3312,9 @@ button[id="Add New Bike"]:hover {
     min-width: 200px;
 }
 
+
 /* Notification System */
+
 .notification {
     position: fixed;
     top: 20px;
@@ -3217,7 +3346,9 @@ button[id="Add New Bike"]:hover {
     }
 }
 
+
 /* Avatar Selection Modal Styles */
+
 .avatar-options {
     padding: 20px;
 }
@@ -3306,7 +3437,9 @@ button[id="Add New Bike"]:hover {
     color: white;
 }
 
+
 /* Profile Avatar Styles Update */
+
 .profile-avatar {
     position: relative;
     width: 120px;
@@ -3363,7 +3496,9 @@ button[id="Add New Bike"]:hover {
     background: #ff2a2a;
 }
 
+
 /* Avatar Preview Styles */
+
 .avatar-preview {
     position: relative;
     width: 150px;
@@ -3393,11 +3528,12 @@ button[id="Add New Bike"]:hover {
     color: white;
 }
 
+
 /* Part Swap / Trade-in Section Styles */
+
 .trade-in-section {
     padding: 80px 0;
-    background: linear-gradient(rgba(26, 26, 26, 0.97), rgba(26, 26, 26, 0.97)),
-                url("../images/trade-in-bg.jpg") center/cover;
+    background: linear-gradient(rgba(26, 26, 26, 0.97), rgba(26, 26, 26, 0.97)), url("../images/trade-in-bg.jpg") center/cover;
     color: var(--white);
 }
 
@@ -3413,7 +3549,7 @@ button[id="Add New Bike"]:hover {
     color: var(--primary-red);
 }
 
-.trade-in-info > p {
+.trade-in-info>p {
     font-size: 1.2rem;
     margin-bottom: 50px;
     color: var(--text-gray);
@@ -3499,11 +3635,9 @@ button[id="Add New Bike"]:hover {
     .trade-in-features {
         grid-template-columns: 1fr;
     }
-
     .trade-in-actions {
         flex-direction: column;
     }
-
     .primary-button,
     .secondary-button {
         width: 100%;
@@ -3512,8 +3646,8 @@ button[id="Add New Bike"]:hover {
 }
 
 
-
 /* Main Nav Styles */
+
 .main-nav {
     position: fixed;
     top: 0;
@@ -3582,7 +3716,9 @@ button[id="Add New Bike"]:hover {
     right: 0;
 }
 
+
 /* Bundle Kits Panel Styles */
+
 .bundles-panel .panel-content {
     padding: 20px;
 }
@@ -3719,7 +3855,9 @@ button[id="Add New Bike"]:hover {
     }
 }
 
+
 /* Bundles Page Styles */
+
 .bundles-page {
     padding: 80px 20px;
     max-width: 1400px;
@@ -3884,25 +4022,23 @@ button[id="Add New Bike"]:hover {
     .bundles-page {
         padding: 60px 15px;
     }
-
     .bundles-hero h1 {
         font-size: 2.5rem;
     }
-
     .bundles-grid {
         grid-template-columns: 1fr;
     }
-
     .bundle-header {
         padding: 20px;
     }
-
     .bundle-content {
         padding: 20px;
     }
 }
 
+
 /* Bundle Details Page Styles */
+
 .bundle-details-page {
     padding: 60px 30px;
     max-width: 1400px;
@@ -4139,7 +4275,9 @@ button[id="Add New Bike"]:hover {
     font-size: 1rem;
 }
 
+
 /* Bundle Buttons Styles */
+
 .bundle-buttons {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -4194,7 +4332,9 @@ button[id="Add New Bike"]:hover {
     }
 }
 
+
 /* ThrottleTalk Styles */
+
 .throttletalk-container {
     display: grid;
     grid-template-columns: 250px 1fr 300px;
@@ -4532,7 +4672,6 @@ button[id="Add New Bike"]:hover {
     .throttletalk-container {
         grid-template-columns: 250px 1fr;
     }
-    
     .channel-info-sidebar {
         display: none;
     }
@@ -4542,11 +4681,9 @@ button[id="Add New Bike"]:hover {
     .throttletalk-container {
         grid-template-columns: 1fr;
     }
-    
     .channels-sidebar {
         display: none;
     }
-    
     .channels-sidebar.active {
         display: flex;
         position: fixed;
@@ -4583,7 +4720,9 @@ button[id="Add New Bike"]:hover {
     transform: rotate(180deg);
 }
 
+
 /* Menu Button Styles */
+
 .menu-btn {
     position: fixed;
     top: 20px;
@@ -4610,7 +4749,9 @@ button[id="Add New Bike"]:hover {
     transform: scale(1.05);
 }
 
+
 /* Main Nav Styles */
+
 .main-nav {
     position: fixed;
     top: 0;
@@ -4679,7 +4820,9 @@ button[id="Add New Bike"]:hover {
     right: 0;
 }
 
+
 /* Bundle Kits Styles */
+
 .bundles-content {
     padding: 20px;
     color: white;
@@ -4840,18 +4983,18 @@ button[id="Add New Bike"]:hover {
     .bundles-grid {
         grid-template-columns: 1fr;
     }
-    
     .bundle-categories {
         padding-bottom: 5px;
     }
-    
     .bundle-category {
         padding: 6px 12px;
         font-size: 0.9rem;
     }
 }
 
+
 /* Bike Configurator Styles */
+
 .configurator-content {
     padding: 30px;
     color: white;
@@ -5195,11 +5338,9 @@ button[id="Add New Bike"]:hover {
         grid-template-columns: 1fr;
         gap: 20px;
     }
-    
     .bike-preview {
         min-height: 400px;
     }
-    
     .configurator-options {
         height: auto;
         min-height: 500px;
@@ -5210,32 +5351,25 @@ button[id="Add New Bike"]:hover {
     .configurator-content {
         padding: 20px;
     }
-    
     .configurator-actions {
         grid-template-columns: 1fr;
     }
-    
     .option-cards {
         grid-template-columns: 1fr;
     }
-    
     .options-header h4 {
         font-size: 1.2rem;
     }
-    
     .total-price {
         font-size: 1rem;
     }
-    
     .total-price .price {
         font-size: 1.2rem;
     }
-    
     .option-tab {
         padding: 8px 16px;
         font-size: 0.9rem;
     }
-    
     .share-build-btn,
     .save-build-btn {
         padding: 12px;
@@ -5243,7 +5377,9 @@ button[id="Add New Bike"]:hover {
     }
 }
 
+
 /* Virtual Garage Styles */
+
 .garage-panel {
     background: var(--dark-bg);
     color: var(--white);
@@ -5432,7 +5568,9 @@ button[id="Add New Bike"]:hover {
     transform: translateY(-2px);
 }
 
+
 /* Maintenance Panel Styles */
+
 .maintenance-panel {
     background: var(--dark-bg);
     color: var(--white);
@@ -5501,7 +5639,9 @@ button[id="Add New Bike"]:hover {
     color: #e74c3c !important;
 }
 
+
 /* Parts Panel Styles */
+
 .parts-panel {
     background: var(--dark-bg);
     color: var(--white);
@@ -5648,18 +5788,18 @@ button[id="Add New Bike"]:hover {
     .parts-grid {
         grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     }
-
     .parts-categories {
         padding-bottom: 5px;
     }
-
     .category-btn {
         padding: 6px 12px;
         font-size: 14px;
     }
 }
 
+
 /* Install Guides Styles */
+
 .guides-panel {
     background: var(--bg-color);
 }
@@ -5974,7 +6114,9 @@ button[id="Add New Bike"]:hover {
     color: white;
 }
 
+
 /* Guide Details Panel */
+
 .guide-details-panel {
     background: var(--bg-color);
 }
@@ -6057,7 +6199,9 @@ button[id="Add New Bike"]:hover {
     align-self: flex-end;
 }
 
+
 /* Rating Modal */
+
 .rating-modal {
     position: fixed;
     top: 0;
@@ -6144,7 +6288,9 @@ button[id="Add New Bike"]:hover {
     cursor: not-allowed;
 }
 
+
 /* Empty State */
+
 .empty-guides {
     text-align: center;
     padding: 2rem;
@@ -6166,7 +6312,9 @@ button[id="Add New Bike"]:hover {
     font-size: 0.875rem;
 }
 
+
 /* Notification */
+
 .notification {
     position: fixed;
     bottom: 1rem;
@@ -6186,30 +6334,30 @@ button[id="Add New Bike"]:hover {
     opacity: 1;
 }
 
+
 /* Responsive Design */
+
 @media (max-width: 768px) {
     .guides-grid {
         grid-template-columns: 1fr;
     }
-
     .guide-images {
         grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
     }
-
     .guide-images img {
         height: 80px;
     }
-
     .comment-form {
         flex-direction: column;
     }
-
     .comment-form button {
         width: 100%;
     }
 }
 
+
 /* Compatibility Panel Styles */
+
 .compatibility-panel {
     position: fixed;
     top: 0;
@@ -6405,7 +6553,9 @@ button[id="Add New Bike"]:hover {
     }
 }
 
+
 /* Panel Base Styles */
+
 .panels-container {
     position: fixed;
     top: 0;
@@ -6432,7 +6582,9 @@ button[id="Add New Bike"]:hover {
     transition: transform 0.3s ease-in-out;
 }
 
+
 /* Configurator Panel Styles */
+
 .configurator-panel {
     width: 90vw;
     max-width: 1200px;
@@ -6690,7 +6842,6 @@ button[id="Add New Bike"]:hover {
     .configurator-layout {
         grid-template-columns: 1fr;
     }
-    
     .bike-preview {
         min-height: 300px;
     }
@@ -6705,7 +6856,6 @@ button[id="Add New Bike"]:hover {
         margin: -5px -20px 15px;
         padding: 5px 20px;
     }
-    
     .option-cards {
         grid-template-columns: 1fr;
     }
@@ -6757,7 +6907,9 @@ button[id="Add New Bike"]:hover {
     opacity: 0.8;
 }
 
+
 /* Compatibility Checker Panel Specific Styles */
+
 .compatibility-checker {
     color: white;
 }
@@ -6781,7 +6933,9 @@ button[id="Add New Bike"]:hover {
     transition: all 0.3s ease;
 }
 
+
 /* Style for select options to make them visible */
+
 #compatibilityForm select option {
     background: #2a2a2a;
     color: #fff;
@@ -6871,7 +7025,9 @@ button[id="Add New Bike"]:hover {
     }
 }
 
+
 /* Configurator Panel Styles */
+
 .configurator-content {
     padding: 20px;
     height: calc(100vh - 80px);
@@ -7124,7 +7280,6 @@ button[id="Add New Bike"]:hover {
     .configurator-layout {
         grid-template-columns: 1fr;
     }
-    
     .bike-preview {
         min-height: 300px;
     }
@@ -7139,13 +7294,14 @@ button[id="Add New Bike"]:hover {
         margin: -5px -20px 15px;
         padding: 5px 20px;
     }
-    
     .option-cards {
         grid-template-columns: 1fr;
     }
 }
 
+
 /* Stock and Delivery Styles */
+
 .stock-delivery-container {
     background: var(--bg-secondary);
     border-radius: 8px;
@@ -7232,7 +7388,9 @@ button[id="Add New Bike"]:hover {
     color: #ffc107;
 }
 
+
 /* Loading animation for stock check */
+
 .stock-loading {
     display: inline-block;
     width: 20px;
@@ -7244,10 +7402,14 @@ button[id="Add New Bike"]:hover {
 }
 
 @keyframes spin {
-    to { transform: rotate(360deg); }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
+
 /* Virtual Garage Styles */
+
 .virtual-garage {
     background: var(--bg-secondary);
     height: 100%;
@@ -7479,7 +7641,9 @@ button[id="Add New Bike"]:hover {
     padding: 20px;
 }
 
+
 /* Panel Animation */
+
 .panel {
     position: fixed;
     top: 0;
@@ -7503,52 +7667,63 @@ button[id="Add New Bike"]:hover {
     }
 }
 
+
 /* Remove from Cart Button Styles */
+
 .remove-from-cart-btn {
-  background: linear-gradient(90deg, #e31e24 60%, #ff4d4d 100%);
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  padding: 8px 18px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  box-shadow: 0 2px 8px rgba(227,30,36,0.08);
-  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
-  margin-left: 18px;
-  letter-spacing: 0.5px;
+    background: linear-gradient(90deg, #e31e24 60%, #ff4d4d 100%);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 18px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(227, 30, 36, 0.08);
+    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    margin-left: 18px;
+    letter-spacing: 0.5px;
 }
-.remove-from-cart-btn:hover, .remove-from-cart-btn:focus {
-  background: linear-gradient(90deg, #ff4d4d 60%, #e31e24 100%);
-  color: #fff;
-  transform: translateY(-2px) scale(1.04);
-  box-shadow: 0 4px 16px rgba(227,30,36,0.18);
-  outline: none;
+
+.remove-from-cart-btn:hover,
+.remove-from-cart-btn:focus {
+    background: linear-gradient(90deg, #ff4d4d 60%, #e31e24 100%);
+    color: #fff;
+    transform: translateY(-2px) scale(1.04);
+    box-shadow: 0 4px 16px rgba(227, 30, 36, 0.18);
+    outline: none;
 }
+
 
 /* Cart Page Modern Enhancements */
+
 .cart-page {
-  background: rgba(255,255,255,0.02);
-  border-radius: 18px;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
-  padding-bottom: 40px;
-}
-#cart-container {
-  border: 1.5px solid #222;
-  background: rgba(30,30,30,0.98);
-}
-.cart-item {
-  border: 1px solid #333;
-  background: rgba(255,255,255,0.03);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-}
-.cart-totals {
-  border: 1px solid #333;
-  background: rgba(255,255,255,0.03);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 18px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+    padding-bottom: 40px;
 }
 
+#cart-container {
+    border: 1.5px solid #222;
+    background: rgba(30, 30, 30, 0.98);
+}
+
+.cart-item {
+    border: 1px solid #333;
+    background: rgba(255, 255, 255, 0.03);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.cart-totals {
+    border: 1px solid #333;
+    background: rgba(255, 255, 255, 0.03);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+
 /* Product Detail Modal Styles */
+
 .product-modal {
     display: none;
     position: fixed;
@@ -7837,7 +8012,6 @@ button[id="Add New Bike"]:hover {
     .product-detail-container {
         grid-template-columns: 1fr;
     }
-    
     .modal-content {
         margin: 20px;
         padding: 20px;
@@ -7850,25 +8024,23 @@ button[id="Add New Bike"]:hover {
         min-height: 100vh;
         border-radius: 0;
     }
-
     .main-image {
         height: 300px;
     }
-
     .product-info h1 {
         font-size: 24px;
     }
-
     .tab-buttons {
         gap: 10px;
     }
-
     .tab-btn {
         font-size: 14px;
     }
 }
 
+
 /* Helmet page specific styling to match part-card design */
+
 .helmets-page .part-card {
     background: rgba(255, 255, 255, 0.05);
     border-radius: 10px;
@@ -7973,26 +8145,27 @@ button[id="Add New Bike"]:hover {
     transform: translateY(-2px);
 }
 
+
 /* Responsive adjustments for helmet cards */
+
 @media (max-width: 768px) {
     .helmets-page .part-info {
         padding: 1rem;
     }
-    
     .helmets-page .part-name {
         font-size: 1.1rem;
     }
-    
     .helmets-page .part-description {
         font-size: 0.85rem;
     }
-    
     .helmets-page .part-price {
         font-size: 1.2rem;
     }
 }
 
+
 /* Helmet search section styling */
+
 .helmet-search-section {
     padding: 2rem 5%;
     background: var(--nav-bg);
@@ -8036,7 +8209,7 @@ button[id="Add New Bike"]:hover {
     transition: color 0.3s ease;
 }
 
-.helmet-search-section .search-wrapper input:focus + .search-icon {
+.helmet-search-section .search-wrapper input:focus+.search-icon {
     color: var(--primary-red);
 }
 
@@ -8047,26 +8220,27 @@ button[id="Add New Bike"]:hover {
     margin-bottom: 1rem;
 }
 
+
 /* Responsive adjustments for helmet cards */
+
 @media (max-width: 768px) {
     .helmets-page .part-info {
         padding: 1rem;
     }
-    
     .helmets-page .part-name {
         font-size: 1.1rem;
     }
-    
     .helmets-page .part-description {
         font-size: 0.85rem;
     }
-    
     .helmets-page .part-price {
         font-size: 1.2rem;
     }
 }
 
+
 /* View Details Button Styling */
+
 .view-details-btn {
     width: 100%;
     padding: 12px 24px;
@@ -8095,7 +8269,9 @@ button[id="Add New Bike"]:hover {
     font-size: 18px;
 }
 
+
 /* Settings Buttons */
+
 .settings-buttons {
     display: flex;
     flex-wrap: wrap;
@@ -8112,7 +8288,9 @@ button[id="Add New Bike"]:hover {
     border: 2px solid #E31E24 !important;
 }
 
+
 /* Helmet search transition effects */
+
 .part-card {
     transition: opacity 0.3s ease, transform 0.3s ease;
 }
